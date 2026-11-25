@@ -60,7 +60,9 @@
 :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :is(input, select, textarea) {
   border-radius: var(--builder-border-radius, 6px);
 }
-:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :where(select, textarea, input:not([type="color"]):not([type="checkbox"]):not([type="radio"])) {
+/* Type selectors in WordPress forms.css outrank a class plus :where().
+   Keep background and foreground together above those host input rules. */
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :is(select, textarea, input:not([type="color"]):not([type="checkbox"]):not([type="radio"])) {
   background-color: var(--ceb-ui-input);
   color: var(--ceb-ui-text);
 }

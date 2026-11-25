@@ -14,7 +14,7 @@ Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components and cond
 All assets ship locally. There are no plugin telemetry requests, remote asset services, or external update checks. Production updates are intended for WordPress.org after directory approval.
 <!-- wporg-description:end -->
 
-WordPress.org submission candidate: **0.9.0**. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the automated scan passed and manual review is pending. See [the release verification](docs/release-0.9.0.md).
+Current candidate: **0.9.1**, including the Quick edit field contrast correction. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the automated scan passed and manual review is pending. See [the latest verification](docs/release-0.9.1.md) and [original submission](docs/release-0.9.0.md).
 
 ## Screenshots
 

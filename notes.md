@@ -7,7 +7,7 @@
 - Author URL: https://profiles.wordpress.org/stphnwlkr/
 - Plugin URL and public source: https://github.com/stphnwlkr/content-explorer-for-bricks
 - Donation URL: https://buymeacoffee.com/mjdwdceq0j
-- Current submission candidate: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
+- Current code: 0.9.1 (Quick edit field contrast fix); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
 - Retain GPL-3.0-or-later and third-party notices inherited from Content Explorer for Etch 2.2.2 (baseline commit `10391f183507da71d51f58ac44b4963f47deab68`).
 - No external updater, telemetry, remote fonts, or bundled Bricks theme code.
 
@@ -43,3 +43,7 @@ The numbering matches `readme.txt`. After directory approval, copy these files t
 - Maps index saved literal references. Bricks components and condition-based template assignments are not inferred; dynamic code, loops, and unsaved changes are not executed.
 - Backend checks covered PHP 8.4 and SQLite on WordPress 7.0.1, 7.1.5, and 7.2-RC3. Bricks smoke coverage used 2.5-beta.
 - MySQL, multisite, additional Bricks versions, forced colors, and a formal screen-reader audit remain further coverage. Recheck against WordPress 7.2 final when available.
+
+## 0.9.1 Quick edit correction
+
+WordPress type-selector input backgrounds overrode the previous low-specificity explorer rule. The scoped field rule now keeps text/background colors paired. Reproduced on WP admin, verified after installing 0.9.1 in admin and Bricks; see `docs/release-0.9.1.md`. Updated review ZIP upload pending.

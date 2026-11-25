@@ -1,3 +1,7 @@
+# 0.9.1 Quick edit correction
+
+See [release-0.9.1.md](release-0.9.1.md) for the reproduced WordPress form-style conflict and installed-package checks.
+
 # Submission verification — 0.9.0
 
 Verified Nov. 25, 2026 without Pressship. See [release-0.9.0.md](release-0.9.0.md) for final metadata, package hash, exact warning dispositions, runtime matrix, smoke tests, and publishing status.
