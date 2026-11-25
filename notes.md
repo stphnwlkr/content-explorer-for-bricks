@@ -30,7 +30,10 @@ The numbering matches `readme.txt`. After directory approval, copy these files t
 - Run all default Plugin Check categories on the extracted production package, plus PHP/JS syntax, permissions/integration, cache, color, and Bricks browser checks as appropriate.
 - Read `docs/release-0.9.0.md` and `docs/validation.md` for evidence and narrowly documented query-analyzer exceptions.
 - Final preparation was performed without Pressship. Earlier failed attempts are historical, not successful verify/dry-run evidence.
-- New directory submission is pending. No WordPress.org upload, required declarations, SVN commit, stable tag, or public stable release has been completed.
+- Submitted version 0.9.0 to WordPress.org on Nov. 25, 2026, through the authenticated Edge account after explicit user confirmation of the upload and required declarations.
+- WordPress.org confirmed receipt, reported “Results of Automated Plugin Scanning: Pass,” and showed “Awaiting Review.” Initial assigned slug: `content-explorer-for-bricks` (subject to manual review).
+- Submitted ZIP SHA-256: `fb77a1bdf22f96ad33fb0ddfe0ce2e4755146f7ca34733bd5e9ac3a99111bf9f`.
+- Manual approval, SVN commit, directory screenshots upload, stable tag, and public stable release remain pending. Watch for the WordPress.org review email; update the existing submission if fixes are requested.
 - After approval, confirm the assigned slug and SVN URL before publishing. Do not store passwords, tokens, or site databases in this repository or these notes.
 
 ## Behavior and outstanding coverage

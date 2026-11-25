@@ -59,7 +59,9 @@ Directory screenshots are tracked in `docs/screenshots/` and ready for the SVN t
 
 The authenticated WordPress.org account and new-submission form were inspected in Edge. No matching existing submission was shown. This is a new-submission candidate, not an SVN update; WordPress.org assigns SVN access after approval.
 
-No WordPress.org upload, directory-declaration acceptance, SVN commit, release tag, or public release has occurred. A concrete ZIP has been prepared and tested for the final submission decision. The previous failed Pressship dry run remains a historical failed attempt, not a passed publishing check.
+After explicit user confirmation, the exact ZIP identified above was uploaded through authenticated Edge on Nov. 25, 2026, and the required directory declarations were accepted. WordPress.org confirmed receipt, assigned the initial slug `content-explorer-for-bricks`, reported **Results of Automated Plugin Scanning: Pass**, and displayed **Awaiting Review**. Manual approval remains pending; the initial slug is subject to review.
+
+No SVN commit, directory-asset upload, stable release tag, or public stable release has occurred. The previous failed Pressship dry run remains a historical failed attempt, not a passed publishing check.
 
 ## Limits retained for review
 
