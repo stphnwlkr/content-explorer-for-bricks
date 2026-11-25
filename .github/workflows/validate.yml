@@ -1,0 +1,28 @@
+name: Validate
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+      - run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l
+      - run: for file in assets/sort.js assets/connections.js assets/delta-graph.js assets/builder.js; do node --check "$file"; done
+      - run: python3 scripts/package.py /tmp/content-explorer-for-bricks.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: content-explorer-for-bricks
+          path: /tmp/content-explorer-for-bricks.zip
+  plugin-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/package.py /tmp/content-explorer-for-bricks.zip
+      - run: unzip /tmp/content-explorer-for-bricks.zip -d /tmp/ceb-package
+      - uses: WordPress/plugin-check-action@v1
+        with:
+          build-dir: /tmp/ceb-package/content-explorer-for-bricks

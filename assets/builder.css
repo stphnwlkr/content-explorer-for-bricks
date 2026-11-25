@@ -1,0 +1,15 @@
+/* Keep the baseline workspace styling; only its position belongs to Bricks. */
+.ceb-builder-context .ceb-hub-sort-manager {
+  inset: var(--ceb-workspace-top, 48px) var(--ceb-workspace-right, 0px) var(--ceb-workspace-bottom, 0px) var(--ceb-workspace-left, 0px);
+  z-index: 2147483000;
+}
+.ceb-builder-context .ceb-hub-sort-manager :is(h1, h2, h3, h4) { color: inherit; }
+.ceb-builder-context .ceb-hub-sort-manager *, .ceb-builder-context .ceb-hub-sort-dialog * { box-sizing: border-box; }
+.bricks-toolbar :is(.ceb-toolbar-content, .ceb-toolbar-connections) .bricks-svg { width: var(--builder-icon-size, 20px); height: var(--builder-icon-size, 20px); }
+.bricks-toolbar :is(.ceb-toolbar-content, .ceb-toolbar-connections) button:focus-visible { outline: 2px solid #8fc9ff; outline-offset: -3px; }
+
+/* Builder-wide inputs must not change the explorer's original control widths. */
+.ceb-builder-context .ceb-hub-sort-manager :is(select, input, button) { font-family: inherit; }
+.ceb-builder-context .ceb-hub-sort-manager select { width: auto; max-width: 100%; }
+.ceb-builder-context .ceb-hub-sort-manager .ceb-hub-sort-search { flex: 0 1 auto; }
+.ceb-explorer-open .uplink-css-studio-canvas-resizers { display: none !important; }

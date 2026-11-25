@@ -6,7 +6,7 @@ Initial development preview: **0.1.0-beta.1**. Requires WordPress **7.0+**, PHP 
 
 ## Use
 
-Install the ZIP through Plugins > Add Plugin > Upload Plugin. Open **Content Explorer** in WordPress administration, or **Content Explorer** while editing with Bricks. The builder opens the same workspace in a modal. Close it to return to your document. Builder links open another tab so the current document's unsaved edits remain intact.
+Install the ZIP through Plugins > Add Plugin > Upload Plugin. Open **Content Explorer** in WordPress administration, or **Content Explorer** while editing with Bricks. The original compass and connections icons open the explorer directly inside the Bricks workspace. Click the active icon again or use the Back control to return to the canvas. Builder links open another tab so the current document's unsaved edits remain intact.
 
 The inherited interface provides searchable and sortable content lists, hierarchy, pagination, column preferences, safe inline title formatting, quick edit, creation, Trash, taxonomy management, site and item maps, supported ACF/Meta Box relationships, and settings transfer. Capabilities and REST nonces protect data and changes. Only administrators can change site settings. Editor choices affect shortcuts; they do not change a user's permissions.
 
@@ -17,7 +17,7 @@ Bricks template posts are available in List. Editor shortcuts respect Bricks' en
 - Bricks components are option-backed objects rather than posts. Their inventory and usage need a separate adapter.
 - Condition-based header, footer, single, and archive assignments are not inferred. Explicit Template elements are indexed.
 - Maps describe saved data. Dynamic URLs, query results, unsaved changes, and code execution are excluded.
-- The first builder entry point is a floating button and modal; native toolbar placement and theme matching need refinement.
+- Native toolbar placement is verified on the test site; more Bricks versions and toolbar configurations need coverage.
 - The baseline's map-index database-query warnings need review and performance measurements before WordPress.org submission.
 - WordPress 7.0/7.1, MySQL, multisite, and broader Bricks version coverage remain release gates.
 

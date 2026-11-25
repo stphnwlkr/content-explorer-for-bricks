@@ -1,0 +1,21 @@
+name: Package release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify tag matches plugin version
+        run: |
+          version=$(sed -n 's/^ \* Version: //p' content-explorer-for-bricks.php)
+          test "$GITHUB_REF_NAME" = "v$version"
+      - run: python3 scripts/package.py content-explorer-for-bricks-${GITHUB_REF_NAME#v}.zip
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: content-explorer-for-bricks-*.zip
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          generate_release_notes: true

@@ -1,0 +1,10 @@
+body.toplevel_page_content-explorer-for-bricks { --e-base: #252528; --e-base-light: #343438; --e-border-color: #48484f; --e-foreground-color: #f1f1f3; --e-text-color: #f1f1f3; }
+body.toplevel_page_content-explorer-for-bricks #wpcontent { padding-left: 0; }
+body.toplevel_page_content-explorer-for-bricks #wpbody-content { padding-bottom: 0; }
+body.toplevel_page_content-explorer-for-bricks #wpbody-content:has(> .ceb-hub-sort-manager) > .wrap { display: none; }
+body.toplevel_page_content-explorer-for-bricks .ceb-hub-sort-manager { position: relative; inset: auto; height: calc(100dvh - 32px); z-index: 50; }
+.ceb-hub-sort-manager :is(h1, h2, h3, h4) { color: inherit; }
+.ceb-hub-sort-manager *, .ceb-hub-sort-dialog * { box-sizing: border-box; }
+.ceb-hub-sort-manager button, .ceb-hub-sort-manager input, .ceb-hub-sort-manager select { font-family: inherit; }
+body.toplevel_page_content-explorer-for-bricks .ceb-hub-sort-manager-back { display: none; }
+@media (width <= 782px) { body.toplevel_page_content-explorer-for-bricks .ceb-hub-sort-manager { height: calc(100dvh - 46px); } }
