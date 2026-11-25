@@ -14,7 +14,7 @@ Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components and cond
 All assets ship locally. There are no plugin telemetry requests, remote asset services, or external update checks. Production updates are intended for WordPress.org after directory approval.
 <!-- wporg-description:end -->
 
-Current candidate: **0.9.1**, including the Quick edit field contrast correction. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the automated scan passed and manual review is pending. See [the latest verification](docs/release-0.9.1.md) and [original submission](docs/release-0.9.0.md).
+Current candidate: **0.9.2**, including Quick edit field contrast and dropdown caret spacing corrections. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the automated scan passed and manual review is pending. See [the latest verification](docs/release-0.9.2.md) and [original submission](docs/release-0.9.0.md).
 
 ## Screenshots
 
@@ -44,7 +44,7 @@ Bricks template posts are available in List. Editor shortcuts respect Bricks' en
 
 ## Appearance
 
-The original explorer layout and compass/connections icons are retained. Colors, borders, corner radius, font family, focus indicators, and default status styling follow Bricks native CSS variables in dark, light, and custom modes. Dropdowns retain visible native carets. Explicit explorer color customizations continue to override theme defaults. Builder edit actions use the icon from the installed Bricks theme rather than bundling Bricks artwork.
+The original explorer layout and compass/connections icons are retained. Colors, borders, corner radius, font family, focus indicators, and default status styling follow Bricks native CSS variables in dark, light, and custom modes. Dropdowns use a local chevron with consistent edge spacing while retaining native select interactions. Explicit explorer color customizations continue to override theme defaults. Builder edit actions use the icon from the installed Bricks theme rather than bundling Bricks artwork.
 
 ## Known limits
 

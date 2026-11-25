@@ -43,15 +43,22 @@
   --hub-muted: var(--ceb-ui-muted);
   --hub-panel-shadow: var(--builder-box-shadow, 0 16px 40px #0008);
 }
-/* Bricks suppresses native select indicators globally. Restore the platform caret,
-   with the appropriate color scheme for dark, light, and custom builder surfaces. */
-:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) select {
-  -webkit-appearance: auto;
-  appearance: auto;
-  background-image: none;
-  padding-inline-end: 28px;
+/* Position one local caret consistently; native arrows ignore right padding.
+   Keep the native select element and keyboard/popup behavior. */
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) select:not([multiple]):not([size]) {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url('ui-select-caret.svg');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 12px;
+  padding-inline-end: 36px;
   color-scheme: var(--ceb-ui-color-scheme, dark);
 }
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) select:not([multiple]):not([size]):dir(rtl) {
+  background-position: left 12px center;
+}
+
 :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) select option,
 :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) select optgroup {
   background: var(--ceb-ui-surface);
@@ -170,3 +177,11 @@
 
 :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) .ceb-hub-sort-dialog-actions button[type="submit"] { background: var(--ceb-ui-accent); color: var(--ceb-ui-accent-inverse); }
 :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) .ceb-hub-sort-dialog-actions button[type="submit"]:is(:hover, :active) { background: var(--ceb-aa-primary-hover, var(--ceb-ui-accent)); color: var(--ceb-ui-accent-inverse); }
+
+@media (forced-colors: active) {
+  :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) select:not([multiple]):not([size]) {
+    -webkit-appearance: auto;
+    appearance: auto;
+    background-image: none;
+  }
+}

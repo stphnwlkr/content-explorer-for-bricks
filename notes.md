@@ -7,7 +7,7 @@
 - Author URL: https://profiles.wordpress.org/stphnwlkr/
 - Plugin URL and public source: https://github.com/stphnwlkr/content-explorer-for-bricks
 - Donation URL: https://buymeacoffee.com/mjdwdceq0j
-- Current code: 0.9.1 (Quick edit field contrast fix); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
+- Current code: 0.9.2 (Quick edit contrast and dropdown caret spacing fixes); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
 - Retain GPL-3.0-or-later and third-party notices inherited from Content Explorer for Etch 2.2.2 (baseline commit `10391f183507da71d51f58ac44b4963f47deab68`).
 - No external updater, telemetry, remote fonts, or bundled Bricks theme code.
 
@@ -47,3 +47,7 @@ The numbering matches `readme.txt`. After directory approval, copy these files t
 ## 0.9.1 Quick edit correction
 
 WordPress type-selector input backgrounds overrode the previous low-specificity explorer rule. The scoped field rule now keeps text/background colors paired. Reproduced on WP admin, verified after installing 0.9.1 in admin and Bricks; see `docs/release-0.9.1.md`. Updated review ZIP upload pending.
+
+## 0.9.2 Caret spacing
+
+Single-line dropdowns use a local theme-aware chevron, 12px from the inline end with 36px text clearance. Native select interactions remain. See `docs/release-0.9.2.md`; WordPress.org remains on the original 0.9.0 submission.

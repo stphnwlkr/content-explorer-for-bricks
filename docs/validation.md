@@ -1,3 +1,7 @@
+# 0.9.2 Dropdown caret spacing
+
+See [release-0.9.2.md](release-0.9.2.md) for installed-package spacing checks and coverage limits.
+
 # 0.9.1 Quick edit correction
 
 See [release-0.9.1.md](release-0.9.1.md) for the reproduced WordPress form-style conflict and installed-package checks.
