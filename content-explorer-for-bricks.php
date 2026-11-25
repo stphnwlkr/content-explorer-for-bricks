@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Content Explorer for Bricks
  * Description: Browse, search, edit, and map content and shared resources in a dedicated Bricks panel.
- * Version: 0.1.0-beta.1
+ * Version: 0.1.0-beta.2
  * Requires at least: 7.0
  * Requires PHP: 8.4
  * Author: Stephen Walker
@@ -865,7 +865,7 @@ add_action(
 function ceb_hub_enqueue_explorer(): void {
 
 		$url     = plugin_dir_url( __FILE__ );
-		$version = '0.1.0-beta.1';
+		$version = '0.1.0-beta.2';
 		$types   = array();
 		$hierarchical_types = array();
 		$taxonomies = array();
@@ -892,6 +892,7 @@ function ceb_hub_enqueue_explorer(): void {
 		wp_enqueue_style( 'ceb-hub-connections', $url . 'assets/connections.css', array(), $version );
 		wp_enqueue_script( 'ceb-hub-delta-graph', $url . 'assets/delta-graph.js', array(), $version, true );
 		wp_enqueue_script( 'ceb-hub-connections', $url . 'assets/connections.js', array( 'content-explorer-for-bricks', 'ceb-hub-delta-graph' ), $version, true );
+		wp_enqueue_style( 'ceb-theme', $url . 'assets/theme.css', array( 'content-explorer-for-bricks', 'ceb-hub-connections' ), $version );
 		wp_set_script_translations( 'content-explorer-for-bricks', 'content-explorer-for-bricks', plugin_dir_path( __FILE__ ) . 'languages' );
 		$heading_colors = ceb_hub_sort_heading_colors();
 		wp_add_inline_script(
@@ -904,6 +905,7 @@ function ceb_hub_enqueue_explorer(): void {
 					'currentPostId' => function_exists( 'bricks_is_builder_main' ) && bricks_is_builder_main() ? get_the_ID() : ( isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : 0 ),
 					'builderContext' => function_exists( 'bricks_is_builder_main' ) && bricks_is_builder_main(),
 					'builderUrl' => home_url( '/' ),
+					'bricksIconUrl' => defined( 'BRICKS_URL_ASSETS' ) ? esc_url_raw( BRICKS_URL_ASSETS . 'svg/builder/b.svg' ) : '',
 					'connectionsEndpoint' => esc_url_raw( rest_url( 'ceb-hub-sort/v1/connections' ) ),
 					'endpoint' => esc_url_raw( rest_url( 'ceb-hub-sort/v1/posts' ) ),
 					'version' => get_file_data( __FILE__, array( 'version' => 'Version' ) )['version'],

@@ -1,4 +1,17 @@
-# Preview verification — 0.1.0-beta.1
+# Preview verification — 0.1.0-beta.2
+
+Verified Nov. 25, 2026 on the requested localhost:8889 site, WordPress 7.2-RC3 and Bricks 2.5-beta.
+
+- Native dark, light, and custom modes tested through Bricks Settings > Builder. Verified matching surface and text colors, accent colors, borders, corner radius, and light/dark select popup scheme.
+- Custom test palette used a light warm background, dark green text and accent, and 9px corners. The explorer list and item map followed the native palette.
+- Restored the original dark mode and original empty custom CSS after testing; verified both persisted.
+- Dropdown caret visibility checked in the content-type, type-order, page-size, and quick-edit Status selectors. Native select appearance is restored; all explorer selectors use that rule, including settings and connection sorting.
+- Confirmed list builder-action icons load Bricks' native b.svg from the installed theme; the icon is not copied into this repository. The button's navigation is unchanged.
+- Re-ran all five Plugin Check categories, errors and warnings enabled, no custom exclusions: **0 errors, 16 inherited database warnings**.
+- PHP and JavaScript syntax checks passed; isolated WordPress integration suite: **37 assertions passed**.
+- Theme colors use live CSS variables; no palette snapshots are saved. Explicit explorer button, heading, hierarchy, and status customizations retain precedence. Native select popup scheme uses the resolved native surface, with CSS color support including OKLCH and P3.
+
+# Previous preview — 0.1.0-beta.1
 
 Verified Nov. 25, 2026. No stable release or WordPress.org submission has been made.
 

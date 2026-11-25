@@ -4,7 +4,7 @@ Tags: content, admin, bricks, search, taxonomy
 Requires at least: 7.0
 Tested up to: 7.2
 Requires PHP: 8.4
-Stable tag: 0.1.0-beta.1
+Stable tag: 0.1.0-beta.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -45,6 +45,11 @@ No. Editor preferences control shortcuts only. WordPress and Bricks permissions 
 
 == Changelog ==
 
+= 0.1.0-beta.2 =
+* Follow Bricks native dark, light, and custom colors, borders, radius, typography, and focus accents.
+* Restore visible native dropdown carets, including status and connection sorting controls.
+* Use the installed Bricks icon for builder edit actions.
+
 = 0.1.0-beta.1 =
 * Initial Bricks development preview based on Content Explorer for Etch 2.2.2.
 * Added administration workspace and native Bricks toolbar entry points.
@@ -53,7 +58,7 @@ No. Editor preferences control shortcuts only. WordPress and Bricks permissions 
 
 == Upgrade Notice ==
 
-= 0.1.0-beta.1 =
+= 0.1.0-beta.2 =
 Development preview. Full Bricks feature parity and directory submission checks remain in progress.
 
 == License and Warranty ==

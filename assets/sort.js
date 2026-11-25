@@ -3,6 +3,7 @@
   const config = window.cebHubSortConfig;
   if (!config?.endpoint || !config?.nonce) return;
   const { __, sprintf } = window.wp.i18n;
+  if (config.bricksIconUrl) document.documentElement.style.setProperty('--ceb-builder-icon', `url(${JSON.stringify(config.bricksIconUrl)})`);
   const openBuilder = (id, url = '') => {
     if (!url) { const target = new URL(config.builderUrl); target.searchParams.set('p', String(id)); target.searchParams.set('bricks', 'run'); url = target.href; }
     window.open(url, '_blank', 'noopener');
@@ -12,7 +13,10 @@
   const applyStatusColors = () => {
     for (const [group, style] of Object.entries(config.statusStyles || {})) {
       for (const [property, value] of Object.entries({ bg: style.background, text: style.text, 'picker-text': style.picker_text })) {
-        document.documentElement.style.setProperty(`--ceb-status-${group}-${property}`, value);
+        const defaults = config.statusDefaults?.[group];
+        const customized = !defaults || style.background !== defaults.background || style.text !== defaults.text;
+        if (customized) document.documentElement.style.setProperty(`--ceb-custom-status-${group}-${property}`, value);
+        else document.documentElement.style.removeProperty(`--ceb-custom-status-${group}-${property}`);
       }
     }
   };
@@ -1135,8 +1139,8 @@
     const state = stateFor(type, kind);
     state.native = false;
     const root = element('section', 'ceb-hub-sort');
-    root.style.setProperty('--ceb-hub-active-bg', config.activeBg);
-    root.style.setProperty('--ceb-hub-active-text', config.activeText);
+    root.style.setProperty('--ceb-hub-active-bg', config.activeBg === '#292929' && config.activeText === '#f7f7f8' ? 'var(--ceb-ui-selected-bg, #292929)' : config.activeBg);
+    root.style.setProperty('--ceb-hub-active-text', config.activeBg === '#292929' && config.activeText === '#f7f7f8' ? 'var(--ceb-ui-selected-text, #f7f7f8)' : config.activeText);
     applyHierarchyStyle(root);
     root.setAttribute('aria-label', __('Content list', 'content-explorer-for-bricks'));
     const bar = element('div', 'ceb-hub-sort-bar');
@@ -1795,8 +1799,8 @@
         config.activeBg = data.active_bg;
         config.activeText = data.active_text;
         if (view) {
-          view.root.style.setProperty('--ceb-hub-active-bg', config.activeBg);
-          view.root.style.setProperty('--ceb-hub-active-text', config.activeText);
+          view.root.style.setProperty('--ceb-hub-active-bg', config.activeBg === '#292929' && config.activeText === '#f7f7f8' ? 'var(--ceb-ui-selected-bg, #292929)' : config.activeBg);
+          view.root.style.setProperty('--ceb-hub-active-text', config.activeBg === '#292929' && config.activeText === '#f7f7f8' ? 'var(--ceb-ui-selected-text, #f7f7f8)' : config.activeText);
         }
         updateColorPreview();
         contrastStatus.textContent = __('Saved', 'content-explorer-for-bricks');

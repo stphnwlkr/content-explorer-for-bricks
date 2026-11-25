@@ -4,6 +4,43 @@
   if (!config?.builderContext) return;
   const { __ } = window.wp.i18n;
   document.body.classList.add('ceb-builder-context');
+  // CSS variables update the workspace immediately. Native select popups also need
+  // a color scheme derived from the resolved surface, including custom palettes.
+  const themeProbe = document.createElement('span');
+  themeProbe.hidden = true;
+  themeProbe.style.backgroundColor = 'var(--builder-bg)';
+  document.body.append(themeProbe);
+  const paletteCanvas = document.createElement('canvas');
+  paletteCanvas.width = paletteCanvas.height = 1;
+  const paletteContext = paletteCanvas.getContext('2d', { willReadFrequently: true });
+  const syncTheme = () => {
+    // Canvas resolves every browser-supported CSS color, including OKLCH and P3,
+    // to RGB rather than mistaking its component numbers for RGB channels.
+    let light = document.body.getAttribute('data-builder-mode') === 'light';
+    if (paletteContext) {
+      paletteContext.fillStyle = '#fff';
+      paletteContext.fillRect(0, 0, 1, 1);
+      paletteContext.fillStyle = getComputedStyle(themeProbe).backgroundColor;
+      paletteContext.fillRect(0, 0, 1, 1);
+      const [red, green, blue] = paletteContext.getImageData(0, 0, 1, 1).data;
+      light = red * 0.2126 + green * 0.7152 + blue * 0.0722 > 140;
+    }
+    const scheme = light ? 'light' : 'dark';
+    if (document.body.style.getPropertyValue('--ceb-ui-color-scheme') !== scheme) {
+      document.body.style.setProperty('--ceb-ui-color-scheme', scheme);
+    }
+  };
+  let themeFrame = 0;
+  const scheduleTheme = () => {
+    if (themeFrame) return;
+    themeFrame = requestAnimationFrame(() => { themeFrame = 0; syncTheme(); });
+  };
+  const themeObserver = new MutationObserver(scheduleTheme);
+  for (const owner of [document.documentElement, document.body]) {
+    themeObserver.observe(owner, { attributes: true, attributeFilter: ['data-builder-mode', 'class', 'style'] });
+  }
+  themeObserver.observe(document.head, { childList: true, subtree: true, characterData: true });
+  syncTheme();
   const buttons = new Map();
   const createShortcut = (name, label, section, order) => {
     const item = document.createElement('li');

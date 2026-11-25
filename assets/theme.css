@@ -1,0 +1,101 @@
+/* Resolve presentation from Bricks' live tokens. Fallbacks support the WP admin workspace. */
+:where(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) {
+  --ceb-ui-surface: var(--builder-bg, #27272b);
+  --ceb-ui-surface-soft: var(--builder-bg-2, #36363a);
+  --ceb-ui-canvas: var(--builder-bg-2, #1e1e1e);
+  --ceb-ui-input: var(--builder-bg-2, #111113);
+  --ceb-ui-border: var(--builder-border-color, #454548);
+  --ceb-ui-text: var(--builder-color, #e1e1e5);
+  --ceb-ui-muted: var(--builder-color-description, #aaa);
+  --ceb-ui-accent: var(--builder-color-accent, #8fc9ff);
+  --ceb-ui-accent-inverse: var(--builder-color-accent-inverse, #10201e);
+  --ceb-ui-success: var(--builder-color-success, #5ccc86);
+  --ceb-ui-danger: var(--builder-color-danger, #f3a9a9);
+  --ceb-ui-danger-bg: var(--builder-bg-danger, #692d2d);
+  --ceb-ui-selected-bg: var(--builder-bg-accent, #28433f);
+  --ceb-ui-selected-text: var(--builder-color-accent, #e5fffb);
+  --ceb-ui-shared: var(--builder-color-component, #9b4dff);
+  --ceb-ui-action-bg: var(--builder-bg-2, #36363a);
+  --e-base: var(--ceb-ui-surface);
+  --e-base-light: var(--ceb-ui-surface-soft);
+  --e-panel-background-color: var(--ceb-ui-surface);
+  --e-border-color: var(--ceb-ui-border);
+  --e-border-color-muted: var(--ceb-ui-border);
+  --e-foreground-color: var(--ceb-ui-text);
+  --e-text-color: var(--ceb-ui-text);
+  --e-foreground-color-muted: var(--ceb-ui-muted);
+  --e-success: var(--ceb-ui-success);
+  --e-primary: var(--ceb-ui-accent);
+  --e-primary-color: var(--ceb-ui-accent);
+  --e-neutral-light-trans-10: var(--builder-bg-3, #ffffff1a);
+  --e-border-radius: var(--builder-border-radius, 6px);
+  --e-font-interface: var(--builder-font-family, Inter, system-ui, sans-serif);
+  --hub-panel-shadow: var(--builder-box-shadow, 0 16px 40px #0008);
+  color: var(--ceb-ui-text);
+  color-scheme: var(--ceb-ui-color-scheme, dark);
+}
+.ceb-hub-sort-manager {
+  --hub-surface: var(--ceb-ui-surface);
+  --hub-view: var(--ceb-ui-surface);
+  --hub-raised: var(--ceb-ui-surface-soft);
+  --hub-line: var(--ceb-ui-border);
+  --hub-text: var(--ceb-ui-text);
+  --hub-muted: var(--ceb-ui-muted);
+  --hub-panel-shadow: var(--builder-box-shadow, 0 16px 40px #0008);
+}
+/* Bricks suppresses native select indicators globally. Restore the platform caret,
+   with the appropriate color scheme for dark, light, and custom builder surfaces. */
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) select {
+  -webkit-appearance: auto;
+  appearance: auto;
+  background-image: none;
+  padding-inline-end: 28px;
+  color-scheme: var(--ceb-ui-color-scheme, dark);
+}
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) select option,
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) select optgroup {
+  background: var(--ceb-ui-surface);
+  color: var(--ceb-ui-text);
+}
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :is(input, select, textarea) {
+  border-radius: var(--builder-border-radius, 6px);
+}
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :where(select, textarea, input:not([type="color"]):not([type="checkbox"]):not([type="radio"])) {
+  background-color: var(--ceb-ui-input);
+  color: var(--ceb-ui-text);
+}
+.ceb-builder-context .ceb-hub-sort-dialog {
+  box-shadow: var(--builder-box-shadow-popup);
+  border-color: var(--ceb-ui-border);
+}
+.ceb-builder-context .ceb-hub-sort-dialog::backdrop { background: var(--builder-popup-backdrop-bg); }
+.ceb-hub-sort-dialog-actions button[type="submit"] { color: var(--ceb-ui-accent-inverse); }
+.ceb-hub-sort-open, .ceb-hub-sort-wordpress { color: var(--ceb-ui-text); }
+.ceb-hub-sort-trash { color: var(--ceb-ui-danger); }
+.ceb-hub-sort-manager .ceb-delta-map .btn.primary { color: var(--ceb-ui-accent-inverse); }
+.ceb-hub-sort-manager .ceb-delta-map { --delta-font-ui: var(--e-font-interface); }
+.ceb-hub-sort-manager .ceb-hub-sort-status-select { border-color: var(--ceb-ui-border); }
+/* Keep explicit saved status colors; unset defaults follow the current native palette. */
+.ceb-hub-sort-manager {
+  --ceb-status-publish-bg: var(--ceb-custom-status-publish-bg, color-mix(in srgb, var(--ceb-ui-success) 18%, var(--ceb-ui-surface)));
+  --ceb-status-publish-text: var(--ceb-custom-status-publish-text, var(--ceb-ui-text));
+  --ceb-status-publish-picker-text: var(--ceb-custom-status-publish-picker-text, var(--ceb-ui-text));
+  --ceb-status-draft-bg: var(--ceb-custom-status-draft-bg, color-mix(in srgb, var(--builder-color-warning, #e9b74d) 18%, var(--ceb-ui-surface)));
+  --ceb-status-draft-text: var(--ceb-custom-status-draft-text, var(--ceb-ui-text));
+  --ceb-status-draft-picker-text: var(--ceb-custom-status-draft-picker-text, var(--ceb-ui-text));
+  --ceb-status-future-bg: var(--ceb-custom-status-future-bg, color-mix(in srgb, var(--builder-color-info, #a6d5ff) 18%, var(--ceb-ui-surface)));
+  --ceb-status-future-text: var(--ceb-custom-status-future-text, var(--ceb-ui-text));
+  --ceb-status-future-picker-text: var(--ceb-custom-status-future-picker-text, var(--ceb-ui-text));
+  --ceb-status-pending-bg: var(--ceb-custom-status-pending-bg, var(--ceb-status-draft-bg));
+  --ceb-status-pending-text: var(--ceb-custom-status-pending-text, var(--ceb-ui-text));
+  --ceb-status-pending-picker-text: var(--ceb-custom-status-pending-picker-text, var(--ceb-ui-text));
+  --ceb-status-private-bg: var(--ceb-custom-status-private-bg, var(--ceb-ui-surface-soft));
+  --ceb-status-private-text: var(--ceb-custom-status-private-text, var(--ceb-ui-text));
+  --ceb-status-private-picker-text: var(--ceb-custom-status-private-picker-text, var(--ceb-ui-text));
+  --ceb-status-custom-bg: var(--ceb-custom-status-custom-bg, color-mix(in srgb, var(--ceb-ui-shared) 18%, var(--ceb-ui-surface)));
+  --ceb-status-custom-text: var(--ceb-custom-status-custom-text, var(--ceb-ui-text));
+  --ceb-status-custom-picker-text: var(--ceb-custom-status-custom-picker-text, var(--ceb-ui-text));
+}
+@media (forced-colors: active) {
+  :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) select { forced-color-adjust: auto; }
+}

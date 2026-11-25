@@ -13,7 +13,7 @@ The port is feasible. Most of the explorer is a WordPress application rather tha
 | Bricks template inventory | Low | Includes bricks_template without enabling its public REST controller |
 | Literal links and explicit Template element usage | Moderate | Reads saved content/header/footer element metadata and refreshes on metadata changes |
 | Site/item maps, ACF and Meta Box relationships | Moderate | WordPress map and field providers retained; Bricks adapter adds explicit usage |
-| Native Bricks toolbar integration and theme matching | Moderate | Native compass and connections icons; original workspace styling retained |
+| Native Bricks toolbar integration and theme matching | Moderate | Native compass and connections icons; original layout retained; styling follows native Bricks theme variables |
 | Bricks components | Higher | Not included; option-backed IDs require a different graph identity and usage scanner |
 | Condition-based template assignments | Higher | Not included; archive and request conditions require explicit context and exclusion handling |
 | WordPress.org readiness | Moderate | Metadata, no external updater, local assets and notices prepared; full review still required |
@@ -24,7 +24,7 @@ Planning estimate rather than a fixed quote: several focused development days fo
 
 ## Architecture
 
-Keep the content application independent of the builder. Bricks only supplies the entry point, editor URLs, access decisions, and saved-data adapter. The native toolbar shortcuts mount the original explorer as a workspace panel beneath the Bricks toolbars without modifying its Vue internals. The original SVG icons and visual styling are retained; lengths use the original 16px design base so Bricks' 10px root font does not shrink the interface. It preserves the current builder session and opens other documents in a separate tab.
+Keep the content application independent of the builder. Bricks only supplies the entry point, editor URLs, access decisions, and saved-data adapter. The native toolbar shortcuts mount the original explorer as a workspace panel beneath the Bricks toolbars without modifying its Vue internals. The original compass and connections SVGs and layout are retained, while colors, border radius, font, focus accents, and controls inherit Bricks native theme tokens; lengths use the original 16px design base so Bricks' 10px root font does not shrink the interface. It preserves the current builder session and opens other documents in a separate tab.
 
 Do not render dynamic data or user code to discover relationships. Describe unresolved dynamic/conditional dependencies as a known scope limit. Represent future components with a distinct identifier rather than pretending they are post IDs.
 

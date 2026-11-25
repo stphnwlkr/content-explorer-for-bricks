@@ -6,7 +6,7 @@
 .ceb-builder-context .ceb-hub-sort-manager :is(h1, h2, h3, h4) { color: inherit; }
 .ceb-builder-context .ceb-hub-sort-manager *, .ceb-builder-context .ceb-hub-sort-dialog * { box-sizing: border-box; }
 .bricks-toolbar :is(.ceb-toolbar-content, .ceb-toolbar-connections) .bricks-svg { width: var(--builder-icon-size, 20px); height: var(--builder-icon-size, 20px); }
-.bricks-toolbar :is(.ceb-toolbar-content, .ceb-toolbar-connections) button:focus-visible { outline: 2px solid #8fc9ff; outline-offset: -3px; }
+.bricks-toolbar :is(.ceb-toolbar-content, .ceb-toolbar-connections) button:focus-visible { outline: 2px solid var(--builder-color-accent, #8fc9ff); outline-offset: -3px; }
 
 /* Builder-wide inputs must not change the explorer's original control widths. */
 .ceb-builder-context .ceb-hub-sort-manager :is(select, input, button) { font-family: inherit; }
