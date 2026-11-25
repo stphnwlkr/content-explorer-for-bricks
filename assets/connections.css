@@ -1052,7 +1052,8 @@
 }
 .ceb-delta-map .btn.primary { background: var(--delta-accent); border-color: var(--delta-accent); }
 .ceb-delta-map .delta-graph-tools { gap: 6px; flex-wrap: wrap; max-width: calc(100% - 36px); padding: 6px; border: 1px solid var(--delta-border); border-radius: var(--builder-border-radius, 8px); background: var(--delta-panel); }
-.ceb-delta-map .delta-graph-tool { min-width: 36px; height: 36px; }
+.ceb-delta-map .delta-graph-tool { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; line-height: 1; }
+.ceb-delta-map .delta-graph-tool:not(.delta-graph-tool--wide) { width: 36px; padding: 0; font-size: calc(24px * var(--ceb-explorer-text-scale, 1)); }
 .ceb-delta-map .delta-graph-stage :is(.delta-graph-chip, .delta-graph-switch) { padding: 5px 9px; }
 .ceb-delta-map :is(.btn, .delta-graph-tool, .delta-graph-chip, .delta-graph-switch, .gd-rel button):hover { border-color: var(--delta-accent); background: color-mix(in srgb, var(--delta-accent) 14%, var(--delta-panel)); }
 .ceb-delta-map .gd-rel button { width: 100%; margin: 4px 0; padding: 7px 9px; }

@@ -1,4 +1,13 @@
-# Preview verification — 0.1.0-beta.3
+# Preview verification — 0.1.0-beta.4
+
+Verified Nov. 25, 2026 on localhost:8889, WordPress 7.2-RC3 and Bricks 2.5-beta.
+
+- Enlarged zoom symbols to 24px and centered both axes within 36px square buttons. Fit and Reset view keep their existing text size.
+- Installed preview ZIP; browser computed styles and screenshot confirmed sizing/alignment. Zoom in changed map scale from 0.688 to 0.860; zoom out remained functional.
+- PHP/application JavaScript syntax passed; isolated integration suite: **37 assertions passed**.
+- All five Plugin Check categories, errors/warnings enabled, no exclusions: **0 errors, 16 inherited warnings**. Remaining release gates below still apply.
+
+# Previous preview — 0.1.0-beta.3
 
 Verified Nov. 25, 2026 on localhost:8889, WordPress 7.2-RC3 and Bricks 2.5-beta.
 

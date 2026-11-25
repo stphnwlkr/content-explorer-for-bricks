@@ -4,7 +4,7 @@ Tags: content, admin, bricks, search, taxonomy
 Requires at least: 7.0
 Tested up to: 7.2
 Requires PHP: 8.4
-Stable tag: 0.1.0-beta.3
+Stable tag: 0.1.0-beta.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -44,6 +44,9 @@ No. It reads saved references and literal links without rendering user code. Com
 No. Editor preferences control shortcuts only. WordPress and Bricks permissions still apply.
 
 == Changelog ==
+
+= 0.1.0-beta.4 =
+* Enlarge the map zoom symbols and center them within their buttons.
 
 = 0.1.0-beta.3 =
 * Dismiss Content Explorer before other Bricks toolbar actions open their native panels.
