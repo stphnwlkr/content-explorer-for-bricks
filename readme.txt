@@ -4,7 +4,7 @@ Tags: content, admin, bricks, search, taxonomy
 Requires at least: 7.0
 Tested up to: 7.2
 Requires PHP: 8.4
-Stable tag: 0.1.0-beta.6
+Stable tag: 0.9.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,7 +18,7 @@ Open Content Explorer in WordPress administration or use the compass and connect
 
 The Bricks adapter reads saved element metadata for internal links, literal local URLs, rich text links, and Template elements. It does not execute dynamic data, loops, shortcodes, or custom code. ACF and Meta Box relationship fields are supported where installed.
 
-This initial development preview adapts Content Explorer for Etch 2.2.2. Bricks components and condition-based template assignments are not yet included. Bricks Builder is not bundled. This plugin is not affiliated with or endorsed by Bricks.
+Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components and condition-based template assignments are not included. Bricks Builder is not bundled. This plugin is not affiliated with or endorsed by Bricks.
 
 All assets ship locally. There are no plugin telemetry requests, remote asset services, or external update checks. Production updates are intended for WordPress.org after directory approval.
 
@@ -43,7 +43,26 @@ No. It reads saved references and literal links without rendering user code. Com
 
 No. Editor preferences control shortcuts only. WordPress and Bricks permissions still apply.
 
+= Where is the source code? =
+
+Source, development history, and issue tracking are available at https://github.com/stphnwlkr/content-explorer-for-bricks. Bundled library versions, licenses, and rebuild instructions are recorded in NOTICE.txt and assets/vendor/webawesome/README.md.
+
+= Is there a warranty? =
+
+The plugin is provided as is, without warranty of any kind. See the included GPL license for the full terms.
+
+== Upgrade Notice ==
+
+= 0.9.0 =
+First WordPress.org submission candidate, including the Bricks workspace, saved-content maps, content management, and native theme integration.
+
 == Changelog ==
+
+= 0.9.0 =
+* Prepare the first WordPress.org submission candidate.
+* Include the tested explorer, map, quick-edit, taxonomy, and settings tools from the development previews.
+* Preserve distinct map colors, readable interaction states, native Bricks styling, and active-template mapping.
+* Cache bounded map scans with automatic invalidation on post, metadata, and taxonomy changes.
 
 = 0.1.0-beta.6 =
 * Normalize native theme foregrounds for contrast on panels, controls, and tinted selected cards.
@@ -73,11 +92,6 @@ No. Editor preferences control shortcuts only. WordPress and Bricks permissions 
 * Added administration workspace and native Bricks toolbar entry points.
 * Added Bricks editor capability checks and saved element link/template indexing.
 * Set WordPress 7.0 and PHP 8.4 minimums; tested up to WordPress 7.2.
-
-== Upgrade Notice ==
-
-= 0.1.0-beta.2 =
-Development preview. Full Bricks feature parity and directory submission checks remain in progress.
 
 == License and Warranty ==
 

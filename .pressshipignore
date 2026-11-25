@@ -1,0 +1,6 @@
+# Development material; all runtime code, bundled assets, and licenses remain.
+AGENTS.md
+README.md
+docs/
+scripts/
+tests/

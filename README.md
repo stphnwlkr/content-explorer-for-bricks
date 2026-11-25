@@ -2,7 +2,7 @@
 
 A Bricks Builder adaptation of [Content Explorer for Etch 2.2.2](https://github.com/stphnwlkr/etch-content-hub-sort/releases/tag/v2.2.2), pinned to commit `10391f183507da71d51f58ac44b4963f47deab68`.
 
-Initial development preview: **0.1.0-beta.6**. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. This is not yet a WordPress.org submission candidate.
+WordPress.org submission candidate: **0.9.0**. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation; WordPress.org submission remains pending. See [the release verification](docs/release-0.9.0.md).
 
 ## Use
 
@@ -22,8 +22,8 @@ The original explorer layout and compass/connections icons are retained. Colors,
 - Condition-based header, footer, single, and archive assignments are not inferred. Explicit Template elements are indexed.
 - Maps describe saved data. Dynamic URLs, query results, unsaved changes, and code execution are excluded.
 - Native toolbar placement is verified on the test site; more Bricks versions and toolbar configurations need coverage.
-- The baseline's map-index database-query warnings need review and performance measurements before WordPress.org submission.
-- WordPress 7.0/7.1, MySQL, multisite, and broader Bricks version coverage remain release gates.
+- Cursor scans use WordPress object caching and invalidate on core post/metadata/term changes. The release report records the narrow, reviewed database-query analyzer annotations.
+- Backend coverage includes WordPress 7.0.1, 7.1.5, and 7.2-RC3 with PHP 8.4 and SQLite. MySQL, multisite, and broader Bricks version coverage remain further testing.
 
 ## Releases
 

@@ -129,10 +129,19 @@ final class CEB_Hub_Relationships {
 			if ( -1 === $cursor ) { return true; }
 			$types = array_values( array_diff( CEB_Hub_Connections::types(), array( 'attachment', 'revision' ) ) );
 			$placeholders = implode( ',', array_fill( 0, count( $types ), '%s' ) );
-			$ids = array_map( 'intval', $wpdb->get_col( $wpdb->prepare(
+			$cache_key = 'relationships:' . md5( wp_json_encode( array( $cursor, $types, wp_cache_get_last_changed( 'posts' ) ) ) );
+			$ids = wp_cache_get( $cache_key, 'ceb_hub_map' );
+			if ( false === $ids ) {
+				// Cache this bounded keyset scan, invalidating it on core post/meta changes. WP_Query has no ID-after parameter.
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+				$ids = array_map( 'intval', $wpdb->get_col( $wpdb->prepare(
+					// Only generated %s placeholders are interpolated; cursor and post types are bound values.
+					// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				"SELECT ID FROM {$wpdb->posts} WHERE ID > %d AND post_type IN ($placeholders) AND post_status NOT IN ('auto-draft','trash') ORDER BY ID ASC LIMIT 50",
 				array_merge( array( $cursor ), $types )
-			) ) );
+				) ) );
+				wp_cache_set( $cache_key, $ids, 'ceb_hub_map', 300 );
+			}
 			_prime_post_caches( $ids, false, true );
 			foreach ( $ids as $id ) { self::index( $id ); }
 			$done = count( $ids ) < 50;
@@ -178,8 +187,9 @@ final class CEB_Hub_Relationships {
 				'post_status' => array_diff( array_keys( get_post_stati() ), array( 'trash', 'auto-draft' ) ),
 				'posts_per_page' => self::LIMIT + 1,
 				'fields' => 'ids',
-				'meta_key' => self::META,
-				'meta_value' => $id,
+				// This plugin-owned reverse index is queried by its exact key, capped at 501, and cached/invalidation-managed by WP_Query. Current fields are rechecked before any relationship is exposed.
+				'meta_key' => self::META, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value' => $id, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 				'no_found_rows' => true,
 			) );
 			$truncated = count( $sources ) > self::LIMIT;

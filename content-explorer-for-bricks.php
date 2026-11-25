@@ -1,11 +1,13 @@
 <?php
 /**
  * Plugin Name: Content Explorer for Bricks
+ * Plugin URI: https://github.com/stphnwlkr/content-explorer-for-bricks
  * Description: Browse, search, edit, and map content and shared resources in a dedicated Bricks panel.
- * Version: 0.1.0-beta.6
+ * Version: 0.9.0
  * Requires at least: 7.0
  * Requires PHP: 8.4
  * Author: Stephen Walker
+ * Author URI: https://profiles.wordpress.org/stphnwlkr/
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: content-explorer-for-bricks
@@ -865,7 +867,7 @@ add_action(
 function ceb_hub_enqueue_explorer(): void {
 
 		$url     = plugin_dir_url( __FILE__ );
-		$version = '0.1.0-beta.6';
+		$version = '0.9.0';
 		$types   = array();
 		$hierarchical_types = array();
 		$taxonomies = array();
@@ -906,7 +908,7 @@ function ceb_hub_enqueue_explorer(): void {
 					'currentPostId' => function_exists( 'bricks_is_builder_main' ) && bricks_is_builder_main() ? get_the_ID() : ( isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : 0 ),
 					'builderContext' => function_exists( 'bricks_is_builder_main' ) && bricks_is_builder_main(),
 					'builderUrl' => home_url( '/' ),
-					'bricksIconUrl' => esc_url_raw( ( defined( 'BRICKS_URL_ASSETS' ) ? BRICKS_URL_ASSETS : trailingslashit( get_template_directory_uri() ) . 'assets/' ) . 'svg/builder/b.svg' ),
+					'bricksIconUrl' => esc_url_raw( defined( 'BRICKS_URL_ASSETS' ) ? BRICKS_URL_ASSETS . 'svg/builder/b.svg' : ( function_exists( 'bricks_is_builder_main' ) ? trailingslashit( get_template_directory_uri() ) . 'assets/svg/builder/b.svg' : $url . 'assets/ui-open.svg' ) ),
 					'connectionsEndpoint' => esc_url_raw( rest_url( 'ceb-hub-sort/v1/connections' ) ),
 					'endpoint' => esc_url_raw( rest_url( 'ceb-hub-sort/v1/posts' ) ),
 					'version' => get_file_data( __FILE__, array( 'version' => 'Version' ) )['version'],

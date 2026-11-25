@@ -1,4 +1,12 @@
-# Preview verification — 0.1.0-beta.6
+# Submission verification — 0.9.0
+
+Verified Nov. 25, 2026 without Pressship. See [release-0.9.0.md](release-0.9.0.md) for final metadata, package hash, exact warning dispositions, runtime matrix, smoke tests, and publishing status.
+
+Official readme validation completed in Edge with two optional notes. The production package completed all default Plugin Check categories with no reported findings after caching improvements and narrowly justified annotations. PHP/JavaScript syntax, color regressions, and 47 backend assertions per tested WordPress version (7.0.1, 7.1.5, 7.2-RC3; PHP 8.4 / SQLite) passed. The ZIP was installed and smoke-tested in Bricks on localhost:8889.
+
+The earlier failed Pressship workflow is retained in [pressship-0.9.0.md](pressship-0.9.0.md) as history. No WordPress.org upload, SVN release, or public release tag has occurred. The older preview notes and gates below describe their original point in development; the current status and remaining coverage are in release-0.9.0.md.
+
+# Previous preview — 0.1.0-beta.6
 
 Verified Nov. 25, 2026 on localhost:8889, WordPress 7.2-RC3 and Bricks 2.5-beta. Detailed measurements and limits: [contrast-audit.md](contrast-audit.md).
 

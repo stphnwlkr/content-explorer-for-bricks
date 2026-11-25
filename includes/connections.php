@@ -81,7 +81,14 @@ final class CEB_Hub_Connections {
 		try {
 			$types = array_diff( self::types(), array( 'attachment', 'revision' ) );
 			$placeholders = implode( ',', array_fill( 0, count( $types ), '%s' ) );
-			$ids = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE ID > %d AND post_type IN ($placeholders) ORDER BY ID ASC LIMIT 50", array_merge( array( $cursor ), array_values( $types ) ) ) );
+			$cache_key = 'index:' . md5( wp_json_encode( array( $cursor, $types, wp_cache_get_last_changed( 'posts' ) ) ) );
+			$ids = wp_cache_get( $cache_key, 'ceb_hub_map' );
+			if ( false === $ids ) {
+				// A bounded ID cursor avoids offset scans. The only interpolated format fragment is generated %s placeholders; all values are bound. Results are cached and invalidated by core post/meta changes.
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$ids = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE ID > %d AND post_type IN ($placeholders) ORDER BY ID ASC LIMIT 50", array_merge( array( $cursor ), array_values( $types ) ) ) );
+				wp_cache_set( $cache_key, $ids, 'ceb_hub_map', 300 );
+			}
 			foreach ( $ids as $id ) { self::index( (int) $id ); }
 			$done = count( $ids ) < 50;
 			update_option( self::CURSOR, $done ? -1 : (int) end( $ids ), false );
@@ -126,10 +133,19 @@ final class CEB_Hub_Connections {
 		$after = absint( $request->get_param( 'after' ) );
 		$types = array_values( array_diff( self::types(), array( 'attachment', 'revision', 'wp_global_styles', 'wp_font_family', 'wp_font_face' ) ) );
 		$placeholders = implode( ',', array_fill( 0, count( $types ), '%s' ) );
-		$ids = array_map( 'intval', $wpdb->get_col( $wpdb->prepare(
+		$cache_key = 'site:' . md5( wp_json_encode( array( $after, $types, wp_cache_get_last_changed( 'posts' ) ) ) );
+		$ids = wp_cache_get( $cache_key, 'ceb_hub_map' );
+		if ( false === $ids ) {
+			// WP_Query has no ID-after argument. Cache this bounded keyset scan; core post/meta changes invalidate its key.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+			$ids = array_map( 'intval', $wpdb->get_col( $wpdb->prepare(
+				// The generated fragment contains only %s placeholders; every post type and cursor value is passed to prepare().
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			"SELECT ID FROM {$wpdb->posts} WHERE ID > %d AND post_type IN ($placeholders) AND post_status NOT IN ('trash','auto-draft','inherit') ORDER BY ID ASC LIMIT 100",
 			array_merge( array( $after ), $types )
-		) ) );
+			) ) );
+			wp_cache_set( $cache_key, $ids, 'ceb_hub_map', 300 );
+		}
 		_prime_post_caches( $ids, false, true );
 		update_post_author_caches( array_filter( array_map( 'get_post', $ids ) ) );
 		$nodes = array(); $edges = array(); $visible = array();
@@ -190,7 +206,14 @@ final class CEB_Hub_Connections {
 		$after = (int) $request->get_param( 'after' ); $schema = self::taxonomy_schema();
 		if ( ! $schema ) { return rest_ensure_response( array( 'nodes' => array(), 'next_cursor' => $after, 'done' => true ) ); }
 		$placeholders = implode( ',', array_fill( 0, count( $schema ), '%s' ) );
-		$rows = $wpdb->get_results( $wpdb->prepare( "SELECT term_taxonomy_id, term_id, taxonomy FROM {$wpdb->term_taxonomy} WHERE term_taxonomy_id > %d AND taxonomy IN ($placeholders) ORDER BY term_taxonomy_id ASC LIMIT 100", array_merge( array( $after ), array_keys( $schema ) ) ) );
+		$cache_key = 'terms:' . md5( wp_json_encode( array( $after, array_keys( $schema ), wp_cache_get_last_changed( 'terms' ) ) ) );
+		$rows = wp_cache_get( $cache_key, 'ceb_hub_map' );
+		if ( false === $rows ) {
+			// WP_Term_Query has no term_taxonomy_id cursor. This bounded scan is cached; core term changes invalidate its key. Only generated placeholders enter the format string.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$rows = $wpdb->get_results( $wpdb->prepare( "SELECT term_taxonomy_id, term_id, taxonomy FROM {$wpdb->term_taxonomy} WHERE term_taxonomy_id > %d AND taxonomy IN ($placeholders) ORDER BY term_taxonomy_id ASC LIMIT 100", array_merge( array( $after ), array_keys( $schema ) ) ) );
+			wp_cache_set( $cache_key, $rows, 'ceb_hub_map', 300 );
+		}
 		$nodes = array();
 		foreach ( $rows as $row ) {
 			$term = get_term( (int) $row->term_id, $row->taxonomy );
@@ -213,6 +236,8 @@ final class CEB_Hub_Connections {
 			return array_values( array_filter( array_map( array( self::class, 'node' ), array_unique( array_map( 'intval', $ids ) ) ) ) );
 		};
 		$incoming = static function ( string $key ) use ( $id ): array {
+			// Reverse lookup of our saved-reference index requires this exact meta key/value pair. Core caches this query and invalidates it on meta changes; the result is capped at 501 for truncation detection.
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key, WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 			return get_posts( array( 'post_type' => self::types(), 'post_status' => array_keys( get_post_stati() ), 'posts_per_page' => 501, 'fields' => 'ids', 'meta_key' => $key, 'meta_value' => $id, 'no_found_rows' => true ) );
 		};
 		$uses = array_map( 'intval', get_post_meta( $id, self::USES ) );
