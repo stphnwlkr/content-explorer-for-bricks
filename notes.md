@@ -7,7 +7,7 @@
 - Author URL: https://profiles.wordpress.org/stphnwlkr/
 - Plugin URL and public source: https://github.com/stphnwlkr/content-explorer-for-bricks
 - Donation URL: https://buymeacoffee.com/mjdwdceq0j
-- Current code: 0.9.3 (Quick edit contrast, caret spacing, and native button interaction fixes); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
+- Current code: 0.9.4 (Quick edit contrast, caret spacing, native button states, and composite map search styling); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
 - Retain GPL-3.0-or-later and third-party notices inherited from Content Explorer for Etch 2.2.2 (baseline commit `10391f183507da71d51f58ac44b4963f47deab68`).
 - No external updater, telemetry, remote fonts, or bundled Bricks theme code.
 
@@ -55,3 +55,7 @@ Single-line dropdowns use a local theme-aware chevron, 12px from the inline end 
 ## 0.9.3 Button interaction states
 
 Follow native Bricks panel accent/inverse colors for default control hover, focus, and active states. Clear WP admin link-focus colors/shadows only inside the explorer; preserve saved custom colors and danger semantics. Native button and explorer focus colors matched live on Bricks 2.5-beta. See `docs/release-0.9.3.md`.
+
+## 0.9.4 Map search
+
+The map search wrapper owns its background, border, and focus indicator; the inner input stays transparent. Verified in WP admin and Bricks. See `docs/release-0.9.4.md`. WordPress.org remains on the original 0.9.0 upload.

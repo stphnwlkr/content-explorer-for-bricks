@@ -213,3 +213,33 @@
 @media (forced-colors: active) {
   :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :is(button, a.ceb-hub-sort-button, summary):focus-visible { outline-color: Highlight; }
 }
+
+/* Map search is one composite control: only its wrapper owns the surface,
+   border, and focus indicator. Do not paint a second field inside it. */
+.ceb-hub-sort-manager .ceb-delta-map .site-find {
+  background: var(--ceb-ui-input);
+  color: var(--ceb-aa-input-text, var(--ceb-ui-text));
+  border-color: var(--ceb-aa-line, var(--ceb-ui-border));
+}
+.ceb-hub-sort-manager .ceb-delta-map .site-find input[type="search"] {
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  min-height: 0;
+  height: auto;
+}
+.ceb-hub-sort-manager .ceb-delta-map .site-find input[type="search"]:focus {
+  outline: none;
+  box-shadow: none;
+}
+.ceb-hub-sort-manager .ceb-delta-map .site-find:focus-within {
+  border-color: var(--ceb-ui-accent);
+  outline: 2px solid var(--ceb-ui-accent);
+  outline-offset: 2px;
+}
+@media (forced-colors: active) {
+  .ceb-hub-sort-manager .ceb-delta-map .site-find:focus-within { outline-color: Highlight; border-color: Highlight; }
+}

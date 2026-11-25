@@ -1,3 +1,7 @@
+# 0.9.4 Map search styling
+
+See [release-0.9.4.md](release-0.9.4.md) for the installed-package checks. PHP/JavaScript syntax, 128 color-pair regressions, 37 REST/permission assertions, and full production-package Plugin Check passed.
+
 # 0.9.3 Native button states
 
 See [release-0.9.3.md](release-0.9.3.md) for native comparison, focus verification, and test results.
