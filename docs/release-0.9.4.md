@@ -16,4 +16,4 @@ The general field-background rule was painting the inner map-search input, produ
 
 ZIP: `content-explorer-for-bricks-0.9.4.zip`.
 SHA-256: `a73e7b87f0a63302cbb7a5052270909618f4516aa35ea3025ab444e7d288dcfb`.
-WordPress.org remains on the original 0.9.0 submission awaiting review.
+Uploaded as the replacement WordPress.org review package on Nov. 25, 2026. WordPress.org confirmed “New version of Content Explorer for Bricks uploaded for review” and listed version 0.9.4 as the latest submitted file. Status remains Awaiting Review. Original 0.9.0 is retained in submission history.

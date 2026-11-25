@@ -46,11 +46,11 @@ The numbering matches `readme.txt`. After directory approval, copy these files t
 
 ## 0.9.1 Quick edit correction
 
-WordPress type-selector input backgrounds overrode the previous low-specificity explorer rule. The scoped field rule now keeps text/background colors paired. Reproduced on WP admin, verified after installing 0.9.1 in admin and Bricks; see `docs/release-0.9.1.md`. Updated review ZIP upload pending.
+WordPress type-selector input backgrounds overrode the previous low-specificity explorer rule. The scoped field rule now keeps text/background colors paired. Reproduced on WP admin, verified after installing 0.9.1 in admin and Bricks; see `docs/release-0.9.1.md`. Superseded by the 0.9.4 review upload below.
 
 ## 0.9.2 Caret spacing
 
-Single-line dropdowns use a local theme-aware chevron, 12px from the inline end with 36px text clearance. Native select interactions remain. See `docs/release-0.9.2.md`; WordPress.org remains on the original 0.9.0 submission.
+Single-line dropdowns use a local theme-aware chevron, 12px from the inline end with 36px text clearance. Native select interactions remain. See `docs/release-0.9.2.md`; Superseded by the 0.9.4 review upload below.
 
 ## 0.9.3 Button interaction states
 
@@ -58,4 +58,10 @@ Follow native Bricks panel accent/inverse colors for default control hover, focu
 
 ## 0.9.4 Map search
 
-The map search wrapper owns its background, border, and focus indicator; the inner input stays transparent. Verified in WP admin and Bricks. See `docs/release-0.9.4.md`. WordPress.org remains on the original 0.9.0 upload.
+The map search wrapper owns its background, border, and focus indicator; the inner input stays transparent. Verified in WP admin and Bricks. See `docs/release-0.9.4.md`. Superseded by the 0.9.4 review upload below.
+
+## WordPress.org review replacement — Nov. 25, 2026
+
+Replaced the pending review package with `content-explorer-for-bricks-0.9.4.zip` through authenticated Edge at the user’s request. WordPress.org displayed “New version of Content Explorer for Bricks uploaded for review” and listed 0.9.4 as the latest submitted file. Status remains Awaiting Review; 0.9.0 remains in submission history.
+
+Uploaded SHA-256: `a73e7b87f0a63302cbb7a5052270909618f4516aa35ea3025ab444e7d288dcfb`. No SVN commit or public stable release has occurred.
