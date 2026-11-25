@@ -7,7 +7,7 @@
 - Author URL: https://profiles.wordpress.org/stphnwlkr/
 - Plugin URL and public source: https://github.com/stphnwlkr/content-explorer-for-bricks
 - Donation URL: https://buymeacoffee.com/mjdwdceq0j
-- Current code: 0.9.6 (singular template assignments and inherited links); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
+- Current code: 0.9.7 (Etch blue active map card); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
 - Retain GPL-3.0-or-later and third-party notices inherited from Content Explorer for Etch 2.2.2 (baseline commit `10391f183507da71d51f58ac44b4963f47deab68`).
 - No external updater, telemetry, remote fonts, or bundled Bricks theme code.
 
@@ -89,3 +89,7 @@ Installed 0.9.6 on nchv.flyingw.dev through authenticated Edge on Nov. 25, 2026.
 At the user's request, replaced the pending review package through authenticated Edge on Nov. 25, 2026. WordPress.org confirmed “New version of Content Explorer for Bricks uploaded for review” and listed content-explorer-for-bricks-0.9.6.zip / Version 0.9.6 as the latest submission. Status remains Awaiting Review. Versions 0.9.4 and 0.9.0 remain historical uploads.
 
 Uploaded SHA-256: bf4416c749463b7e53fd90cb91a1c43526ffdaba6ca0be01313343f84b6b7745. No SVN commit or stable release tag.
+
+## 0.9.7 Active map item blue
+
+The active/current item card now uses original Etch blue (#3858e9), blended 26% into the native panel surface. Its blue border is adjusted to at least 3.1:1 against both panel and tinted card; full-strength text normalization includes the blue surface at 4.6:1. Native Bricks control accent remains independent. Installed on NCHV and visually confirmed in its About map; user approved the result (“much better”). Full Plugin Check, changed PHP/JS syntax, 37 REST/permission assertions, and color regressions passed. WP.org latest review upload remains 0.9.6.

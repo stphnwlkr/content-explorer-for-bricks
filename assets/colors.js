@@ -55,7 +55,11 @@
     const accent = readable(resolve('var(--builder-color-accent, #8fc9ff)'), surfaces);
     const shared = readable(resolve('var(--builder-color-component, #a477e8)'), surfaces);
     const control = mix(soft, text, .04), controlHover = mix(soft, text, .12);
-    const backgrounds = [...surfaces, control, controlHover, mix(surface, accent, .26), mix(surface, shared, .26)];
+    // Current map cards retain Etch blue independently of the native button accent.
+    const currentBg = mix(surface, [56,88,233], .26);
+    set('current-bg', currentBg);
+    set('current', readable([56,88,233], [surface, currentBg], 3.1));
+    const backgrounds = [...surfaces, control, controlHover, currentBg, mix(surface, accent, .26), mix(surface, shared, .26)];
     set('text', readable(text, backgrounds));
     set('muted', readable(text, backgrounds));
     set('input-text', readable(text, [input]));

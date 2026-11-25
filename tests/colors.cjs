@@ -41,8 +41,11 @@ for (const dark of [true,false]) {
  const tint=mix(surface,accent,.26), primaryHover=mix(accent,[0,0,0],.12);
  const inverse=readable(hex(dark?'1e2124':'ffffff'),[accent,primaryHover]);
  for(const bg of [accent,primaryHover]) assert.ok(ratio(inverse,bg)>=4.6,'Primary button normal/hover');
- const foreground=readable(text,[...controls,tint]);
- for(const bg of [...controls,tint]) assert.ok(ratio(foreground,bg)>=4.6,'Full-strength text in selected and hover states');
+ const currentBg=mix(surface,hex('3858e9'),.26);
+ const currentBorder=readable(hex('3858e9'),[surface,currentBg],3.1);
+ for(const bg of [surface,currentBg]) assert.ok(ratio(currentBorder,bg)>=3.1,'Blue current-item border');
+ const foreground=readable(text,[...controls,tint,currentBg]);
+ for(const bg of [...controls,tint,currentBg]) assert.ok(ratio(foreground,bg)>=4.6,'Full-strength text in selected and hover states');
 }
 assert.deepEqual(mix([0,0,0],[100,100,100],.26), [26,26,26]);
 console.log(`PASS: ${pairs} foreground/background pairs, original graph palette, hover states, inverse labels, control borders, stable normalization`);

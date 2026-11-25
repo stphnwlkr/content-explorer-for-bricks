@@ -1,3 +1,7 @@
+# 0.9.7 Blue active map card
+
+See [release-0.9.7.md](release-0.9.7.md) for checks and limits. Installed and user-approved on NCHV. Production-package Plugin Check, syntax, REST permissions, and color regressions passed.
+
 # 0.9.6 Assigned singular template mapping
 
 See [release-0.9.6.md](release-0.9.6.md). 78 backend assertions per WordPress 7.0.1, 7.1.5, and 7.2-RC3 (PHP 8.4 / SQLite), all default Plugin Check categories, PHP/JavaScript syntax, and color regressions passed. Installed exact ZIP on NCHV; verified seven outgoing links, seven children, three assigned templates on About Us, reverse usage on its template, and native Bricks toolbar mapping. WordPress.org accepted the replacement 0.9.6 upload on Nov. 25, 2026; status remains Awaiting Review.

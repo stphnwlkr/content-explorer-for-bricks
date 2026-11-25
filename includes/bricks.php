@@ -138,7 +138,7 @@ function ceb_hub_admin_page(): void {
 add_action( 'admin_enqueue_scripts', static function ( string $hook ): void {
 	if ( 'toplevel_page_content-explorer-for-bricks' === $hook ) {
 		ceb_hub_enqueue_explorer();
-		wp_enqueue_style( 'ceb-admin', plugins_url( '../assets/admin.css', __FILE__ ), array( 'content-explorer-for-bricks' ), '0.9.6' );
+		wp_enqueue_style( 'ceb-admin', plugins_url( '../assets/admin.css', __FILE__ ), array( 'content-explorer-for-bricks' ), '0.9.7' );
 	}
 } );
 
@@ -147,8 +147,8 @@ add_action( 'wp_enqueue_scripts', static function (): void {
 		return;
 	}
 	ceb_hub_enqueue_explorer();
-	wp_enqueue_style( 'ceb-builder', plugins_url( '../assets/builder.css', __FILE__ ), array( 'content-explorer-for-bricks' ), '0.9.6' );
-	wp_enqueue_script( 'ceb-builder', plugins_url( '../assets/builder.js', __FILE__ ), array( 'content-explorer-for-bricks', 'ceb-hub-connections' ), '0.9.6', true );
+	wp_enqueue_style( 'ceb-builder', plugins_url( '../assets/builder.css', __FILE__ ), array( 'content-explorer-for-bricks' ), '0.9.7' );
+	wp_enqueue_script( 'ceb-builder', plugins_url( '../assets/builder.js', __FILE__ ), array( 'content-explorer-for-bricks', 'ceb-hub-connections' ), '0.9.7', true );
 }, 100 );
 
 /** Menu edits change every document using that menu; refresh in bounded batches. */

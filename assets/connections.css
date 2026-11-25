@@ -25,7 +25,7 @@
 :where(.ceb-delta-map) .gnode:hover { border-color: var(--delta-fg); }
 :where(.ceb-delta-map) .gnode.shared { border-color: color-mix(in srgb, var(--delta-shared) 45%, var(--delta-border)); background: var(--delta-shared-bg); }
 :where(.ceb-delta-map) .gnode.shared::before { background: var(--delta-shared); }
-:where(.ceb-delta-map) .gnode.here { min-width: 190px; padding: 12px 16px 12px 30px; border: 2px solid var(--delta-accent); background: var(--delta-accent-soft); }
+:where(.ceb-delta-map) .gnode.here { min-width: 190px; padding: 12px 16px 12px 30px; border: 2px solid var(--ceb-aa-current, #3858e9); background: var(--ceb-aa-current-bg, color-mix(in srgb, #3858e9 26%, var(--delta-panel))); }
 :where(.ceb-delta-map) .gnode.here::before { left: 13px; top: 18px; background: var(--delta-ok); }
 :where(.ceb-delta-map) .gnode.here b { font-size: calc(15px * var(--ceb-explorer-text-scale, 1)); }
 :where(.ceb-delta-map) .graph-legend { display: flex; gap: 16px; padding: 8px 16px; border-top: 1px solid var(--delta-border); font-size: calc(11px * var(--ceb-explorer-text-scale, 1)); color: var(--delta-muted); }

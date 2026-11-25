@@ -14,7 +14,7 @@ Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components are not 
 All assets ship locally. There are no plugin telemetry requests, remote asset services, or external update checks. Production updates are intended for WordPress.org after directory approval.
 <!-- wporg-description:end -->
 
-Current candidate: **0.9.6**, adding assigned singular template mapping and inherited links. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the original automated scan passed, and the review package was updated to 0.9.6. Manual review is pending. Version 0.9.6 is installed and verified on the NCHV test site and is the latest WordPress.org review upload. See [the latest verification](docs/release-0.9.6.md) and [original submission](docs/release-0.9.0.md).
+Current candidate: **0.9.7**, using Etch blue for the active map card. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the original automated scan passed, and the review package was updated to 0.9.6. Manual review is pending. Version 0.9.6 is installed and verified on the NCHV test site and is the latest WordPress.org review upload. See [the latest verification](docs/release-0.9.7.md) and [original submission](docs/release-0.9.0.md).
 
 ## Screenshots
 

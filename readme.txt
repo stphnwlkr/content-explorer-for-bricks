@@ -5,7 +5,7 @@ Tags: content, admin, bricks, search, taxonomy
 Requires at least: 7.0
 Tested up to: 7.2
 Requires PHP: 8.4
-Stable tag: 0.9.6
+Stable tag: 0.9.7
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -60,6 +60,9 @@ The plugin is provided as is, without warranty of any kind. See the included GPL
 
 == Upgrade Notice ==
 
+= 0.9.7 =
+Use blue for the active map item independently of the Bricks button accent.
+
 = 0.9.6 =
 Map singular template assignments and their inherited saved links.
 
@@ -82,6 +85,9 @@ Fix Quick edit form field contrast in WordPress administration.
 First WordPress.org submission candidate, including the Bricks workspace, saved-content maps, content management, and native theme integration.
 
 == Changelog ==
+
+= 0.9.7 =
+* Use Etch blue for the active item map card, with readable full-strength text and a contrast-adjusted blue border.
 
 = 0.9.6 =
 * Map assigned Bricks singular content, header, and footer templates using native condition ranking and exclusions.
