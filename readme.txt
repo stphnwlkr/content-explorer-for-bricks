@@ -4,7 +4,7 @@ Tags: content, admin, bricks, search, taxonomy
 Requires at least: 7.0
 Tested up to: 7.2
 Requires PHP: 8.4
-Stable tag: 0.1.0-beta.2
+Stable tag: 0.1.0-beta.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -44,6 +44,11 @@ No. It reads saved references and literal links without rendering user code. Com
 No. Editor preferences control shortcuts only. WordPress and Bricks permissions still apply.
 
 == Changelog ==
+
+= 0.1.0-beta.3 =
+* Dismiss Content Explorer before other Bricks toolbar actions open their native panels.
+* Preserve native control focus and explorer list state when switching workspaces.
+* Reduce graph filter column spacing from 16px to 8px and add an 8px row gap.
 
 = 0.1.0-beta.2 =
 * Follow Bricks native dark, light, and custom colors, borders, radius, typography, and focus accents.

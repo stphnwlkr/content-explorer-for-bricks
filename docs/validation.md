@@ -1,4 +1,15 @@
-# Preview verification — 0.1.0-beta.2
+# Preview verification — 0.1.0-beta.3
+
+Verified Nov. 25, 2026 on localhost:8889, WordPress 7.2-RC3 and Bricks 2.5-beta.
+
+- Reproduced native Manage menu opening behind Explorer. Capture listeners now close Explorer before native toolbar actions, without cancelling their events or stealing focus.
+- Verified Manage > Page settings and Pages open with Explorer hidden. Enter activation of Manage also closes the site map and exposes its menu.
+- Site graph filters now use 8px column and row gaps (previously 16px columns, zero rows). Browser measurement confirmed 34px buttons at row offsets 3, 45, 87, and 129, with 8px separation; screenshot confirmed wrapping.
+- Installed the updated preview ZIP on the test site.
+- All PHP/application JavaScript syntax checks passed; isolated integration suite: **37 assertions passed**.
+- Full Plugin Check, all five categories and both result types, no exclusions: **0 errors, 16 inherited database warnings**. Previous release gates below still apply.
+
+# Previous preview — 0.1.0-beta.2
 
 Verified Nov. 25, 2026 on the requested localhost:8889 site, WordPress 7.2-RC3 and Bricks 2.5-beta.
 

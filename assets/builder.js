@@ -77,6 +77,20 @@
   };
   const compass = createShortcut('content', __('Content Explorer', 'content-explorer-for-bricks'), 'list', 310);
   const connections = createShortcut('connections', __('Current item connections', 'content-explorer-for-bricks'), 'map', 320);
+  // Native menus and panels are below the explorer workspace. Dismiss our view
+  // before the native handler runs, leaving its click, default action, and focus
+  // untouched. Capture handles controls whose handlers stop event propagation;
+  // click also covers keyboard activation without a preceding pointer event.
+  const yieldToToolbar = event => {
+    if (!document.body.classList.contains('ceb-explorer-open')) return;
+    const path = event.composedPath();
+    const matches = selector => path.some(node => node instanceof Element && node.matches(selector));
+    if (!matches('.bricks-toolbar') || matches('.ceb-toolbar-content, .ceb-toolbar-connections')) return;
+    if (!matches('button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), [role="button"]')) return;
+    window.cebHubContentPanel?.close({ restoreFocus: false });
+  };
+  document.addEventListener('pointerdown', yieldToToolbar, true);
+  document.addEventListener('click', yieldToToolbar, true);
   const sync = () => {
     const toolbar = document.querySelector('.bricks-toolbar:has(.group-wrapper.start)');
     const group = toolbar?.querySelector('.group-wrapper.start');

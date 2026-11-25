@@ -200,7 +200,7 @@
       trigger.setAttribute('aria-expanded', String(active));
     }
   };
-  const closeContentPanel = () => {
+  const closeContentPanel = ({ restoreFocus = true } = {}) => {
     if (!settingsManager || settingsManager.panel.hidden) return;
     window.cebHubCloseConnections?.();
     if (config.builderContext) settingsManager.panel.hidden = true;
@@ -208,7 +208,7 @@
     document.body.classList.remove('ceb-explorer-open');
     document.dispatchEvent(new CustomEvent('ceb:panelchange', { detail: { open: false } }));
     syncSidebarActiveState();
-    settingsManager.launch?.isConnected && settingsManager.launch.focus();
+    if (restoreFocus && settingsManager.launch?.isConnected) settingsManager.launch.focus();
   };
   const openContentPanel = (section = 'list', id = 0) => {
     mountSettingsPanel();

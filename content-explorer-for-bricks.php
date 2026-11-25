@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Content Explorer for Bricks
  * Description: Browse, search, edit, and map content and shared resources in a dedicated Bricks panel.
- * Version: 0.1.0-beta.2
+ * Version: 0.1.0-beta.3
  * Requires at least: 7.0
  * Requires PHP: 8.4
  * Author: Stephen Walker
@@ -865,7 +865,7 @@ add_action(
 function ceb_hub_enqueue_explorer(): void {
 
 		$url     = plugin_dir_url( __FILE__ );
-		$version = '0.1.0-beta.2';
+		$version = '0.1.0-beta.3';
 		$types   = array();
 		$hierarchical_types = array();
 		$taxonomies = array();
