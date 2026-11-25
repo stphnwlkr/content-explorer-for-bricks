@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Content Explorer for Bricks
  * Description: Browse, search, edit, and map content and shared resources in a dedicated Bricks panel.
- * Version: 0.1.0-beta.5
+ * Version: 0.1.0-beta.6
  * Requires at least: 7.0
  * Requires PHP: 8.4
  * Author: Stephen Walker
@@ -865,7 +865,7 @@ add_action(
 function ceb_hub_enqueue_explorer(): void {
 
 		$url     = plugin_dir_url( __FILE__ );
-		$version = '0.1.0-beta.5';
+		$version = '0.1.0-beta.6';
 		$types   = array();
 		$hierarchical_types = array();
 		$taxonomies = array();
@@ -888,7 +888,8 @@ function ceb_hub_enqueue_explorer(): void {
 
 		wp_enqueue_style( 'content-explorer-for-bricks', $url . 'assets/sort.css', array(), $version );
 		wp_enqueue_script( 'ceb-hub-webawesome-accordion', $url . 'assets/vendor/webawesome/accordion.js', array(), '3.15.0', true );
-		wp_enqueue_script( 'content-explorer-for-bricks', $url . 'assets/sort.js', array( 'wp-i18n', 'ceb-hub-webawesome-accordion' ), $version, true );
+		wp_enqueue_script( 'ceb-colors', $url . 'assets/colors.js', array(), $version, true );
+		wp_enqueue_script( 'content-explorer-for-bricks', $url . 'assets/sort.js', array( 'wp-i18n', 'ceb-hub-webawesome-accordion', 'ceb-colors' ), $version, true );
 		wp_enqueue_style( 'ceb-hub-connections', $url . 'assets/connections.css', array(), $version );
 		wp_enqueue_script( 'ceb-hub-delta-graph', $url . 'assets/delta-graph.js', array(), $version, true );
 		wp_enqueue_script( 'ceb-hub-connections', $url . 'assets/connections.js', array( 'content-explorer-for-bricks', 'ceb-hub-delta-graph' ), $version, true );
@@ -905,7 +906,7 @@ function ceb_hub_enqueue_explorer(): void {
 					'currentPostId' => function_exists( 'bricks_is_builder_main' ) && bricks_is_builder_main() ? get_the_ID() : ( isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : 0 ),
 					'builderContext' => function_exists( 'bricks_is_builder_main' ) && bricks_is_builder_main(),
 					'builderUrl' => home_url( '/' ),
-					'bricksIconUrl' => defined( 'BRICKS_URL_ASSETS' ) ? esc_url_raw( BRICKS_URL_ASSETS . 'svg/builder/b.svg' ) : '',
+					'bricksIconUrl' => esc_url_raw( ( defined( 'BRICKS_URL_ASSETS' ) ? BRICKS_URL_ASSETS : trailingslashit( get_template_directory_uri() ) . 'assets/' ) . 'svg/builder/b.svg' ),
 					'connectionsEndpoint' => esc_url_raw( rest_url( 'ceb-hub-sort/v1/connections' ) ),
 					'endpoint' => esc_url_raw( rest_url( 'ceb-hub-sort/v1/posts' ) ),
 					'version' => get_file_data( __FILE__, array( 'version' => 'Version' ) )['version'],

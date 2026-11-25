@@ -4,7 +4,7 @@ Tags: content, admin, bricks, search, taxonomy
 Requires at least: 7.0
 Tested up to: 7.2
 Requires PHP: 8.4
-Stable tag: 0.1.0-beta.5
+Stable tag: 0.1.0-beta.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -44,6 +44,12 @@ No. It reads saved references and literal links without rendering user code. Com
 No. Editor preferences control shortcuts only. WordPress and Bricks permissions still apply.
 
 == Changelog ==
+
+= 0.1.0-beta.6 =
+* Normalize native theme foregrounds for contrast on panels, controls, and tinted selected cards.
+* Keep map controls readable on hover, focus, and when toggled off.
+* Preserve the original distinct graph colors, keep text at full contrast, and distinguish hover backgrounds.
+* Restore action preview icons and center the sidebar collapse caret.
 
 = 0.1.0-beta.5 =
 * Follow the current editing document after Bricks instant navigation, including header and footer templates.

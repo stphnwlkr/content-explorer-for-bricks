@@ -133,6 +133,7 @@
 .ceb-hub-sort-themed[data-button-group="quick_edit"]::before { mask-image: url('ui-edit.svg'); }
 .ceb-hub-sort-themed[data-button-group="open"]::before,
 .ceb-hub-sort-themed[data-button-group="notice"]::before { mask-image: var(--ceb-builder-icon, none); }
+.ceb-hub-sort-themed[data-button-group="pagination"]::before { mask-image: url('ui-arrow-left-right.svg'); }
 .ceb-hub-sort-themed[data-button-group="wordpress"]::before { mask-image: url('wordpress-alt.svg'); }
 .ceb-hub-sort-themed[data-button-group="notice"][data-notice-action="dismiss"]::before { mask-image: url('ui-x.svg'); }
 .ceb-hub-sort-themed[data-button-group="trash"]::before { mask-image: url('ui-trash.svg'); }
@@ -738,6 +739,10 @@ body:has(.ceb-content-panel-open) .element-menu-wrapper { display: none !importa
 .ceb-hub-sort-manager-sidebar { position: relative; min-width: 0; }
 .ceb-hub-sort-manager-header h1 { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .ceb-content-menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   flex: 0 0 28px;
   width: 28px;
   height: 28px;

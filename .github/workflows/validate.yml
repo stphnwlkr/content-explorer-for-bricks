@@ -11,7 +11,8 @@ jobs:
         with:
           php-version: '8.4'
       - run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l
-      - run: for file in assets/sort.js assets/connections.js assets/delta-graph.js assets/builder.js; do node --check "$file"; done
+      - run: for file in assets/colors.js assets/sort.js assets/connections.js assets/delta-graph.js assets/builder.js; do node --check "$file"; done
+      - run: node tests/colors.cjs
       - run: python3 scripts/package.py /tmp/content-explorer-for-bricks.zip
       - uses: actions/upload-artifact@v4
         with:

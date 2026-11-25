@@ -106,6 +106,7 @@
     if (style.custom_colors) {
       node.style.setProperty('--ceb-button-bg', style.background);
       node.style.setProperty('--ceb-button-text', style.text);
+      node.style.setProperty('--ceb-button-hover', window.cebHubColors.css(window.cebHubColors.hover(window.cebHubColors.hex(style.background), window.cebHubColors.hex(style.text))));
     } else {
       node.style.removeProperty('--ceb-button-bg');
       node.style.removeProperty('--ceb-button-text');
@@ -2343,6 +2344,8 @@
       customField.append(custom, element('span', '', __('Use custom colors', 'content-explorer-for-bricks')));
       const preview = element('span', 'ceb-hub-sort-button ceb-hub-sort-themed ceb-hub-sort-button-preview');
       preview.dataset.buttonGroup = group;
+      if (group === 'pagination') preview.dataset.pageDirection = 'next';
+      if (group === 'notice') preview.dataset.noticeAction = 'dismiss';
       preview.setAttribute('aria-hidden', 'true');
       applyButtonStyle(preview);
       preview.appendChild(element('span', 'ceb-hub-sort-button-preview-label', label));
@@ -2378,6 +2381,7 @@
         colors.hidden = !custom.checked;
         preview.style.setProperty('--ceb-button-bg', bg.input.value);
         preview.style.setProperty('--ceb-button-text', fg.input.value);
+        preview.style.setProperty('--ceb-button-hover', window.cebHubColors.css(window.cebHubColors.hover(window.cebHubColors.hex(bg.input.value), window.cebHubColors.hex(fg.input.value))));
         choice.textContent = `${display.options[display.selectedIndex].textContent} · ${custom.checked ? __('Custom colors', 'content-explorer-for-bricks') : __('Bricks colors', 'content-explorer-for-bricks')}${changed ? ` · ${__('Unsaved', 'content-explorer-for-bricks')}` : ''}`;
         save.disabled = (custom.checked && ratio < 4.5) || !changed;
         status.textContent = custom.checked && ratio < 4.5

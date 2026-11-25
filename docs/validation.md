@@ -1,4 +1,17 @@
-# Preview verification — 0.1.0-beta.5
+# Preview verification — 0.1.0-beta.6
+
+Verified Nov. 25, 2026 on localhost:8889, WordPress 7.2-RC3 and Bricks 2.5-beta. Detailed measurements and limits: [contrast-audit.md](contrast-audit.md).
+
+- Restored the original distinct graph hues after review. Descriptions now use full-strength text; controls have slightly lighter backgrounds and distinct hover/active backgrounds.
+- Verified normal, selected, keyboard-focus, primary-action hover, and toggled-off filter states in native dark/light modes and a warm custom palette. The reported selected card and primary hover were reproduced and corrected.
+- Light-mode form labels and dialog Save styling were corrected. All six settings sections measured above 4.5:1 for enabled text in dark and light modes.
+- Checked graph marker/control contrast in the color tests; revealed graph lines remain opaque and focused graph nodes have a shape outline plus underlined label.
+- Restored the native Bricks b preview, explicit pagination/saved-action preview masks, and centered the collapse caret. Confirmed visually.
+- Restored and saved original dark mode and empty custom CSS after testing.
+- Color regression tests passed, PHP/application JavaScript syntax passed, isolated integration: **37 assertions passed**.
+- Full Plugin Check, all five categories, errors/warnings enabled, no exclusions: **0 errors, 16 inherited database warnings**. Remaining release gates below still apply.
+
+# Previous preview — 0.1.0-beta.5
 
 Verified Nov. 25, 2026 on localhost:8889, WordPress 7.2-RC3 and Bricks 2.5-beta.
 

@@ -5,16 +5,16 @@
   --ceb-ui-canvas: var(--builder-bg-2, #1e1e1e);
   --ceb-ui-input: var(--builder-bg-2, #111113);
   --ceb-ui-border: var(--builder-border-color, #454548);
-  --ceb-ui-text: var(--builder-color, #e1e1e5);
-  --ceb-ui-muted: var(--builder-color-description, #aaa);
-  --ceb-ui-accent: var(--builder-color-accent, #8fc9ff);
-  --ceb-ui-accent-inverse: var(--builder-color-accent-inverse, #10201e);
-  --ceb-ui-success: var(--builder-color-success, #5ccc86);
-  --ceb-ui-danger: var(--builder-color-danger, #f3a9a9);
+  --ceb-ui-text: var(--ceb-aa-text, var(--builder-color, #e1e1e5));
+  --ceb-ui-muted: var(--ceb-aa-muted, var(--builder-color-description, #aaa));
+  --ceb-ui-accent: var(--ceb-aa-accent, var(--builder-color-accent, #8fc9ff));
+  --ceb-ui-accent-inverse: var(--ceb-aa-inverse, var(--builder-color-accent-inverse, #10201e));
+  --ceb-ui-success: var(--ceb-aa-success, var(--builder-color-success, #5ccc86));
+  --ceb-ui-danger: var(--ceb-aa-danger, var(--builder-color-danger, #f3a9a9));
   --ceb-ui-danger-bg: var(--builder-bg-danger, #692d2d);
   --ceb-ui-selected-bg: var(--builder-bg-accent, #28433f);
-  --ceb-ui-selected-text: var(--builder-color-accent, #e5fffb);
-  --ceb-ui-shared: var(--builder-color-component, #9b4dff);
+  --ceb-ui-selected-text: var(--ceb-aa-selected-text, var(--builder-color, #e5fffb));
+  --ceb-ui-shared: var(--ceb-aa-template, #a477e8);
   --ceb-ui-action-bg: var(--builder-bg-2, #36363a);
   --e-base: var(--ceb-ui-surface);
   --e-base-light: var(--ceb-ui-surface-soft);
@@ -99,3 +99,72 @@
 @media (forced-colors: active) {
   :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) select { forced-color-adjust: auto; }
 }
+
+/* State colors stay opaque. Saved custom pairs already pass server-side checks;
+   brightness/opacity filters would invalidate those checks on hover and focus. */
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :is(button, a, summary):is(:hover, :focus-visible, :active) { filter: none; }
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) input::placeholder,
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) textarea::placeholder { color: var(--ceb-ui-muted); opacity: 1; }
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :is(button, a, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--ceb-ui-text); outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--ceb-ui-surface);
+}
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :is(input, select, textarea) {
+  border-color: var(--ceb-aa-line, var(--ceb-ui-border));
+  color: var(--ceb-aa-input-text, var(--ceb-ui-text));
+}
+.ceb-hub-sort-manager .ceb-hub-sort-status-select[data-status-kind="publish"] { color: var(--ceb-status-publish-picker-text); }
+.ceb-hub-sort-manager .ceb-hub-sort-status-select[data-status-kind="draft"] { color: var(--ceb-status-draft-picker-text); }
+.ceb-hub-sort-manager .ceb-hub-sort-status-select[data-status-kind="future"] { color: var(--ceb-status-future-picker-text); }
+.ceb-hub-sort-manager .ceb-hub-sort-status-select[data-status-kind="pending"] { color: var(--ceb-status-pending-picker-text); }
+.ceb-hub-sort-manager .ceb-hub-sort-status-select[data-status-kind="private"] { color: var(--ceb-status-private-picker-text); }
+.ceb-hub-sort-manager .ceb-hub-sort-status-select[data-status-kind="custom"] { color: var(--ceb-status-custom-picker-text); }
+.ceb-hub-sort-manager .ceb-hub-sort-trash:not([data-custom-colors="true"]) { color: var(--ceb-aa-danger-text, var(--ceb-ui-text)); }
+.ceb-hub-sort-manager .ceb-hub-sort-trash:not([data-custom-colors="true"]):hover { background: var(--ceb-ui-danger-bg); }
+.ceb-hub-sort-manager .ceb-hub-sort-button:not([data-custom-colors="true"]):not(.ceb-hub-sort-heading):not(.ceb-hub-sort-trash):not([type="submit"]):hover { background-color: var(--ceb-ui-hover-bg); color: var(--ceb-ui-text); }
+.ceb-hub-sort-manager .ceb-content-menu-toggle { display: inline-flex; align-items: center; justify-content: center; text-align: center; }
+.ceb-hub-sort-manager .ceb-delta-map :is(.delta-graph-chip, .delta-graph-switch):is(:hover, [aria-pressed="false"]) { opacity: 1; }
+.ceb-hub-sort-manager .ceb-delta-map :is(.delta-graph-chip[aria-pressed="false"] .delta-graph-chip__dot, .delta-graph-switch[aria-pressed="false"] .delta-graph-key) { opacity: 1; }
+.ceb-hub-sort-manager .ceb-delta-map :is(.delta-graph-chip, .delta-graph-switch, .btn, .delta-graph-tool, .gd-rel button):is(:hover, :active) { background: var(--ceb-ui-hover-bg); color: var(--ceb-ui-text); }
+.ceb-hub-sort-manager .ceb-delta-map .btn.primary:is(:hover, :active) { background: var(--ceb-ui-primary-hover); color: var(--ceb-ui-accent-inverse); }
+.ceb-hub-sort-manager .ceb-delta-map :is(.gnode, .gd .selcard) { color: var(--delta-fg); }
+.ceb-hub-sort-manager .ceb-delta-map :is(.graph-lines path, .graph-lines path.shared) { opacity: 1; stroke-width: 1.5; }
+.ceb-hub-sort-manager .ceb-delta-map :is(.delta-graph-edge, .delta-graph-edge.is-near) { stroke: var(--ceb-aa-line, var(--delta-fg)); opacity: 1; }
+.ceb-hub-sort-manager .ceb-delta-map .delta-graph-edge--link { stroke: var(--delta-accent); stroke-dasharray: 6 3; }
+.ceb-hub-sort-manager .ceb-delta-map .delta-graph-node :is(.delta-graph-shape, .delta-graph-label),
+.ceb-hub-sort-manager .ceb-delta-map :is(.delta-graph-svg.has-focus, .delta-graph-svg.has-search) .delta-graph-node:not(.is-near):not(.is-match) { opacity: 1; }
+.ceb-hub-sort-manager .ceb-delta-map .gd-rel h4 span { opacity: 1; }
+.ceb-hub-sort-manager .ceb-delta-map .delta-graph-node:focus-visible { outline: none; }
+.ceb-hub-sort-manager .ceb-delta-map .delta-graph-node:focus-visible .delta-graph-shape { stroke: var(--delta-fg); stroke-width: 3px; vector-effect: non-scaling-stroke; }
+.ceb-hub-sort-manager .ceb-delta-map .delta-graph-node:focus-visible .delta-graph-label { text-decoration: underline; }
+@media (forced-colors: active) {
+  :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :focus-visible { outline-color: Highlight; box-shadow: none; }
+  .ceb-delta-map :is(.delta-graph-shape, .delta-graph-label) { fill: CanvasText; }
+  .ceb-delta-map :is(.delta-graph-edge, .graph-lines path) { stroke: CanvasText; }
+}
+
+.ceb-hub-sort-manager .ceb-hub-sort-manager-nav-button[aria-current="page"] { box-shadow: inset 3px 0 var(--ceb-ui-accent); font-weight: 700; }
+.ceb-hub-sort-manager .ceb-delta-map .gnode:focus-visible { outline: 2px solid var(--delta-fg); outline-offset: 3px; }
+
+/* Full-strength labels, including Bricks' generic label rules in light mode. */
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) label { color: var(--ceb-ui-text); }
+.ceb-hub-sort-manager .ceb-content-type-label { color: var(--ceb-ui-text); }
+.ceb-hub-sort-manager {
+  --ceb-ui-control-bg: color-mix(in srgb, var(--ceb-ui-surface-soft), var(--builder-color, #e1e1e5) 4%);
+  --ceb-ui-hover-bg: color-mix(in srgb, var(--ceb-ui-surface-soft), var(--builder-color, #e1e1e5) 12%);
+  --ceb-ui-primary-hover: var(--ceb-aa-primary-hover, var(--ceb-ui-accent));
+}
+.ceb-hub-sort-manager .ceb-hub-sort-button:not([data-custom-colors="true"]):not(.ceb-hub-sort-heading):not(.ceb-hub-sort-expand):not(.ceb-hub-sort-trash):not(.ceb-hub-sort-manager-nav-button):not([type="submit"]) { background-color: var(--ceb-ui-control-bg); }
+.ceb-hub-sort-manager .ceb-hub-sort-button:not([data-custom-colors="true"]):not(.ceb-hub-sort-heading):not(.ceb-hub-sort-trash):not([type="submit"]):is(:hover, :active) { background-color: var(--ceb-ui-hover-bg); }
+.ceb-hub-sort-manager .ceb-delta-map :is(.btn, .delta-graph-tool, .delta-graph-chip, .delta-graph-switch, .gd-rel button) { background-color: var(--ceb-ui-control-bg); }
+.ceb-hub-sort-manager .ceb-delta-map :is(.btn, .delta-graph-tool, .delta-graph-chip, .delta-graph-switch, .gd-rel button):is(:hover, :active) { background: var(--ceb-ui-hover-bg); color: var(--ceb-ui-text); }
+.ceb-hub-sort-manager .ceb-delta-map .btn.primary { background: var(--ceb-ui-accent); color: var(--ceb-ui-accent-inverse); }
+.ceb-hub-sort-manager .ceb-delta-map .btn.primary:is(:hover, :active) { background: var(--ceb-ui-primary-hover); color: var(--ceb-ui-accent-inverse); }
+.ceb-hub-sort-manager .ceb-delta-map .delta-graph-svg:is(.has-focus, .has-search) .delta-graph-edge { opacity: 1; }
+.ceb-hub-sort-manager .ceb-delta-map :is(.delta-graph-node, .delta-graph-label, .delta-graph-edge) { transition: none; }
+
+.ceb-hub-sort-themed[data-custom-colors="true"]:is(:hover, :active) { background: var(--ceb-button-hover, var(--ceb-button-bg)) !important; }
+.ceb-hub-sort-manager .ceb-delta-map .graph-legend .dot.page { background: var(--delta-muted); }
+
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) .ceb-hub-sort-dialog-actions button[type="submit"] { background: var(--ceb-ui-accent); color: var(--ceb-ui-accent-inverse); }
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) .ceb-hub-sort-dialog-actions button[type="submit"]:is(:hover, :active) { background: var(--ceb-aa-primary-hover, var(--ceb-ui-accent)); color: var(--ceb-ui-accent-inverse); }
