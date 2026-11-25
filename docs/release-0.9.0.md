@@ -18,7 +18,7 @@ The attached Editorial Title 1.4.0 ZIP could not be downloaded because the trans
 
 | Check | Result |
 | --- | --- |
-| Official WordPress.org readme validator in authenticated Edge | No errors or warnings; optional notes for missing screenshots section and donation link |
+| Official WordPress.org readme validator in authenticated Edge | Congratulations! No errors found; previous screenshot and donation notes resolved |
 | Plugin Check 2.2.0 on the production package, new-plugin mode, all default categories | No reported errors or warnings; no custom file/category exclusions |
 | PHP/application JavaScript syntax and color regressions | Passed |
 | WordPress 7.0.1 / PHP 8.4 / SQLite | 37 REST/permission assertions and 10 graph/cache assertions passed |
@@ -44,14 +44,16 @@ There are no blanket PHPCS disables or Plugin Check category/code exclusions. Th
 ## Package
 
 - File: `content-explorer-for-bricks-0.9.0.zip`.
-- Size: 163,396 bytes (about 160 KiB).
+- Size: 163,522 bytes.
 - Files: 61, under the single `content-explorer-for-bricks/` directory.
-- SHA-256: `04b9bf4b157283dc53f794b1430702e97128e9b7916b839e0f13f7684091c018`.
+- SHA-256: `fb77a1bdf22f96ad33fb0ddfe0ce2e4755146f7ca34733bd5e9ac3a99111bf9f`.
 - Includes runtime PHP/JS/CSS/SVGs, local vendor assets, licenses, notices, and vendor source/rebuild information.
 - Excludes Git/SVN metadata, tests, build scripts, documentation, credentials, databases, and archives.
 - Bricks Builder is not bundled. Its icon loads from the installed theme. No external updater is included. Without Bricks, the icon preview uses a bundled local fallback; the WordPress-only bootstrap and authorized content API were checked separately.
 
 Machine-readable before/after Plugin Check results and the package manifest are retained in the workspace's `outputs/0.9.0-validation` directory.
+
+Directory screenshots are tracked in `docs/screenshots/` and ready for the SVN top-level `assets/` directory after approval. They are not bundled into the installable ZIP. GitHub and directory descriptions match verbatim, verified by `scripts/sync-readme.py --check`. Donation metadata points to the supplied Buy Me a Coffee URL. Ongoing reference notes are maintained in `notes.md`.
 
 ## Publishing preflight
 

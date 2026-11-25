@@ -12,7 +12,7 @@ with ZipFile(output, 'w', ZIP_DEFLATED) as archive:
         relative = path.relative_to(root)
         if not path.is_file() or relative.parts[0] in {'.git', '.github', 'scripts', 'tests', 'docs'}:
             continue
-        if relative.parts[0].startswith('.') or path.suffix == '.zip' or str(relative) in {'AGENTS.md', 'README.md'}:
+        if relative.parts[0].startswith('.') or path.suffix == '.zip' or str(relative) in {'AGENTS.md', 'README.md', 'notes.md'}:
             continue
         archive.write(path, Path(root.name) / relative)
 print(output)

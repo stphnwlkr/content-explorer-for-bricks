@@ -1,5 +1,6 @@
 === Content Explorer for Bricks ===
 Contributors: stphnwlkr
+Donate link: https://buymeacoffee.com/mjdwdceq0j
 Tags: content, admin, bricks, search, taxonomy
 Requires at least: 7.0
 Tested up to: 7.2
@@ -50,6 +51,12 @@ Source, development history, and issue tracking are available at https://github.
 = Is there a warranty? =
 
 The plugin is provided as is, without warranty of any kind. See the included GPL license for the full terms.
+
+== Screenshots ==
+
+1. Search and manage content directly inside the Bricks workspace.
+2. Update titles, slugs, status, dates, and parents with Quick edit.
+3. Explore the site map with content-type filters, zoom controls, and item details.
 
 == Upgrade Notice ==
 

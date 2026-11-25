@@ -1,8 +1,38 @@
 # Content Explorer for Bricks
 
-A Bricks Builder adaptation of [Content Explorer for Etch 2.2.2](https://github.com/stphnwlkr/etch-content-hub-sort/releases/tag/v2.2.2), pinned to commit `10391f183507da71d51f58ac44b4963f47deab68`.
+Browse, search, edit, and map WordPress content from a workspace for Bricks Builder.
+
+<!-- wporg-description:start -->
+Content Explorer for Bricks provides searchable content lists, hierarchy, sorting, pagination, quick editing, taxonomy tools, and visual maps of saved links and shared resources.
+
+Open Content Explorer in WordPress administration or use the compass and connections icons in the Bricks toolbar. Builder links open another tab to preserve the current document's unsaved work.
+
+The Bricks adapter reads saved element metadata for internal links, literal local URLs, rich text links, and Template elements. It does not execute dynamic data, loops, shortcodes, or custom code. ACF and Meta Box relationship fields are supported where installed.
+
+Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components and condition-based template assignments are not included. Bricks Builder is not bundled. This plugin is not affiliated with or endorsed by Bricks.
+
+All assets ship locally. There are no plugin telemetry requests, remote asset services, or external update checks. Production updates are intended for WordPress.org after directory approval.
+<!-- wporg-description:end -->
 
 WordPress.org submission candidate: **0.9.0**. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation; WordPress.org submission remains pending. See [the release verification](docs/release-0.9.0.md).
+
+## Screenshots
+
+1. Search and manage content directly inside the Bricks workspace.
+
+![Content list](docs/screenshots/screenshot-1.jpg)
+
+2. Update titles, slugs, status, dates, and parents with Quick edit.
+
+![Quick edit](docs/screenshots/screenshot-2.jpg)
+
+3. Explore the site map with content-type filters, zoom controls, and item details.
+
+![Site map](docs/screenshots/screenshot-3.jpg)
+
+## Support this plugin
+
+[Buy Stephen a coffee](https://buymeacoffee.com/mjdwdceq0j).
 
 ## Use
 
@@ -24,6 +54,10 @@ The original explorer layout and compass/connections icons are retained. Colors,
 - Native toolbar placement is verified on the test site; more Bricks versions and toolbar configurations need coverage.
 - Cursor scans use WordPress object caching and invalidate on core post/metadata/term changes. The release report records the narrow, reviewed database-query analyzer annotations.
 - Backend coverage includes WordPress 7.0.1, 7.1.5, and 7.2-RC3 with PHP 8.4 and SQLite. MySQL, multisite, and broader Bricks version coverage remain further testing.
+
+## Project reference
+
+See [notes.md](notes.md) for publishing details, screenshot placement, maintenance rules, and open coverage. The directory description above is copied verbatim from `readme.txt`; run `python3 scripts/sync-readme.py --check` before releases.
 
 ## Releases
 
