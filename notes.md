@@ -80,6 +80,12 @@ Bricks' native find_template_id resolves published singular content/header/foote
 
 Assigned templates contribute Uses edges. Their saved links, including nested explicit resources (cycle protected, 100-resource cap), contribute outgoing and reverse links. Template/meta/global settings/term changes invalidate the bounded index. Index schema 4 triggers an upgrade rebuild. One narrow Plugin Check annotation documents restoration of core query globals.
 
-Installed 0.9.6 on nchv.flyingw.dev through authenticated Edge on Nov. 25, 2026. Verified About Us ID 193: Links to 7, Child pages 7, Uses 3 (About pages, Main Header, Footer), Linked from 41 after inheritance. About pages template ID 213: Used by 6. Verified identical counts through the native Bricks Current item connections toolbar. No page/template save or publish action performed. The review package on WordPress.org remains 0.9.4.
+Installed 0.9.6 on nchv.flyingw.dev through authenticated Edge on Nov. 25, 2026. Verified About Us ID 193: Links to 7, Child pages 7, Uses 3 (About pages, Main Header, Footer), Linked from 41 after inheritance. About pages template ID 213: Used by 6. Verified identical counts through the native Bricks Current item connections toolbar. No page/template save or publish action performed. The review package was subsequently replaced with 0.9.6; see the upload record below.
 
 78 backend assertions per tested WP version and full production-package Plugin Check passed. See docs/release-0.9.6.md.
+
+## WordPress.org review replacement — 0.9.6
+
+At the user's request, replaced the pending review package through authenticated Edge on Nov. 25, 2026. WordPress.org confirmed “New version of Content Explorer for Bricks uploaded for review” and listed content-explorer-for-bricks-0.9.6.zip / Version 0.9.6 as the latest submission. Status remains Awaiting Review. Versions 0.9.4 and 0.9.0 remain historical uploads.
+
+Uploaded SHA-256: bf4416c749463b7e53fd90cb91a1c43526ffdaba6ca0be01313343f84b6b7745. No SVN commit or stable release tag.

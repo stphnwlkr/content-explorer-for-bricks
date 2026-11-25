@@ -23,7 +23,7 @@ Assigned templates contribute Uses edges. Their saved links, including nested ex
 
 Singular post/page/CPT assignments are covered. Posts-page/archive URLs, popup/password-protection templates, maintenance/access-dependent rendering, and custom active-template override filters are not represented as fixed assignments. Multilingual and visitor-dependent integrations need further live coverage. No content/loop/shortcode/dynamic-data rendering occurs. Theme condition hooks may still run as part of native matching. Backend coverage uses SQLite; MySQL, multisite, and broader Bricks versions remain additional coverage.
 
-Installed on the NCHV test site. WordPress.org review upload remains 0.9.4; no SVN or stable tag published.
+Installed on the NCHV test site. Uploaded as the replacement WordPress.org review package on Nov. 25, 2026, at the user’s request. WordPress.org confirmed “New version of Content Explorer for Bricks uploaded for review” and listed 0.9.6 as the latest submitted version. Status remains Awaiting Review; no SVN or stable tag published.
 
 ZIP: `content-explorer-for-bricks-0.9.6.zip`.
 SHA-256: `bf4416c749463b7e53fd90cb91a1c43526ffdaba6ca0be01313343f84b6b7745`.
