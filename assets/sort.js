@@ -223,7 +223,11 @@
     settingsManager.showSection(section, id);
     (settingsManager.panel.classList.contains('is-menu-collapsed') ? settingsManager.menuToggle : settingsManager.back).focus();
   };
-  const activePostId = () => Number(config.currentPostId) || 0;
+  // Instant navigation changes loadData without reloading our PHP configuration.
+  // Use the editing document, never template.preview.postId (the preview content).
+  const activePostId = () => Number(config.builderContext
+    ? window.bricksData?.loadData?.postId || window.bricksData?.postId || config.currentPostId
+    : config.currentPostId) || 0;
   const openDefaultPanel = () => openContentPanel('list');
   const openSettingsPanel = () => openContentPanel('general');
   const toggleSidebarView = section => {
@@ -236,6 +240,7 @@
     openContentPanel(section, section === 'map' ? activePostId() : 0);
   };
   window.cebHubContentPanel = {
+    currentPostId: activePostId,
     open: openDefaultPanel,
     openList: () => { openContentPanel('list'); settingsManager.panel.querySelector('.ceb-hub-sort-search')?.focus(); },
     openMap: id => openContentPanel('map', Number(id) || 0),

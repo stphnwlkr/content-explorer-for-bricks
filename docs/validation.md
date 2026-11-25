@@ -1,4 +1,15 @@
-# Preview verification — 0.1.0-beta.4
+# Preview verification — 0.1.0-beta.5
+
+Verified Nov. 25, 2026 on localhost:8889, WordPress 7.2-RC3 and Bricks 2.5-beta.
+
+- Reproduced instant navigation from Sample Page (2) to Main Header (19) leaving the map centered on Sample Page under beta.4.
+- Current document resolution now uses Bricks' live loadData.postId before initial configuration. It deliberately ignores template preview content IDs.
+- Installed beta.5; repeated the native template Edit action without a page reload. Toolbar map showed Main Header / Current item ID 19, and site graph's current marker was Main Header.
+- Navigated back using native Pages; sidebar Current item mapped Sample Page / ID 2. Both navigation directions follow the active document.
+- PHP/application JavaScript syntax checks passed; isolated REST integration: **37 assertions passed**.
+- Full Plugin Check, all five categories, errors/warnings enabled, no exclusions: **0 errors, 16 inherited database warnings**. Remaining release gates below still apply.
+
+# Previous preview — 0.1.0-beta.4
 
 Verified Nov. 25, 2026 on localhost:8889, WordPress 7.2-RC3 and Bricks 2.5-beta.
 

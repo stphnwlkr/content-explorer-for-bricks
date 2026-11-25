@@ -41,7 +41,7 @@
     const aside = el('aside','ceb-delta-detail'); aside.setAttribute('aria-label',__('Map details','content-explorer-for-bricks'));
     const tabs = el('div','intabs map-tabs'); tabs.setAttribute('role','tablist'); tabs.setAttribute('aria-label',__('Map views','content-explorer-for-bricks'));
     const tabGroup=el('div','intab-group');
-    const editorItemId=Number(config.currentPostId)||pageId;
+    const editorItemId=window.cebHubContentPanel.currentPostId()||pageId;
     let mappedItemId = pageId;
     const pageTab=button(pageId===editorItemId?__('Current item','content-explorer-for-bricks'):__('Selected item','content-explorer-for-bricks'),()=>loadPage(mappedItemId),'intab');
     const siteTab=button(__('Site','content-explorer-for-bricks'),()=>loadSite(),'intab');

@@ -2,7 +2,7 @@
 
 A Bricks Builder adaptation of [Content Explorer for Etch 2.2.2](https://github.com/stphnwlkr/etch-content-hub-sort/releases/tag/v2.2.2), pinned to commit `10391f183507da71d51f58ac44b4963f47deab68`.
 
-Initial development preview: **0.1.0-beta.4**. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. This is not yet a WordPress.org submission candidate.
+Initial development preview: **0.1.0-beta.5**. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. This is not yet a WordPress.org submission candidate.
 
 ## Use
 

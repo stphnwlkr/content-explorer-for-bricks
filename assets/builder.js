@@ -68,7 +68,7 @@
     button.addEventListener('click', () => {
       const api = window.cebHubContentPanel;
       if (button.getAttribute('aria-expanded') === 'true') api.close();
-      else if (section === 'map') api.openMap(config.currentPostId);
+      else if (section === 'map') api.openMap(api.currentPostId());
       else api.openList();
     });
     buttons.set(section, button);
