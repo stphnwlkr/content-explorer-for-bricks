@@ -4,7 +4,7 @@ Verified Nov. 25, 2026. No stable release or WordPress.org submission has been m
 
 ## Completed
 
-- Installed and activated on the requested localhost:8889 test site. The site updated from WordPress 7.2-RC2 to 7.2-RC3 during this session; final browser checks used RC3.
+- Installed and activated on the requested localhost:8889 test site with Bricks 2.5-beta. The site updated from WordPress 7.2-RC2 to 7.2-RC3 during this session; final browser checks used RC3.
 - PHP 8.4.27 isolated integration run: **37 assertions passed**. Covers Bricks links, explicit Template element usage, index refresh/removal on metadata changes, formatted titles, page/template lists, creation, quick edit, taxonomy creation, item map data, and denial of reads/writes for anonymous users and subscribers.
 - Isolated tests used a separate writable copy of the database, not the running site's data.
 - All PHP files and application JavaScript passed syntax checks.
