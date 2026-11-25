@@ -5,7 +5,7 @@ Tags: content, admin, bricks, search, taxonomy
 Requires at least: 7.0
 Tested up to: 7.2
 Requires PHP: 8.4
-Stable tag: 0.9.2
+Stable tag: 0.9.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -60,6 +60,9 @@ The plugin is provided as is, without warranty of any kind. See the included GPL
 
 == Upgrade Notice ==
 
+= 0.9.3 =
+Correct button interaction styling to follow the Bricks interface theme.
+
 = 0.9.2 =
 Improve dropdown caret spacing throughout Content Explorer.
 
@@ -70,6 +73,9 @@ Fix Quick edit form field contrast in WordPress administration.
 First WordPress.org submission candidate, including the Bricks workspace, saved-content maps, content management, and native theme integration.
 
 == Changelog ==
+
+= 0.9.3 =
+* Match button hover, focus, and active states to the Bricks accent and inverse colors, including WordPress edit links.
 
 = 0.9.2 =
 * Inset dropdown carets consistently across lists, settings, Quick edit, and maps, including right-to-left layouts.

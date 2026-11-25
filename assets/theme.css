@@ -130,12 +130,9 @@
 .ceb-hub-sort-manager .ceb-hub-sort-status-select[data-status-kind="custom"] { color: var(--ceb-status-custom-picker-text); }
 .ceb-hub-sort-manager .ceb-hub-sort-trash:not([data-custom-colors="true"]) { color: var(--ceb-aa-danger-text, var(--ceb-ui-text)); }
 .ceb-hub-sort-manager .ceb-hub-sort-trash:not([data-custom-colors="true"]):hover { background: var(--ceb-ui-danger-bg); }
-.ceb-hub-sort-manager .ceb-hub-sort-button:not([data-custom-colors="true"]):not(.ceb-hub-sort-heading):not(.ceb-hub-sort-trash):not([type="submit"]):hover { background-color: var(--ceb-ui-hover-bg); color: var(--ceb-ui-text); }
 .ceb-hub-sort-manager .ceb-content-menu-toggle { display: inline-flex; align-items: center; justify-content: center; text-align: center; }
 .ceb-hub-sort-manager .ceb-delta-map :is(.delta-graph-chip, .delta-graph-switch):is(:hover, [aria-pressed="false"]) { opacity: 1; }
 .ceb-hub-sort-manager .ceb-delta-map :is(.delta-graph-chip[aria-pressed="false"] .delta-graph-chip__dot, .delta-graph-switch[aria-pressed="false"] .delta-graph-key) { opacity: 1; }
-.ceb-hub-sort-manager .ceb-delta-map :is(.delta-graph-chip, .delta-graph-switch, .btn, .delta-graph-tool, .gd-rel button):is(:hover, :active) { background: var(--ceb-ui-hover-bg); color: var(--ceb-ui-text); }
-.ceb-hub-sort-manager .ceb-delta-map .btn.primary:is(:hover, :active) { background: var(--ceb-ui-primary-hover); color: var(--ceb-ui-accent-inverse); }
 .ceb-hub-sort-manager .ceb-delta-map :is(.gnode, .gd .selcard) { color: var(--delta-fg); }
 .ceb-hub-sort-manager .ceb-delta-map :is(.graph-lines path, .graph-lines path.shared) { opacity: 1; stroke-width: 1.5; }
 .ceb-hub-sort-manager .ceb-delta-map :is(.delta-graph-edge, .delta-graph-edge.is-near) { stroke: var(--ceb-aa-line, var(--delta-fg)); opacity: 1; }
@@ -163,12 +160,9 @@
   --ceb-ui-hover-bg: color-mix(in srgb, var(--ceb-ui-surface-soft), var(--builder-color, #e1e1e5) 12%);
   --ceb-ui-primary-hover: var(--ceb-aa-primary-hover, var(--ceb-ui-accent));
 }
-.ceb-hub-sort-manager .ceb-hub-sort-button:not([data-custom-colors="true"]):not(.ceb-hub-sort-heading):not(.ceb-hub-sort-expand):not(.ceb-hub-sort-trash):not(.ceb-hub-sort-manager-nav-button):not([type="submit"]) { background-color: var(--ceb-ui-control-bg); }
-.ceb-hub-sort-manager .ceb-hub-sort-button:not([data-custom-colors="true"]):not(.ceb-hub-sort-heading):not(.ceb-hub-sort-trash):not([type="submit"]):is(:hover, :active) { background-color: var(--ceb-ui-hover-bg); }
+.ceb-hub-sort-manager .ceb-hub-sort-button:where(:not([data-custom-colors="true"]):not(.ceb-hub-sort-heading):not(.ceb-hub-sort-expand):not(.ceb-hub-sort-trash):not(.ceb-hub-sort-manager-nav-button):not([type="submit"])) { background-color: var(--ceb-ui-control-bg); }
 .ceb-hub-sort-manager .ceb-delta-map :is(.btn, .delta-graph-tool, .delta-graph-chip, .delta-graph-switch, .gd-rel button) { background-color: var(--ceb-ui-control-bg); }
-.ceb-hub-sort-manager .ceb-delta-map :is(.btn, .delta-graph-tool, .delta-graph-chip, .delta-graph-switch, .gd-rel button):is(:hover, :active) { background: var(--ceb-ui-hover-bg); color: var(--ceb-ui-text); }
 .ceb-hub-sort-manager .ceb-delta-map .btn.primary { background: var(--ceb-ui-accent); color: var(--ceb-ui-accent-inverse); }
-.ceb-hub-sort-manager .ceb-delta-map .btn.primary:is(:hover, :active) { background: var(--ceb-ui-primary-hover); color: var(--ceb-ui-accent-inverse); }
 .ceb-hub-sort-manager .ceb-delta-map .delta-graph-svg:is(.has-focus, .has-search) .delta-graph-edge { opacity: 1; }
 .ceb-hub-sort-manager .ceb-delta-map :is(.delta-graph-node, .delta-graph-label, .delta-graph-edge) { transition: none; }
 
@@ -176,7 +170,6 @@
 .ceb-hub-sort-manager .ceb-delta-map .graph-legend .dot.page { background: var(--delta-muted); }
 
 :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) .ceb-hub-sort-dialog-actions button[type="submit"] { background: var(--ceb-ui-accent); color: var(--ceb-ui-accent-inverse); }
-:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) .ceb-hub-sort-dialog-actions button[type="submit"]:is(:hover, :active) { background: var(--ceb-aa-primary-hover, var(--ceb-ui-accent)); color: var(--ceb-ui-accent-inverse); }
 
 @media (forced-colors: active) {
   :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) select:not([multiple]):not([size]) {
@@ -184,4 +177,39 @@
     appearance: auto;
     background-image: none;
   }
+}
+
+/* Bricks panel buttons use the accent/inverse pair for hover, focus, and active.
+   Include link-backed actions: WP admin otherwise supplies its blue link focus.
+   Keep graph nodes separate from controls and preserve explicit saved colors. */
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :is(
+  .ceb-hub-sort-button, .ceb-content-menu-toggle, .ceb-hub-sort-manager-nav-button,
+  .ceb-hub-sort-dialog-actions button, .ceb-delta-map .btn,
+  .ceb-delta-map .delta-graph-tool, .ceb-delta-map .delta-graph-chip,
+  .ceb-delta-map .delta-graph-switch, .ceb-delta-map .gd-rel button, summary
+):where(:not([data-custom-colors="true"]):not(:disabled):not([aria-disabled="true"])):is(:hover, :focus, :active) {
+  background-color: var(--ceb-ui-accent);
+  color: var(--ceb-ui-accent-inverse);
+  border-color: var(--ceb-ui-accent);
+  text-decoration: none;
+  filter: none;
+  transition: none;
+}
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :is(button, a.ceb-hub-sort-button, summary):focus {
+  box-shadow: none;
+  outline: none;
+}
+:is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :is(button, a.ceb-hub-sort-button, summary):focus-visible {
+  outline: 2px solid var(--ceb-ui-accent);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+/* Keep destructive actions recognizable while using native danger tokens. */
+.ceb-hub-sort-manager .ceb-hub-sort-trash:not([data-custom-colors="true"]):is(:hover, :focus, :active) {
+  background-color: var(--ceb-ui-danger-bg);
+  color: var(--ceb-aa-danger-text, var(--ceb-ui-text));
+  border-color: var(--ceb-ui-danger);
+}
+@media (forced-colors: active) {
+  :is(.ceb-hub-sort-manager, .ceb-hub-sort-dialog) :is(button, a.ceb-hub-sort-button, summary):focus-visible { outline-color: Highlight; }
 }
