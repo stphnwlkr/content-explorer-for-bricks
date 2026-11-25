@@ -1,3 +1,7 @@
+# 0.9.5 Hierarchy and menu connections
+
+See [release-0.9.5.md](release-0.9.5.md). Parent/direct-child groups and assigned navigation menu links passed 62 backend assertions per tested WordPress version, all default production-package Plugin Check categories with no findings, syntax and color regression checks. Exact ZIP installed on localhost:8889; parent/child navigation and reparent restoration verified in WP admin, and map loading verified inside Bricks. No live NCHV update or new WordPress.org upload for this candidate.
+
 # 0.9.4 Map search styling
 
 See [release-0.9.4.md](release-0.9.4.md) for the installed-package checks. PHP/JavaScript syntax, 128 color-pair regressions, 37 REST/permission assertions, and full production-package Plugin Check passed.

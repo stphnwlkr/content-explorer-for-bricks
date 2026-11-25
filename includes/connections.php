@@ -69,9 +69,9 @@ final class CEB_Hub_Connections {
 	/** Keyset batches keep large sites out of a single request. Safe to repeat after interruption. */
 	private static function batch(): bool {
 		global $wpdb;
-		if ( 2 !== (int) get_option( 'ceb_hub_map_index_version', 0 ) ) {
+		if ( 3 !== (int) get_option( 'ceb_hub_map_index_version', 0 ) ) {
 			delete_option( self::CURSOR );
-			update_option( 'ceb_hub_map_index_version', 2, false );
+			update_option( 'ceb_hub_map_index_version', 3, false );
 		}
 		$cursor = (int) get_option( self::CURSOR, 0 );
 		if ( -1 === $cursor ) { return true; }
@@ -260,11 +260,20 @@ final class CEB_Hub_Connections {
 				if ( ! isset( $seen[ $part ] ) ) { $uses[] = $part; $queue[] = $part; }
 			}
 		}
+		// WordPress hierarchy is structural, independent of links in saved content.
+		$hierarchy = is_post_type_hierarchical( $center['post_type'] );
+		$parents = $hierarchy && $center['parent'] ? $nodes( array( $center['parent'] ) ) : array();
+		$children = $hierarchy ? $nodes( get_posts( array(
+			'post_type' => $center['post_type'], 'post_parent' => $id,
+			'post_status' => array_keys( get_post_stati() ), 'posts_per_page' => 501,
+			'fields' => 'ids', 'no_found_rows' => true,
+			'orderby' => array( 'menu_order' => 'ASC', 'title' => 'ASC', 'ID' => 'ASC' ),
+		) ) ) : array();
 		$from = $incoming( self::LINK );
 		$used_by = $incoming( self::USES );
 		$relationships_done = CEB_Hub_Relationships::batch();
 		$relationships = $relationships_done ? CEB_Hub_Relationships::for_post( get_post( $id ) ) : array();
-		return rest_ensure_response( array_merge( array( 'truncated' => count( $from ) > 500 || count( $used_by ) > 500 || count( $queue ) > 100, 'center' => $center, 'from' => $nodes( array_slice( $from, 0, 500 ) ), 'to' => $nodes( array_diff( $to, array( $id ) ) ), 'uses' => $nodes( array_diff( $uses, array( $id ) ) ), 'used_by' => $nodes( array_slice( $used_by, 0, 500 ) ), 'indexing' => ! $done, 'relationships_indexing' => ! $relationships_done ), $relationships ) );
+		return rest_ensure_response( array_merge( array( 'hierarchy' => $hierarchy, 'parents' => $parents, 'children' => array_slice( $children, 0, 500 ), 'hierarchy_truncated' => count( $children ) > 500, 'truncated' => count( $from ) > 500 || count( $used_by ) > 500 || count( $queue ) > 100, 'center' => $center, 'from' => $nodes( array_slice( $from, 0, 500 ) ), 'to' => $nodes( array_diff( $to, array( $id ) ) ), 'uses' => $nodes( array_diff( $uses, array( $id ) ) ), 'used_by' => $nodes( array_slice( $used_by, 0, 500 ) ), 'indexing' => ! $done, 'relationships_indexing' => ! $relationships_done ), $relationships ) );
 	}
 }
 add_action( 'save_post', array( 'CEB_Hub_Connections', 'index' ), 30 );

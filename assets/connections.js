@@ -76,10 +76,12 @@
       const card=titleCard(data.center.title,'var(--delta-ok)',sprintf(__('%1$s · ID %2$d','content-explorer-for-bricks'),subjectLabel,data.center.id));
       card.append(row(__('Content type','content-explorer-for-bricks'),data.center.type),row(__('Path','content-explorer-for-bricks'),data.center.path||__('No public URL','content-explorer-for-bricks')),row(__('Status','content-explorer-for-bricks'),config.statusLabels?.[data.center.status]||data.center.status));
       card.append(row(__('Linked from','content-explorer-for-bricks'),sprintf(_n('%d item','%d items',data.from.length||0,'content-explorer-for-bricks'),data.from.length)),row(__('Links to','content-explorer-for-bricks'),sprintf(_n('%d item','%d items',data.to.length||0,'content-explorer-for-bricks'),data.to.length)),row(__('Uses','content-explorer-for-bricks'),sprintf(_n('%d shared part','%d shared parts',data.uses.length||0,'content-explorer-for-bricks'),data.uses.length)));
+      if(data.hierarchy){card.append(row(data.center.post_type==='page'?__('Parent page','content-explorer-for-bricks'):__('Parent item','content-explorer-for-bricks'),data.parents?.[0]?.title||__('None','content-explorer-for-bricks')),row(data.center.post_type==='page'?__('Child pages','content-explorer-for-bricks'):__('Child items','content-explorer-for-bricks'),String(data.children?.length||0)));}
       if(data.used_by?.length || data.center.kind==='shared') card.append(row(__('Used by','content-explorer-for-bricks'),sprintf(_n('%d item','%d items',data.used_by?.length||0,'content-explorer-for-bricks'),data.used_by?.length||0)));
       if(data.related_to?.length) card.append(row(outgoingRelationships,String(data.related_to.length)));
       if(data.related_from?.length) card.append(row(incomingRelationships,String(data.related_from.length)));
       details.append(card,actions(data.center,card),el('p','gd-hint',__('Click a card in the graph to see its details. Esc or the connections icon returns to the editor.','content-explorer-for-bricks')));
+      if(data.hierarchy_truncated)details.append(el('p','gd-hint',__('The map shows up to 500 direct children.','content-explorer-for-bricks')));
       if(data.truncated)details.append(el('p','gd-hint',__('This map is limited to 500 incoming connections and 100 nested shared resources. Some relationships are omitted.','content-explorer-for-bricks')));
       if(data.relationships_truncated)details.append(el('p','gd-hint',__('The map shows up to 500 related posts in each direction.','content-explorer-for-bricks')));
       for(const node of root.querySelectorAll('.gnode')) node.setAttribute('aria-pressed','false');
@@ -137,10 +139,13 @@
         render();return section;
       };
       const center=el('div','gcol center');center.append(pageCard(data.center,'',true));
-      const incoming=el('div','gcol from');incoming.append(group('from',__('Linked from','content-explorer-for-bricks')));
+      const incoming=el('div','gcol from');
+      if(data.parents?.length)incoming.append(group('parents',data.center.post_type==='page'?__('Parent page','content-explorer-for-bricks'):__('Parent item','content-explorer-for-bricks')));
+      incoming.append(group('from',__('Linked from','content-explorer-for-bricks')));
       if(data.used_by?.length||data.center.kind==='shared')incoming.append(group('used_by',__('Used by','content-explorer-for-bricks')));
       if(data.related_from?.length)incoming.append(group('related_from',incomingRelationships));
       const outgoing=el('div','gcol to');outgoing.append(group('to',__('Links to','content-explorer-for-bricks')));
+      if(data.children?.length)outgoing.append(group('children',data.center.post_type==='page'?__('Child pages','content-explorer-for-bricks'):__('Child items','content-explorer-for-bricks')));
       if(data.related_to?.length)outgoing.append(group('related_to',outgoingRelationships));
       const uses=el('div','gcol uses row');uses.append(group('uses',__('Uses','content-explorer-for-bricks')));
       center.append(uses);grid.append(incoming,center,outgoing);canvas.append(grid);stage.replaceChildren(canvas);

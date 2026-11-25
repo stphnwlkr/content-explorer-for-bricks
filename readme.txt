@@ -5,7 +5,7 @@ Tags: content, admin, bricks, search, taxonomy
 Requires at least: 7.0
 Tested up to: 7.2
 Requires PHP: 8.4
-Stable tag: 0.9.4
+Stable tag: 0.9.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,11 +13,11 @@ Browse, search, edit, and map WordPress content from a workspace for Bricks Buil
 
 == Description ==
 
-Content Explorer for Bricks provides searchable content lists, hierarchy, sorting, pagination, quick editing, taxonomy tools, and visual maps of saved links and shared resources.
+Content Explorer for Bricks provides searchable content lists, hierarchy, sorting, pagination, quick editing, taxonomy tools, and visual maps of saved links, parent/child hierarchy, and shared resources.
 
 Open Content Explorer in WordPress administration or use the compass and connections icons in the Bricks toolbar. Builder links open another tab to preserve the current document's unsaved work.
 
-The Bricks adapter reads saved element metadata for internal links, literal local URLs, rich text links, and Template elements. It does not execute dynamic data, loops, shortcodes, or custom code. ACF and Meta Box relationship fields are supported where installed.
+The Bricks adapter reads saved element metadata for internal links, literal local URLs, rich text links, assigned WordPress navigation menu items, and Template elements. It does not execute dynamic data, loops, shortcodes, or custom code. ACF and Meta Box relationship fields are supported where installed.
 
 Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components and condition-based template assignments are not included. Bricks Builder is not bundled. This plugin is not affiliated with or endorsed by Bricks.
 
@@ -60,6 +60,9 @@ The plugin is provided as is, without warranty of any kind. See the included GPL
 
 == Upgrade Notice ==
 
+= 0.9.5 =
+Include assigned navigation menu links in Bricks content connections.
+
 = 0.9.4 =
 Fix the nested field appearance in map search.
 
@@ -76,6 +79,11 @@ Fix Quick edit form field contrast in WordPress administration.
 First WordPress.org submission candidate, including the Bricks workspace, saved-content maps, content management, and native theme integration.
 
 == Changelog ==
+
+= 0.9.5 =
+* Show parent and direct child relationships separately from content links in item maps.
+* Include page and local custom links from WordPress menus assigned to Bricks Nav Menu elements.
+* Refresh menu-derived connections after menu edits and rebuild older connection indexes automatically.
 
 = 0.9.4 =
 * Style map search as one native-themed control without a nested input background or focus ring.

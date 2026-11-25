@@ -7,7 +7,7 @@
 - Author URL: https://profiles.wordpress.org/stphnwlkr/
 - Plugin URL and public source: https://github.com/stphnwlkr/content-explorer-for-bricks
 - Donation URL: https://buymeacoffee.com/mjdwdceq0j
-- Current code: 0.9.4 (Quick edit contrast, caret spacing, native button states, and composite map search styling); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
+- Current code: 0.9.5 (parent/child connections and assigned navigation menu links); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
 - Retain GPL-3.0-or-later and third-party notices inherited from Content Explorer for Etch 2.2.2 (baseline commit `10391f183507da71d51f58ac44b4963f47deab68`).
 - No external updater, telemetry, remote fonts, or bundled Bricks theme code.
 
@@ -65,3 +65,11 @@ The map search wrapper owns its background, border, and focus indicator; the inn
 Replaced the pending review package with `content-explorer-for-bricks-0.9.4.zip` through authenticated Edge at the user’s request. WordPress.org displayed “New version of Content Explorer for Bricks uploaded for review” and listed 0.9.4 as the latest submitted file. Status remains Awaiting Review; 0.9.0 remains in submission history.
 
 Uploaded SHA-256: `a73e7b87f0a63302cbb7a5052270909618f4516aa35ea3025ab444e7d288dcfb`. No SVN commit or public stable release has occurred.
+
+## 0.9.5 Hierarchy and navigation menu connections
+
+Item maps now show WordPress parent and direct-child relationships in separate groups. These are structural relationships, not fabricated content links. Hierarchical custom post types use Parent item / Child items labels. Results remain permission-filtered, exclude unsupported statuses, and show at most 500 direct children. Site maps already included parent edges.
+
+Bricks Nav Menu elements with a saved numeric menu ID index post-type menu items and local custom URLs. External links, taxonomy menu items, archives, dynamically selected menus, and dynamically generated menu entries are outside this adapter. Menu edits/removal/membership changes reset the bounded index cursor; index schema 3 forces a rebuild on upgrade.
+
+Validation: 62 assertions per WordPress version (7.0.1, 7.1.5, 7.2-RC3), full production-package Plugin Check with no findings, syntax and color checks. Installed on localhost:8889; verified parent/child groups and restoration after a temporary local reparent, plus native Bricks map opening. See docs/release-0.9.5.md. Live NCHV installation and WordPress.org replacement have not been performed for this candidate.

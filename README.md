@@ -3,18 +3,18 @@
 Browse, search, edit, and map WordPress content from a workspace for Bricks Builder.
 
 <!-- wporg-description:start -->
-Content Explorer for Bricks provides searchable content lists, hierarchy, sorting, pagination, quick editing, taxonomy tools, and visual maps of saved links and shared resources.
+Content Explorer for Bricks provides searchable content lists, hierarchy, sorting, pagination, quick editing, taxonomy tools, and visual maps of saved links, parent/child hierarchy, and shared resources.
 
 Open Content Explorer in WordPress administration or use the compass and connections icons in the Bricks toolbar. Builder links open another tab to preserve the current document's unsaved work.
 
-The Bricks adapter reads saved element metadata for internal links, literal local URLs, rich text links, and Template elements. It does not execute dynamic data, loops, shortcodes, or custom code. ACF and Meta Box relationship fields are supported where installed.
+The Bricks adapter reads saved element metadata for internal links, literal local URLs, rich text links, assigned WordPress navigation menu items, and Template elements. It does not execute dynamic data, loops, shortcodes, or custom code. ACF and Meta Box relationship fields are supported where installed.
 
 Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components and condition-based template assignments are not included. Bricks Builder is not bundled. This plugin is not affiliated with or endorsed by Bricks.
 
 All assets ship locally. There are no plugin telemetry requests, remote asset services, or external update checks. Production updates are intended for WordPress.org after directory approval.
 <!-- wporg-description:end -->
 
-Current candidate: **0.9.4**, including Quick edit contrast, caret spacing, native button states, and unified map search styling. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the original automated scan passed, and the review package was updated to 0.9.4. Manual review is pending. See [the latest verification](docs/release-0.9.4.md) and [original submission](docs/release-0.9.0.md).
+Current candidate: **0.9.5**, adding parent/child connections and assigned Bricks navigation menu links. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the original automated scan passed, and the review package was updated to 0.9.4. Manual review is pending. Version 0.9.5 is available for testing and has not replaced that review upload. See [the latest verification](docs/release-0.9.5.md) and [original submission](docs/release-0.9.0.md).
 
 ## Screenshots
 
@@ -40,7 +40,7 @@ Install the ZIP through Plugins > Add Plugin > Upload Plugin. Open **Content Exp
 
 The inherited interface provides searchable and sortable content lists, hierarchy, pagination, column preferences, safe inline title formatting, quick edit, creation, Trash, taxonomy management, site and item maps, supported ACF/Meta Box relationships, and settings transfer. Capabilities and REST nonces protect data and changes. Only administrators can change site settings. Editor choices affect shortcuts; they do not change a user's permissions.
 
-Bricks template posts are available in List. Editor shortcuts respect Bricks' enabled post types and builder capabilities. Saved internal links, literal local URLs, rich text links, and Template elements in Bricks content/header/footer metadata contribute to the map index. Metadata saves update the index after Bricks saves its elements.
+Bricks template posts are available in List. Editor shortcuts respect Bricks' enabled post types and builder capabilities. Saved internal links, literal local URLs, rich text links, assigned navigation menu items, and Template elements in Bricks content/header/footer metadata contribute to the map index. Metadata saves update the index after Bricks saves its elements. Menu edits trigger a bounded index rebuild. Item maps show direct parent and child relationships separately from saved links.
 
 ## Appearance
 

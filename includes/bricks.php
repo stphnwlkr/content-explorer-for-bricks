@@ -35,6 +35,18 @@ function ceb_hub_bricks_connections( int $post_id ): array {
 				continue;
 			}
 			$settings = $element['settings'] ?? array();
+			// A Nav Menu stores a menu term ID, not the links themselves.
+			// Read saved items only; do not render the menu or run Bricks dynamic data.
+			if ( 'nav-menu' === ( $element['name'] ?? '' ) && is_numeric( $settings['menu'] ?? null ) ) {
+				$items = wp_get_nav_menu_items( absint( $settings['menu'] ) );
+				foreach ( $items ?: array() as $item ) {
+					if ( 'post_type' === $item->type ) {
+						$result['links'][] = absint( $item->object_id );
+					} elseif ( 'custom' === $item->type ) {
+						$result['links'][] = CEB_Hub_Connections::target( (string) $item->url );
+					}
+				}
+			}
 			if ( 'template' === ( $element['name'] ?? '' ) && is_numeric( $settings['template'] ?? null ) ) {
 				$result['uses'][] = absint( $settings['template'] );
 			}
@@ -71,7 +83,7 @@ function ceb_hub_admin_page(): void {
 add_action( 'admin_enqueue_scripts', static function ( string $hook ): void {
 	if ( 'toplevel_page_content-explorer-for-bricks' === $hook ) {
 		ceb_hub_enqueue_explorer();
-		wp_enqueue_style( 'ceb-admin', plugins_url( '../assets/admin.css', __FILE__ ), array( 'content-explorer-for-bricks' ), '0.9.4' );
+		wp_enqueue_style( 'ceb-admin', plugins_url( '../assets/admin.css', __FILE__ ), array( 'content-explorer-for-bricks' ), '0.9.5' );
 	}
 } );
 
@@ -80,6 +92,21 @@ add_action( 'wp_enqueue_scripts', static function (): void {
 		return;
 	}
 	ceb_hub_enqueue_explorer();
-	wp_enqueue_style( 'ceb-builder', plugins_url( '../assets/builder.css', __FILE__ ), array( 'content-explorer-for-bricks' ), '0.9.4' );
-	wp_enqueue_script( 'ceb-builder', plugins_url( '../assets/builder.js', __FILE__ ), array( 'content-explorer-for-bricks', 'ceb-hub-connections' ), '0.9.4', true );
+	wp_enqueue_style( 'ceb-builder', plugins_url( '../assets/builder.css', __FILE__ ), array( 'content-explorer-for-bricks' ), '0.9.5' );
+	wp_enqueue_script( 'ceb-builder', plugins_url( '../assets/builder.js', __FILE__ ), array( 'content-explorer-for-bricks', 'ceb-hub-connections' ), '0.9.5', true );
 }, 100 );
+
+/** Menu edits change every document using that menu; refresh in bounded batches. */
+function ceb_hub_bricks_menu_changed(): void {
+	delete_option( 'ceb_hub_map_cursor_v1' );
+}
+add_action( 'wp_update_nav_menu', 'ceb_hub_bricks_menu_changed' );
+add_action( 'wp_update_nav_menu_item', 'ceb_hub_bricks_menu_changed' );
+add_action( 'wp_delete_nav_menu', 'ceb_hub_bricks_menu_changed' );
+// Also cover programmatic removal/reassignment of menu-item membership.
+add_action( 'set_object_terms', static function ( $object_id, $terms, $tt_ids, $taxonomy ): void {
+	if ( 'nav_menu' === $taxonomy ) { ceb_hub_bricks_menu_changed(); }
+}, 10, 4 );
+add_action( 'deleted_term_relationships', static function ( $object_id, $tt_ids, $taxonomy ): void {
+	if ( 'nav_menu' === $taxonomy ) { ceb_hub_bricks_menu_changed(); }
+}, 10, 3 );
