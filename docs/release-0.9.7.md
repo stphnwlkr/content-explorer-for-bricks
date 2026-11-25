@@ -8,4 +8,6 @@ Validation: full production-package Plugin Check 2.2.0 found no findings; change
 
 Installed exact ZIP over 0.9.6 on nchv.flyingw.dev through Edge. Explorer displayed 0.9.7; About Us mapped seven outgoing links/seven children/three shared parts. Screenshot review confirmed blue active card, full-strength text, and purple shared templates. User approved the result. Bricks builder and custom/forced-colors browser modes were not repeated for this scoped color change; shared map CSS and computed palette tests cover the new color path.
 
-WordPress.org review upload remains 0.9.6. This ZIP has not been uploaded to WP.org.
+Replaced the pending WordPress.org review package with 0.9.7 on Nov. 25, 2026, at the user’s request. WordPress.org confirmed the new version was uploaded for review and listed the 0.9.7 ZIP as the latest file. Status remains Awaiting Review.
+
+Uploaded SHA-256: 8e9633366224a626a959d76f84b9b5c792951b2f1ca51557bc9d134e7fb7b9db.

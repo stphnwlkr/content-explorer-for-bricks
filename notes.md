@@ -93,3 +93,7 @@ Uploaded SHA-256: bf4416c749463b7e53fd90cb91a1c43526ffdaba6ca0be01313343f84b6b77
 ## 0.9.7 Active map item blue
 
 The active/current item card now uses original Etch blue (#3858e9), blended 26% into the native panel surface. Its blue border is adjusted to at least 3.1:1 against both panel and tinted card; full-strength text normalization includes the blue surface at 4.6:1. Native Bricks control accent remains independent. Installed on NCHV and visually confirmed in its About map; user approved the result (“much better”). Full Plugin Check, changed PHP/JS syntax, 37 REST/permission assertions, and color regressions passed. WP.org latest review upload remains 0.9.6.
+
+## WordPress.org review replacement — 0.9.7
+
+Uploaded the user-approved 0.9.7 ZIP at the user’s request on Nov. 25, 2026, through authenticated Edge. WordPress.org confirmed “New version of Content Explorer for Bricks uploaded for review” and listed content-explorer-for-bricks-0.9.7.zip as the latest file. Status remains Awaiting Review. SHA-256: 8e9633366224a626a959d76f84b9b5c792951b2f1ca51557bc9d134e7fb7b9db. No SVN commit or public stable release.
