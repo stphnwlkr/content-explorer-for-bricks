@@ -7,14 +7,14 @@ Content Explorer for Bricks provides searchable content lists, hierarchy, sortin
 
 Open Content Explorer in WordPress administration or use the compass and connections icons in the Bricks toolbar. Builder links open another tab to preserve the current document's unsaved work.
 
-The Bricks adapter reads saved element metadata for internal links, literal local URLs, rich text links, assigned WordPress navigation menu items, and Template elements. It does not execute dynamic data, loops, shortcodes, or custom code. ACF and Meta Box relationship fields are supported where installed.
+The Bricks adapter reads saved element metadata for internal links, literal local URLs, rich text links, assigned WordPress navigation menu items, and Template elements. Assigned singular templates contribute shared usage and inherited saved links. It does not execute dynamic data, loops, shortcodes, or custom code. ACF and Meta Box relationship fields are supported where installed.
 
-Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components and condition-based template assignments are not included. Bricks Builder is not bundled. This plugin is not affiliated with or endorsed by Bricks.
+Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components are not included. Singular content, header, and footer template assignments use Bricks condition matching; archive, popup, and password-protection template assignments are not mapped. Bricks Builder is not bundled. This plugin is not affiliated with or endorsed by Bricks.
 
 All assets ship locally. There are no plugin telemetry requests, remote asset services, or external update checks. Production updates are intended for WordPress.org after directory approval.
 <!-- wporg-description:end -->
 
-Current candidate: **0.9.5**, adding parent/child connections and assigned Bricks navigation menu links. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the original automated scan passed, and the review package was updated to 0.9.4. Manual review is pending. Version 0.9.5 is available for testing and has not replaced that review upload. See [the latest verification](docs/release-0.9.5.md) and [original submission](docs/release-0.9.0.md).
+Current candidate: **0.9.6**, adding assigned singular template mapping and inherited links. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the original automated scan passed, and the review package was updated to 0.9.4. Manual review is pending. Version 0.9.6 is installed and verified on the NCHV test site and has not replaced that review upload. See [the latest verification](docs/release-0.9.6.md) and [original submission](docs/release-0.9.0.md).
 
 ## Screenshots
 
@@ -49,7 +49,7 @@ The original explorer layout and compass/connections icons are retained. Colors,
 ## Known limits
 
 - Bricks components are option-backed objects rather than posts. Their inventory and usage need a separate adapter.
-- Condition-based header, footer, single, and archive assignments are not inferred. Explicit Template elements are indexed.
+- Singular content, header, and footer assignments use the installed Bricks condition resolver. Archive, popup, password-protection, and visitor-specific rendering overrides are not mapped. Explicit Template elements remain indexed.
 - Maps describe saved data. Dynamic URLs, query results, unsaved changes, and code execution are excluded.
 - Native toolbar placement is verified on the test site; more Bricks versions and toolbar configurations need coverage.
 - Cursor scans use WordPress object caching and invalidate on core post/metadata/term changes. The release report records the narrow, reviewed database-query analyzer annotations.

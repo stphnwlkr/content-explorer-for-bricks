@@ -7,7 +7,7 @@
 - Author URL: https://profiles.wordpress.org/stphnwlkr/
 - Plugin URL and public source: https://github.com/stphnwlkr/content-explorer-for-bricks
 - Donation URL: https://buymeacoffee.com/mjdwdceq0j
-- Current code: 0.9.5 (parent/child connections and assigned navigation menu links); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
+- Current code: 0.9.6 (singular template assignments and inherited links); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
 - Retain GPL-3.0-or-later and third-party notices inherited from Content Explorer for Etch 2.2.2 (baseline commit `10391f183507da71d51f58ac44b4963f47deab68`).
 - No external updater, telemetry, remote fonts, or bundled Bricks theme code.
 
@@ -40,7 +40,7 @@ The numbering matches `readme.txt`. After directory approval, copy these files t
 
 - Follow native Bricks theme surfaces and controls. Retain distinct original map colors, full-strength text, visible carets, centered icons, and distinct hover backgrounds.
 - Resolve the active editing document rather than preview content when mapping header/footer templates.
-- Maps index saved literal references. Bricks components and condition-based template assignments are not inferred; dynamic code, loops, and unsaved changes are not executed.
+- Maps index saved literal references. Bricks components and archive/popup/password-protection template assignments are not inferred; dynamic code, loops, and unsaved changes are not executed.
 - Backend checks covered PHP 8.4 and SQLite on WordPress 7.0.1, 7.1.5, and 7.2-RC3. Bricks smoke coverage used 2.5-beta.
 - MySQL, multisite, additional Bricks versions, forced colors, and a formal screen-reader audit remain further coverage. Recheck against WordPress 7.2 final when available.
 
@@ -73,3 +73,13 @@ Item maps now show WordPress parent and direct-child relationships in separate g
 Bricks Nav Menu elements with a saved numeric menu ID index post-type menu items and local custom URLs. External links, taxonomy menu items, archives, dynamically selected menus, and dynamically generated menu entries are outside this adapter. Menu edits/removal/membership changes reset the bounded index cursor; index schema 3 forces a rebuild on upgrade.
 
 Validation: 62 assertions per WordPress version (7.0.1, 7.1.5, 7.2-RC3), full production-package Plugin Check with no findings, syntax and color checks. Installed on localhost:8889; verified parent/child groups and restoration after a temporary local reparent, plus native Bricks map opening. See docs/release-0.9.5.md. Live NCHV installation and WordPress.org replacement have not been performed for this candidate.
+
+## 0.9.6 Singular template mapping
+
+Bricks' native find_template_id resolves published singular content/header/footer templates in a temporary post query context, restored in finally. Native condition ranking, exclusions, post IDs/descendants, post types, assigned terms, front page, and default header/footer selection apply. Page/body header/footer disable settings suppress those assignments. No frontend requests or content rendering are used. Archive/posts-page, popup, password-protection, and visitor-specific rendering overrides remain outside this mapping.
+
+Assigned templates contribute Uses edges. Their saved links, including nested explicit resources (cycle protected, 100-resource cap), contribute outgoing and reverse links. Template/meta/global settings/term changes invalidate the bounded index. Index schema 4 triggers an upgrade rebuild. One narrow Plugin Check annotation documents restoration of core query globals.
+
+Installed 0.9.6 on nchv.flyingw.dev through authenticated Edge on Nov. 25, 2026. Verified About Us ID 193: Links to 7, Child pages 7, Uses 3 (About pages, Main Header, Footer), Linked from 41 after inheritance. About pages template ID 213: Used by 6. Verified identical counts through the native Bricks Current item connections toolbar. No page/template save or publish action performed. The review package on WordPress.org remains 0.9.4.
+
+78 backend assertions per tested WP version and full production-package Plugin Check passed. See docs/release-0.9.6.md.

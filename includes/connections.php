@@ -58,8 +58,24 @@ final class CEB_Hub_Connections {
 		$relations = self::extract( $post->post_content );
 		$bricks = ceb_hub_bricks_connections( $id );
 		foreach ( array( 'links', 'uses' ) as $kind ) { $relations[ $kind ] = array_values( array_unique( array_merge( $relations[ $kind ], $bricks[ $kind ] ) ) ); }
-		$template = self::template_for( $post );
-		if ( $template ) { $relations['uses'][] = $template; }
+		$relations['uses'] = array_merge( $relations['uses'], ceb_hub_bricks_templates( $post ) );
+		// Read assigned/explicit resources directly so ID order cannot leave inherited links stale.
+		$queue = array_values( array_unique( $relations['uses'] ) );
+		$seen = array( $id => true );
+		for ( $cursor = 0; $cursor < count( $queue ) && $cursor < 100; ++$cursor ) {
+			$part = (int) $queue[ $cursor ];
+			$resource = get_post( $part );
+			if ( isset( $seen[ $part ] ) || ! $resource || in_array( $resource->post_status, array( 'trash', 'auto-draft' ), true ) ) { continue; }
+			$seen[ $part ] = true;
+			$raw = self::extract( $resource->post_content );
+			$bricks_part = ceb_hub_bricks_connections( $part );
+			$relations['links'] = array_merge( $relations['links'], $raw['links'], $bricks_part['links'] );
+			foreach ( array_merge( $raw['uses'], $bricks_part['uses'] ) as $nested ) {
+				if ( ! isset( $seen[ $nested ] ) && ! in_array( $nested, $queue, true ) ) { $queue[] = $nested; }
+			}
+		}
+		$relations['uses'] = array_values( array_unique( $relations['uses'] ) );
+		$relations['links'] = array_values( array_unique( $relations['links'] ) );
 		foreach ( array( self::LINK => 'links', self::USES => 'uses' ) as $key => $kind ) {
 			delete_post_meta( $id, $key );
 			foreach ( array_diff( $relations[ $kind ], array( $id ) ) as $target ) { add_post_meta( $id, $key, $target ); }
@@ -69,9 +85,9 @@ final class CEB_Hub_Connections {
 	/** Keyset batches keep large sites out of a single request. Safe to repeat after interruption. */
 	private static function batch(): bool {
 		global $wpdb;
-		if ( 3 !== (int) get_option( 'ceb_hub_map_index_version', 0 ) ) {
+		if ( 4 !== (int) get_option( 'ceb_hub_map_index_version', 0 ) ) {
 			delete_option( self::CURSOR );
-			update_option( 'ceb_hub_map_index_version', 3, false );
+			update_option( 'ceb_hub_map_index_version', 4, false );
 		}
 		$cursor = (int) get_option( self::CURSOR, 0 );
 		if ( -1 === $cursor ) { return true; }
@@ -224,8 +240,6 @@ final class CEB_Hub_Connections {
 		return rest_ensure_response( array( 'nodes' => $nodes, 'next_cursor' => $rows ? (int) end( $rows )->term_taxonomy_id : $after, 'done' => count( $rows ) < 100 ) );
 	}
 
-	/** Condition-based templates need request context; only explicit references are indexed. */
-	public static function template_for( WP_Post $post ): int { return 0; }
 
 	public static function connections( WP_REST_Request $request ) {
 		$id = (int) $request['id'];
@@ -242,11 +256,7 @@ final class CEB_Hub_Connections {
 		};
 		$uses = array_map( 'intval', get_post_meta( $id, self::USES ) );
 		$to = array_map( 'intval', get_post_meta( $id, self::LINK ) );
-		$body = self::template_for( get_post( $id ) );
-		if ( $body && self::node( $body ) ) {
-			$uses[] = $body;
-			$to = array_merge( $to, array_map( 'intval', get_post_meta( $body, self::LINK ) ) );
-		}
+
 		// Follow shared references without rendering content; cycles cannot recurse forever.
 		$seen = array( $id => true );
 		$queue = array_merge( array( $id ), $uses );

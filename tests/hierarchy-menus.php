@@ -63,7 +63,7 @@ try {
 	$assert( array() === ceb_hub_bricks_connections( $parent )['links'], 'Deleting a menu removes its saved-item links' );
 	update_option( 'ceb_hub_map_index_version', 2 ); update_option( 'ceb_hub_map_cursor_v1', -1 );
 	$map( $parent );
-	$assert( 3 === (int) get_option( 'ceb_hub_map_index_version' ), 'Older indexes upgrade automatically' );
+	$assert( 4 === (int) get_option( 'ceb_hub_map_index_version' ), 'Older indexes upgrade automatically' );
 	wp_set_current_user( 0 );
 	$request = new WP_REST_Request( 'GET', '/ceb-hub-sort/v1/connections/' . $parent );
 	$assert( rest_do_request( $request )->get_status() >= 400, 'Anonymous visitors cannot read hierarchy or menu connection data' );

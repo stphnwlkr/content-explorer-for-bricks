@@ -5,7 +5,7 @@ Tags: content, admin, bricks, search, taxonomy
 Requires at least: 7.0
 Tested up to: 7.2
 Requires PHP: 8.4
-Stable tag: 0.9.5
+Stable tag: 0.9.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,9 +17,9 @@ Content Explorer for Bricks provides searchable content lists, hierarchy, sortin
 
 Open Content Explorer in WordPress administration or use the compass and connections icons in the Bricks toolbar. Builder links open another tab to preserve the current document's unsaved work.
 
-The Bricks adapter reads saved element metadata for internal links, literal local URLs, rich text links, assigned WordPress navigation menu items, and Template elements. It does not execute dynamic data, loops, shortcodes, or custom code. ACF and Meta Box relationship fields are supported where installed.
+The Bricks adapter reads saved element metadata for internal links, literal local URLs, rich text links, assigned WordPress navigation menu items, and Template elements. Assigned singular templates contribute shared usage and inherited saved links. It does not execute dynamic data, loops, shortcodes, or custom code. ACF and Meta Box relationship fields are supported where installed.
 
-Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components and condition-based template assignments are not included. Bricks Builder is not bundled. This plugin is not affiliated with or endorsed by Bricks.
+Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components are not included. Singular content, header, and footer template assignments use Bricks condition matching; archive, popup, and password-protection template assignments are not mapped. Bricks Builder is not bundled. This plugin is not affiliated with or endorsed by Bricks.
 
 All assets ship locally. There are no plugin telemetry requests, remote asset services, or external update checks. Production updates are intended for WordPress.org after directory approval.
 
@@ -38,7 +38,7 @@ WordPress administration content tools work without Bricks. Builder shortcuts an
 
 = Does the map include unsaved or dynamic content? =
 
-No. It reads saved references and literal links without rendering user code. Components stored in Bricks options and condition-based template assignments require further integration.
+No. It reads saved references and literal links without rendering user code. Components stored in Bricks options and archive, popup, password-protection, and visitor-dependent template behavior are outside the current mapping. Singular content, header, and footer assignments use the installed Bricks condition resolver.
 
 = Does it change editor permissions? =
 
@@ -60,8 +60,11 @@ The plugin is provided as is, without warranty of any kind. See the included GPL
 
 == Upgrade Notice ==
 
+= 0.9.6 =
+Map singular template assignments and their inherited saved links.
+
 = 0.9.5 =
-Include assigned navigation menu links in Bricks content connections.
+Include hierarchy and assigned navigation menu links in Bricks content connections.
 
 = 0.9.4 =
 Fix the nested field appearance in map search.
@@ -79,6 +82,12 @@ Fix Quick edit form field contrast in WordPress administration.
 First WordPress.org submission candidate, including the Bricks workspace, saved-content maps, content management, and native theme integration.
 
 == Changelog ==
+
+= 0.9.6 =
+* Map assigned Bricks singular content, header, and footer templates using native condition ranking and exclusions.
+* Include inherited saved template links in outgoing and incoming connections, with reverse template usage.
+* Rebuild assignments after template, visibility, taxonomy, and global settings changes.
+
 
 = 0.9.5 =
 * Show parent and direct child relationships separately from content links in item maps.
