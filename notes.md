@@ -97,3 +97,9 @@ The active/current item card now uses original Etch blue (#3858e9), blended 26% 
 ## WordPress.org review replacement — 0.9.7
 
 Uploaded the user-approved 0.9.7 ZIP at the user’s request on Nov. 25, 2026, through authenticated Edge. WordPress.org confirmed “New version of Content Explorer for Bricks uploaded for review” and listed content-explorer-for-bricks-0.9.7.zip as the latest file. Status remains Awaiting Review. SHA-256: 8e9633366224a626a959d76f84b9b5c792951b2f1ca51557bc9d134e7fb7b9db. No SVN commit or public stable release.
+
+## GitHub Actions PHP mismatch — Nov. 26, 2026
+
+Validate run 45701047138 (1241bfb), re-run job 140020300094, failed before Plugin Check scanned anything: wp-env CLI reported PHP 8.3.37 and refused plugin activation because the plugin requires 8.4. The syntax job used setup-php 8.4 but that setting does not configure wp-env containers.
+
+Set WP_ENV_PHP_VERSION=8.4 on the Plugin Check job using wp-env's documented environment setting. Keep all default checks and findings enabled. Update checkout to v6 and upload-artifact to v7 (Node 24) to remove the Node 20 warning. This is a CI-only fix; the submitted plugin ZIP/version remains 0.9.7. Fresh GitHub validation pending after push.

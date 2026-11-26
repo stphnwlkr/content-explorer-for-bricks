@@ -6,7 +6,7 @@ jobs:
   syntax:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
@@ -14,14 +14,17 @@ jobs:
       - run: for file in assets/colors.js assets/sort.js assets/connections.js assets/delta-graph.js assets/builder.js; do node --check "$file"; done
       - run: node tests/colors.cjs
       - run: python3 scripts/package.py /tmp/content-explorer-for-bricks.zip
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: content-explorer-for-bricks
           path: /tmp/content-explorer-for-bricks.zip
   plugin-check:
     runs-on: ubuntu-latest
+    env:
+      # Plugin Check runs inside wp-env containers, independently of setup-php above.
+      WP_ENV_PHP_VERSION: '8.4'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: python3 scripts/package.py /tmp/content-explorer-for-bricks.zip
       - run: unzip /tmp/content-explorer-for-bricks.zip -d /tmp/ceb-package
       - uses: WordPress/plugin-check-action@v1
