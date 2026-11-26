@@ -1,3 +1,9 @@
+# GitHub Actions environment correction — Nov. 26, 2026
+
+[Validate run 45852714914](https://github.com/stphnwlkr/content-explorer-for-bricks/actions/runs/45852714914), commit 1335dcb, succeeded in both syntax and plugin-check jobs. The plugin-check log confirms PHP 8.4.28, Plugin Check 2.2.0, successful activation, and no reported findings.
+
+Earlier runs failed before scanning because the action's wp-env container used PHP 8.3.37 while the plugin requires 8.4. The job now sets the documented WP_ENV_PHP_VERSION=8.4 environment variable. setup-php in the separate syntax job cannot select the container's PHP version. All default checks remain enabled. checkout v6 and upload-artifact v7 use Node 24. Plugin runtime files and the submitted 0.9.7 ZIP are unchanged.
+
 # 0.9.7 Blue active map card
 
 See [release-0.9.7.md](release-0.9.7.md) for checks and limits. Installed and user-approved on NCHV. Production-package Plugin Check, syntax, REST permissions, and color regressions passed.
