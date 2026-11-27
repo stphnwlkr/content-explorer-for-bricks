@@ -3,8 +3,8 @@
   const config = window.cebHubSortConfig;
   if (!config?.connectionsEndpoint) return;
   const { __, _n, sprintf } = window.wp.i18n;
-  const incomingRelationships = __('Incoming relationships','content-explorer-for-bricks');
-  const outgoingRelationships = __('Outgoing relationships','content-explorer-for-bricks');
+  const incomingRelationships = __('Incoming relationships','uplink-content-explorer-for-bricks');
+  const outgoingRelationships = __('Outgoing relationships','uplink-content-explorer-for-bricks');
   const el = (tag, cls = '', text) => { const n = document.createElement(tag); n.className = cls; if (text !== undefined) n.textContent = text; return n; };
   const button = (text, click, cls = 'btn') => { const n = el('button', cls, text); n.type = 'button'; n.addEventListener('click', click); return n; };
   const svg = (tag, attrs, parent) => { const n = document.createElementNS('http://www.w3.org/2000/svg', tag); for (const [k,v] of Object.entries(attrs)) n.setAttribute(k,v); parent?.append(n); return n; };
@@ -12,11 +12,11 @@
   const layouts = new Map();
   window.cebHubMountConnections = (host, pageId = 0, initialMode = pageId ? 'page' : 'site') => {
     active?.destroy();
-    const root = el('section', 'ceb-delta-map'); root.setAttribute('aria-label', __('Connections map', 'content-explorer-for-bricks'));
+    const root = el('section', 'ceb-delta-map'); root.setAttribute('aria-label', __('Connections map', 'uplink-content-explorer-for-bricks'));
     const graph = el('section', 'ceb-delta-graph');
     const header = el('header', 'graph-head');
     const icon = el('span', 'graph-ico connection-icon'); icon.setAttribute('aria-hidden','true');
-    const search = el('input'); search.type = 'search'; search.placeholder = __('Find…','content-explorer-for-bricks'); search.setAttribute('aria-label',__('Find an item','content-explorer-for-bricks')); search.dataset.graph = 'search';
+    const search = el('input'); search.type = 'search'; search.placeholder = __('Find…','uplink-content-explorer-for-bricks'); search.setAttribute('aria-label',__('Find an item','uplink-content-explorer-for-bricks')); search.dataset.graph = 'search';
     const find = el('label','site-find'); find.append(el('span','search-icon'),search);
     const hint = el('span','site-hint'); hint.dataset.graph='hint'; hint.hidden=true;
     const spacer = el('span','spacer');
@@ -24,7 +24,7 @@
     const groupStates=new Map();
     let detailSort = 'title-asc';
     const titleCollator = new Intl.Collator(undefined, { sensitivity: 'base', numeric: true });
-    const previousItem=button(__('Previous item','content-explorer-for-bricks'),()=>{const previous=itemHistory.pop();if(previous)loadPage(previous.id,false);},'btn map-previous-item');
+    const previousItem=button(__('Previous item','uplink-content-explorer-for-bricks'),()=>{const previous=itemHistory.pop();if(previous)loadPage(previous.id,false);},'btn map-previous-item');
     previousItem.hidden=true;
     const headerAction=button('×',()=>{
       if(mode==='site') {
@@ -34,17 +34,17 @@
       } else window.cebHubContentPanel.close();
     },'icon-btn');
     search.addEventListener('input',()=>{headerAction.disabled=mode==='site'&&!search.value;});
-    header.append(button(__('Back to list','content-explorer-for-bricks'),()=>window.cebHubContentPanel.openList(),'btn map-back-to-list'),icon,el('b','',__('Connections','content-explorer-for-bricks')),previousItem,spacer,hint,find,headerAction);
+    header.append(button(__('Back to list','uplink-content-explorer-for-bricks'),()=>window.cebHubContentPanel.openList(),'btn map-back-to-list'),icon,el('b','',__('Connections','uplink-content-explorer-for-bricks')),previousItem,spacer,hint,find,headerAction);
     const stage = el('div','graph-stage');
     const legend = el('footer','graph-legend');
     graph.append(header,stage,legend);
-    const aside = el('aside','ceb-delta-detail'); aside.setAttribute('aria-label',__('Map details','content-explorer-for-bricks'));
-    const tabs = el('div','intabs map-tabs'); tabs.setAttribute('role','tablist'); tabs.setAttribute('aria-label',__('Map views','content-explorer-for-bricks'));
+    const aside = el('aside','ceb-delta-detail'); aside.setAttribute('aria-label',__('Map details','uplink-content-explorer-for-bricks'));
+    const tabs = el('div','intabs map-tabs'); tabs.setAttribute('role','tablist'); tabs.setAttribute('aria-label',__('Map views','uplink-content-explorer-for-bricks'));
     const tabGroup=el('div','intab-group');
     const editorItemId=window.cebHubContentPanel.currentPostId()||pageId;
     let mappedItemId = pageId;
-    const pageTab=button(pageId===editorItemId?__('Current item','content-explorer-for-bricks'):__('Selected item','content-explorer-for-bricks'),()=>loadPage(mappedItemId),'intab');
-    const siteTab=button(__('Site','content-explorer-for-bricks'),()=>loadSite(),'intab');
+    const pageTab=button(pageId===editorItemId?__('Current item','uplink-content-explorer-for-bricks'):__('Selected item','uplink-content-explorer-for-bricks'),()=>loadPage(mappedItemId),'intab');
+    const siteTab=button(__('Site','uplink-content-explorer-for-bricks'),()=>loadSite(),'intab');
     for (const tab of [pageTab,siteTab]) tab.setAttribute('role','tab');
     tabGroup.append(pageTab,siteTab); tabs.append(tabGroup);
     const details=el('div','ceb-delta-detail-content'); aside.append(tabs,details); root.append(graph,aside); host.replaceChildren(root);
@@ -53,49 +53,49 @@
     const observer=new ResizeObserver(()=>{ if(mode==='page') drawPage(root); }); observer.observe(stage);
     const status=(text)=>{ stage.replaceChildren(el('p','v-hint',text)); };
     const destroyEngine=()=>{ if(engine){layouts.set(cacheKey,engine.layout());engine.destroy();engine=null;} };
-    const fetchData=async(path,signal)=>{const response=await fetch(`${config.connectionsEndpoint}/${path}`,{credentials:'same-origin',headers:{'X-WP-Nonce':config.nonce},signal});const value=await response.json();if(!response.ok)throw new Error(value.message||__('Could not load map.','content-explorer-for-bricks'));return value;};
-    function setMode(next){ mode=next;previousItem.hidden=mode!=='page'||!itemHistory.length;previousItem.title=itemHistory.length?sprintf(__('Back to %s','content-explorer-for-bricks'),itemHistory[itemHistory.length-1].title):'';const actionLabel=mode==='site'?__('Clear search','content-explorer-for-bricks'):__('Close map','content-explorer-for-bricks');headerAction.setAttribute('aria-label',actionLabel);headerAction.title=actionLabel;headerAction.disabled=mode==='site'&&!search.value;pageTab.disabled=!mappedItemId;pageTab.setAttribute('aria-selected',String(mode==='page'));siteTab.setAttribute('aria-selected',String(mode==='site'));find.hidden=mode!=='site';hint.hidden=true;legend.hidden=mode==='site'; }
-    function begin(next){controller?.abort();controller=new AbortController();destroyEngine();setMode(next);details.replaceChildren();status(__('Loading…','content-explorer-for-bricks'));return {seq:++sequence,signal:controller.signal};}
+    const fetchData=async(path,signal)=>{const response=await fetch(`${config.connectionsEndpoint}/${path}`,{credentials:'same-origin',headers:{'X-WP-Nonce':config.nonce},signal});const value=await response.json();if(!response.ok)throw new Error(value.message||__('Could not load map.','uplink-content-explorer-for-bricks'));return value;};
+    function setMode(next){ mode=next;previousItem.hidden=mode!=='page'||!itemHistory.length;previousItem.title=itemHistory.length?sprintf(__('Back to %s','uplink-content-explorer-for-bricks'),itemHistory[itemHistory.length-1].title):'';const actionLabel=mode==='site'?__('Clear search','uplink-content-explorer-for-bricks'):__('Close map','uplink-content-explorer-for-bricks');headerAction.setAttribute('aria-label',actionLabel);headerAction.title=actionLabel;headerAction.disabled=mode==='site'&&!search.value;pageTab.disabled=!mappedItemId;pageTab.setAttribute('aria-selected',String(mode==='page'));siteTab.setAttribute('aria-selected',String(mode==='site'));find.hidden=mode!=='site';hint.hidden=true;legend.hidden=mode==='site'; }
+    function begin(next){controller?.abort();controller=new AbortController();destroyEngine();setMode(next);details.replaceChildren();status(__('Loading…','uplink-content-explorer-for-bricks'));return {seq:++sequence,signal:controller.signal};}
     function row(label,value){const r=el('div','gd-row');r.append(el('span','',label),el('b','',String(value)));return r;}
     function titleCard(label,color,sub){const card=el('div','selcard gd'),t=el('div','gd-title'),dot=el('i','dot');dot.style.background=color;t.append(dot,el('b','',label));card.append(t);if(sub)card.append(el('div','gd-sub',sub));return card;}
     function actions(node,card){
       const wrap=el('div','gd-actions');
       if((mode==='site' && node.kind==='post') || (mode==='page' && Number(node.id)!==mappedItemId)) {
         const id=Number(String(node.id).replace(/^post:/,''));
-        if(id) wrap.append(button(__('View connections','content-explorer-for-bricks'),()=>loadPage(id),'btn view-connections'));
+        if(id) wrap.append(button(__('View connections','uplink-content-explorer-for-bricks'),()=>loadPage(id),'btn view-connections'));
       }
-      if(node.ceb_edit_url){const go=button(__('Edit with Bricks','content-explorer-for-bricks'),async()=>{go.disabled=true;try{window.open(node.ceb_edit_url, '_blank', 'noopener');window.cebHubContentPanel.close();}catch(error){go.disabled=false;card.append(el('p','gd-hint',error.message));}},'btn primary');wrap.append(go);}
-      if(node.edit_url||node.edit){const management=node.kind==='type'||node.kind==='tax';const link=el('a','btn',management?__('Manage in WordPress','content-explorer-for-bricks'):__('Edit with WP','content-explorer-for-bricks'));link.href=node.edit_url||node.edit;link.target='_blank';link.rel='noopener';wrap.append(link);}
-      if(node.add){const link=el('a','btn',__('Add new','content-explorer-for-bricks'));link.href=node.add;link.target='_blank';link.rel='noopener';wrap.append(link);}
-      if(node.view_url||node.view){const link=el('a','btn',__('View on site','content-explorer-for-bricks'));link.href=node.view_url||node.view;link.target='_blank';link.rel='noopener';wrap.append(link);}
+      if(node.ceb_edit_url){const go=button(__('Edit with Bricks','uplink-content-explorer-for-bricks'),async()=>{go.disabled=true;try{window.open(node.ceb_edit_url, '_blank', 'noopener');window.cebHubContentPanel.close();}catch(error){go.disabled=false;card.append(el('p','gd-hint',error.message));}},'btn primary');wrap.append(go);}
+      if(node.edit_url||node.edit){const management=node.kind==='type'||node.kind==='tax';const link=el('a','btn',management?__('Manage in WordPress','uplink-content-explorer-for-bricks'):__('Edit with WP','uplink-content-explorer-for-bricks'));link.href=node.edit_url||node.edit;link.target='_blank';link.rel='noopener';wrap.append(link);}
+      if(node.add){const link=el('a','btn',__('Add new','uplink-content-explorer-for-bricks'));link.href=node.add;link.target='_blank';link.rel='noopener';wrap.append(link);}
+      if(node.view_url||node.view){const link=el('a','btn',__('View on site','uplink-content-explorer-for-bricks'));link.href=node.view_url||node.view;link.target='_blank';link.rel='noopener';wrap.append(link);}
       return wrap;
     }
     function pageSummary(){
-      details.replaceChildren(el('div','section-label',__('Connections','content-explorer-for-bricks')));
-      const subjectLabel=data.center.id===editorItemId?__('Current item','content-explorer-for-bricks'):__('Selected item','content-explorer-for-bricks');
-      const card=titleCard(data.center.title,'var(--delta-ok)',sprintf(__('%1$s · ID %2$d','content-explorer-for-bricks'),subjectLabel,data.center.id));
-      card.append(row(__('Content type','content-explorer-for-bricks'),data.center.type),row(__('Path','content-explorer-for-bricks'),data.center.path||__('No public URL','content-explorer-for-bricks')),row(__('Status','content-explorer-for-bricks'),config.statusLabels?.[data.center.status]||data.center.status));
-      card.append(row(__('Linked from','content-explorer-for-bricks'),sprintf(_n('%d item','%d items',data.from.length||0,'content-explorer-for-bricks'),data.from.length)),row(__('Links to','content-explorer-for-bricks'),sprintf(_n('%d item','%d items',data.to.length||0,'content-explorer-for-bricks'),data.to.length)),row(__('Uses','content-explorer-for-bricks'),sprintf(_n('%d shared part','%d shared parts',data.uses.length||0,'content-explorer-for-bricks'),data.uses.length)));
-      if(data.hierarchy){card.append(row(data.center.post_type==='page'?__('Parent page','content-explorer-for-bricks'):__('Parent item','content-explorer-for-bricks'),data.parents?.[0]?.title||__('None','content-explorer-for-bricks')),row(data.center.post_type==='page'?__('Child pages','content-explorer-for-bricks'):__('Child items','content-explorer-for-bricks'),String(data.children?.length||0)));}
-      if(data.used_by?.length || data.center.kind==='shared') card.append(row(__('Used by','content-explorer-for-bricks'),sprintf(_n('%d item','%d items',data.used_by?.length||0,'content-explorer-for-bricks'),data.used_by?.length||0)));
+      details.replaceChildren(el('div','section-label',__('Connections','uplink-content-explorer-for-bricks')));
+      const subjectLabel=data.center.id===editorItemId?__('Current item','uplink-content-explorer-for-bricks'):__('Selected item','uplink-content-explorer-for-bricks');
+      const card=titleCard(data.center.title,'var(--delta-ok)',sprintf(__('%1$s · ID %2$d','uplink-content-explorer-for-bricks'),subjectLabel,data.center.id));
+      card.append(row(__('Content type','uplink-content-explorer-for-bricks'),data.center.type),row(__('Path','uplink-content-explorer-for-bricks'),data.center.path||__('No public URL','uplink-content-explorer-for-bricks')),row(__('Status','uplink-content-explorer-for-bricks'),config.statusLabels?.[data.center.status]||data.center.status));
+      card.append(row(__('Linked from','uplink-content-explorer-for-bricks'),sprintf(_n('%d item','%d items',data.from.length||0,'uplink-content-explorer-for-bricks'),data.from.length)),row(__('Links to','uplink-content-explorer-for-bricks'),sprintf(_n('%d item','%d items',data.to.length||0,'uplink-content-explorer-for-bricks'),data.to.length)),row(__('Uses','uplink-content-explorer-for-bricks'),sprintf(_n('%d shared part','%d shared parts',data.uses.length||0,'uplink-content-explorer-for-bricks'),data.uses.length)));
+      if(data.hierarchy){card.append(row(data.center.post_type==='page'?__('Parent page','uplink-content-explorer-for-bricks'):__('Parent item','uplink-content-explorer-for-bricks'),data.parents?.[0]?.title||__('None','uplink-content-explorer-for-bricks')),row(data.center.post_type==='page'?__('Child pages','uplink-content-explorer-for-bricks'):__('Child items','uplink-content-explorer-for-bricks'),String(data.children?.length||0)));}
+      if(data.used_by?.length || data.center.kind==='shared') card.append(row(__('Used by','uplink-content-explorer-for-bricks'),sprintf(_n('%d item','%d items',data.used_by?.length||0,'uplink-content-explorer-for-bricks'),data.used_by?.length||0)));
       if(data.related_to?.length) card.append(row(outgoingRelationships,String(data.related_to.length)));
       if(data.related_from?.length) card.append(row(incomingRelationships,String(data.related_from.length)));
-      details.append(card,actions(data.center,card),el('p','gd-hint',__('Click a card in the graph to see its details. Esc or the connections icon returns to the editor.','content-explorer-for-bricks')));
-      if(data.hierarchy_truncated)details.append(el('p','gd-hint',__('The map shows up to 500 direct children.','content-explorer-for-bricks')));
-      if(data.truncated)details.append(el('p','gd-hint',__('This map is limited to 500 incoming connections and 100 nested shared resources. Some relationships are omitted.','content-explorer-for-bricks')));
-      if(data.relationships_truncated)details.append(el('p','gd-hint',__('The map shows up to 500 related posts in each direction.','content-explorer-for-bricks')));
+      details.append(card,actions(data.center,card),el('p','gd-hint',__('Click a card in the graph to see its details. Esc or the connections icon returns to the editor.','uplink-content-explorer-for-bricks')));
+      if(data.hierarchy_truncated)details.append(el('p','gd-hint',__('The map shows up to 500 direct children.','uplink-content-explorer-for-bricks')));
+      if(data.truncated)details.append(el('p','gd-hint',__('This map is limited to 500 incoming connections and 100 nested shared resources. Some relationships are omitted.','uplink-content-explorer-for-bricks')));
+      if(data.relationships_truncated)details.append(el('p','gd-hint',__('The map shows up to 500 related posts in each direction.','uplink-content-explorer-for-bricks')));
       for(const node of root.querySelectorAll('.gnode')) node.setAttribute('aria-pressed','false');
     }
     function pageSelect(node,relation,selected){
       if(node.id===data.center.id){pageSummary();return;}
       for(const card of root.querySelectorAll('.gnode'))card.setAttribute('aria-pressed',String(card===selected));
-      const head=el('div','section-label has-action');head.append(el('span','',__('Selected','content-explorer-for-bricks')),button(__('Clear','content-explorer-for-bricks'),pageSummary,'btn clear'));
+      const head=el('div','section-label has-action');head.append(el('span','',__('Selected','uplink-content-explorer-for-bricks')),button(__('Clear','uplink-content-explorer-for-bricks'),pageSummary,'btn clear'));
       const card=titleCard(node.title,node.kind==='shared'?'var(--delta-shared)':'var(--delta-muted)');
-      card.append(row(__('Type','content-explorer-for-bricks'),node.type),row(__('Path','content-explorer-for-bricks'),node.path||__('No public URL','content-explorer-for-bricks')),row(__('Status','content-explorer-for-bricks'),config.statusLabels?.[node.status]||node.status),row(__('Connection','content-explorer-for-bricks'),relation));
-      for(const relationship of node.relationships||[]) card.append(row(__('Relationship','content-explorer-for-bricks'),relationship));
+      card.append(row(__('Type','uplink-content-explorer-for-bricks'),node.type),row(__('Path','uplink-content-explorer-for-bricks'),node.path||__('No public URL','uplink-content-explorer-for-bricks')),row(__('Status','uplink-content-explorer-for-bricks'),config.statusLabels?.[node.status]||node.status),row(__('Connection','uplink-content-explorer-for-bricks'),relation));
+      for(const relationship of node.relationships||[]) card.append(row(__('Relationship','uplink-content-explorer-for-bricks'),relationship));
       details.replaceChildren(head,card,actions(node,card));
     }
-    function pageCard(node,relation,here=false){const n=button('',()=>pageSelect(node,relation,n),`gnode ${here?'here':node.kind==='shared'?'shared':'page'}`);n.append(el('b','',node.title),el('span','',here?sprintf(node.id===editorItemId?__('Current item · ID %d','content-explorer-for-bricks'):__('Selected item · ID %d','content-explorer-for-bricks'),node.id):node.kind==='shared'?node.type:node.path||node.type));n.setAttribute('aria-label',node.title);n.title=__('Show details','content-explorer-for-bricks');n.setAttribute('aria-pressed','false');return n;}
+    function pageCard(node,relation,here=false){const n=button('',()=>pageSelect(node,relation,n),`gnode ${here?'here':node.kind==='shared'?'shared':'page'}`);n.append(el('b','',node.title),el('span','',here?sprintf(node.id===editorItemId?__('Current item · ID %d','uplink-content-explorer-for-bricks'):__('Selected item · ID %d','uplink-content-explorer-for-bricks'),node.id):node.kind==='shared'?node.type:node.path||node.type));n.setAttribute('aria-label',node.title);n.title=__('Show details','uplink-content-explorer-for-bricks');n.setAttribute('aria-pressed','false');return n;}
     function renderPage(){
       stage.className='graph-stage';stage.removeAttribute('data-graph');
       const canvas=el('div','graph-canvas');svg('svg',{class:'graph-lines','aria-hidden':'true'},canvas);
@@ -109,18 +109,18 @@
         const stateKey=`${data.center.id}:${key}`,saved=groupStates.get(stateKey);
         let page=saved?.page||0,query=saved?.query||'',searchField=null;
         const pageSize=5;
-        const pager=el('nav','connection-group-pager');pager.setAttribute('aria-label',sprintf(__('%s pagination','content-explorer-for-bricks'),label));
+        const pager=el('nav','connection-group-pager');pager.setAttribute('aria-label',sprintf(__('%s pagination','uplink-content-explorer-for-bricks'),label));
         const range=el('span','connection-group-range');range.setAttribute('role','status');
         const previous=button('‹',()=>{page--;render();},'btn');
         const next=button('›',()=>{page++;render();},'btn');
-        previous.setAttribute('aria-label',__('Previous page','content-explorer-for-bricks'));
-        next.setAttribute('aria-label',__('Next page','content-explorer-for-bricks'));
+        previous.setAttribute('aria-label',__('Previous page','uplink-content-explorer-for-bricks'));
+        next.setAttribute('aria-label',__('Next page','uplink-content-explorer-for-bricks'));
         pager.append(previous,range,next);
         if(nodes.length>pageSize){
           searchField=el('input','connection-group-search');searchField.type='search';
           searchField.value=query;
-          searchField.placeholder=__('Find in this group…','content-explorer-for-bricks');
-          searchField.setAttribute('aria-label',sprintf(__('Search %s','content-explorer-for-bricks'),label));
+          searchField.placeholder=__('Find in this group…','uplink-content-explorer-for-bricks');
+          searchField.setAttribute('aria-label',sprintf(__('Search %s','uplink-content-explorer-for-bricks'),label));
           searchField.addEventListener('input',()=>{query=searchField.value.trim().toLocaleLowerCase();page=0;render();});
           section.append(searchField);
         }
@@ -131,8 +131,8 @@
           const pages=Math.max(1,Math.ceil(matches.length/pageSize));page=Math.max(0,Math.min(page,pages-1));
           groupStates.set(stateKey,{page,query});
           cards.replaceChildren(...matches.slice(page*pageSize,(page+1)*pageSize).map(node=>pageCard(node,label)));
-          if(!matches.length)cards.append(el('div','gempty',query?__('No matching items','content-explorer-for-bricks'):__('None','content-explorer-for-bricks')));
-          range.textContent=matches.length?sprintf(__('%1$d–%2$d of %3$d','content-explorer-for-bricks'),page*pageSize+1,Math.min((page+1)*pageSize,matches.length),matches.length):__('0 items','content-explorer-for-bricks');
+          if(!matches.length)cards.append(el('div','gempty',query?__('No matching items','uplink-content-explorer-for-bricks'):__('None','uplink-content-explorer-for-bricks')));
+          range.textContent=matches.length?sprintf(__('%1$d–%2$d of %3$d','uplink-content-explorer-for-bricks'),page*pageSize+1,Math.min((page+1)*pageSize,matches.length),matches.length):__('0 items','uplink-content-explorer-for-bricks');
           previous.disabled=page===0;next.disabled=page>=pages-1;
           requestAnimationFrame(()=>{if(alive&&mode==='page')drawPage(root);});
         }
@@ -140,31 +140,31 @@
       };
       const center=el('div','gcol center');center.append(pageCard(data.center,'',true));
       const incoming=el('div','gcol from');
-      if(data.parents?.length)incoming.append(group('parents',data.center.post_type==='page'?__('Parent page','content-explorer-for-bricks'):__('Parent item','content-explorer-for-bricks')));
-      incoming.append(group('from',__('Linked from','content-explorer-for-bricks')));
-      if(data.used_by?.length||data.center.kind==='shared')incoming.append(group('used_by',__('Used by','content-explorer-for-bricks')));
+      if(data.parents?.length)incoming.append(group('parents',data.center.post_type==='page'?__('Parent page','uplink-content-explorer-for-bricks'):__('Parent item','uplink-content-explorer-for-bricks')));
+      incoming.append(group('from',__('Linked from','uplink-content-explorer-for-bricks')));
+      if(data.used_by?.length||data.center.kind==='shared')incoming.append(group('used_by',__('Used by','uplink-content-explorer-for-bricks')));
       if(data.related_from?.length)incoming.append(group('related_from',incomingRelationships));
-      const outgoing=el('div','gcol to');outgoing.append(group('to',__('Links to','content-explorer-for-bricks')));
-      if(data.children?.length)outgoing.append(group('children',data.center.post_type==='page'?__('Child pages','content-explorer-for-bricks'):__('Child items','content-explorer-for-bricks')));
+      const outgoing=el('div','gcol to');outgoing.append(group('to',__('Links to','uplink-content-explorer-for-bricks')));
+      if(data.children?.length)outgoing.append(group('children',data.center.post_type==='page'?__('Child pages','uplink-content-explorer-for-bricks'):__('Child items','uplink-content-explorer-for-bricks')));
       if(data.related_to?.length)outgoing.append(group('related_to',outgoingRelationships));
-      const uses=el('div','gcol uses row');uses.append(group('uses',__('Uses','content-explorer-for-bricks')));
+      const uses=el('div','gcol uses row');uses.append(group('uses',__('Uses','uplink-content-explorer-for-bricks')));
       center.append(uses);grid.append(incoming,center,outgoing);canvas.append(grid);stage.replaceChildren(canvas);
-      legend.replaceChildren();for(const [cls,text]of [['here',mappedItemId===editorItemId?__('Current item','content-explorer-for-bricks'):__('Selected item','content-explorer-for-bricks')],['page',__('Content item','content-explorer-for-bricks')],['shared',__('Shared (template, component)','content-explorer-for-bricks')]]){const item=el('span');item.append(el('i',`dot ${cls}`),document.createTextNode(text));legend.append(item);}
+      legend.replaceChildren();for(const [cls,text]of [['here',mappedItemId===editorItemId?__('Current item','uplink-content-explorer-for-bricks'):__('Selected item','uplink-content-explorer-for-bricks')],['page',__('Content item','uplink-content-explorer-for-bricks')],['shared',__('Shared (template, component)','uplink-content-explorer-for-bricks')]]){const item=el('span');item.append(el('i',`dot ${cls}`),document.createTextNode(text));legend.append(item);}
       pageSummary();requestAnimationFrame(()=>{if(!alive||mode!=='page')return;drawPage(root);stage.scrollLeft=(stage.scrollWidth-stage.clientWidth)/2;});
     }
     async function loadPage(id,remember=true){
       if(!id)return;
       if(remember&&mode==='page'&&data?.center&&data.center.id!==id)itemHistory.push({id:data.center.id,title:data.center.title});
       mappedItemId=id;
-      pageTab.textContent=id===editorItemId?__('Current item','content-explorer-for-bricks'):__('Selected item','content-explorer-for-bricks');
+      pageTab.textContent=id===editorItemId?__('Current item','uplink-content-explorer-for-bricks'):__('Selected item','uplink-content-explorer-for-bricks');
       const request=begin('page');
-      try{while(true){data=await fetchData(id,request.signal);if(!alive||request.seq!==sequence)return;if(!data.indexing&&!data.relationships_indexing)break;status(data.indexing?__('Building the link index…','content-explorer-for-bricks'):__('Indexing related posts…','content-explorer-for-bricks'));}
+      try{while(true){data=await fetchData(id,request.signal);if(!alive||request.seq!==sequence)return;if(!data.indexing&&!data.relationships_indexing)break;status(data.indexing?__('Building the link index…','uplink-content-explorer-for-bricks'):__('Indexing related posts…','uplink-content-explorer-for-bricks'));}
       renderPage();}catch(error){if(error.name!=='AbortError'&&request.seq===sequence)status(error.message);}
     }
     function siteSummary(){
-      details.replaceChildren(el('div','section-label',__('Site','content-explorer-for-bricks')));const card=titleCard(siteName,'var(--delta-ok)',__('On the map','content-explorer-for-bricks'));
-      for(const [label,kind]of [[__('Post types','content-explorer-for-bricks'),'type'],[__('Entries','content-explorer-for-bricks'),'post'],[__('Terms','content-explorer-for-bricks'),'term']])card.append(row(label,siteData.nodes.filter(n=>n.kind===kind).length));card.append(row(__('Links in content','content-explorer-for-bricks'),siteData.edges.filter(e=>e.kind==='link').length));
-      details.append(card,el('p','gd-hint',__('Shows public content types. Find nonpublic items and shared resources in List.','content-explorer-for-bricks')),el('p','gd-hint',__('The ringed dot is the editor item. Click a dot to see its details. Scroll to zoom, drag to move. Use Tab to reach the zoom buttons, then Enter or Space. Reset view restores the full map. Esc returns to the editor.','content-explorer-for-bricks')));
+      details.replaceChildren(el('div','section-label',__('Site','uplink-content-explorer-for-bricks')));const card=titleCard(siteName,'var(--delta-ok)',__('On the map','uplink-content-explorer-for-bricks'));
+      for(const [label,kind]of [[__('Post types','uplink-content-explorer-for-bricks'),'type'],[__('Entries','uplink-content-explorer-for-bricks'),'post'],[__('Terms','uplink-content-explorer-for-bricks'),'term']])card.append(row(label,siteData.nodes.filter(n=>n.kind===kind).length));card.append(row(__('Links in content','uplink-content-explorer-for-bricks'),siteData.edges.filter(e=>e.kind==='link').length));
+      details.append(card,el('p','gd-hint',__('Shows public content types. Find nonpublic items and shared resources in List.','uplink-content-explorer-for-bricks')),el('p','gd-hint',__('The ringed dot is the editor item. Click a dot to see its details. Scroll to zoom, drag to move. Use Tab to reach the zoom buttons, then Enter or Space. Reset view restores the full map. Esc returns to the editor.','uplink-content-explorer-for-bricks')));
     }
     // Build inline title markup from an inert template; never retain attributes or links in a button.
     function itemTitle(source, fallback){
@@ -198,20 +198,20 @@
       return titleOrder;
     }
     function siteSelected(node){
-      if(!node){siteSummary();return;}const head=el('div','section-label has-action');head.append(el('span','',__('Selected','content-explorer-for-bricks')),button(__('Clear','content-explorer-for-bricks'),()=>engine.select(null),'btn clear'));
-      const card=titleCard(node.label,node.color,node.id===`post:${editorItemId}`?__('Current item','content-explorer-for-bricks'):node.kindName);
+      if(!node){siteSummary();return;}const head=el('div','section-label has-action');head.append(el('span','',__('Selected','uplink-content-explorer-for-bricks')),button(__('Clear','uplink-content-explorer-for-bricks'),()=>engine.select(null),'btn clear'));
+      const card=titleCard(node.label,node.color,node.id===`post:${editorItemId}`?__('Current item','uplink-content-explorer-for-bricks'):node.kindName);
       if(node.description)card.append(el('p','gd-desc',node.description));
       for(const [key,value]of node.meta)card.append(row(key,value));details.replaceChildren(head,card);
       const source=siteData.nodes.find(n=>n.id===node.id);details.append(actions(source||node,card));
       const sources=new Map(siteData.nodes.map(item=>[item.id,item]));
       const groups=el('div','gd-connection-groups');
       if(node.groups.length){
-        const sortLabel=el('label','gd-sort');sortLabel.append(el('span','',__('Sort connections','content-explorer-for-bricks')));
-        const sort=el('select');sort.setAttribute('aria-label',__('Sort connections','content-explorer-for-bricks'));
+        const sortLabel=el('label','gd-sort');sortLabel.append(el('span','',__('Sort connections','uplink-content-explorer-for-bricks')));
+        const sort=el('select');sort.setAttribute('aria-label',__('Sort connections','uplink-content-explorer-for-bricks'));
         for(const [value,label] of [
-          ['title-asc',__('Title: A–Z','content-explorer-for-bricks')],['title-desc',__('Title: Z–A','content-explorer-for-bricks')],
-          ['created-desc',__('Created: newest first','content-explorer-for-bricks')],['created-asc',__('Created: oldest first','content-explorer-for-bricks')],
-          ['author-asc',__('Author: A–Z','content-explorer-for-bricks')],['author-desc',__('Author: Z–A','content-explorer-for-bricks')]
+          ['title-asc',__('Title: A–Z','uplink-content-explorer-for-bricks')],['title-desc',__('Title: Z–A','uplink-content-explorer-for-bricks')],
+          ['created-desc',__('Created: newest first','uplink-content-explorer-for-bricks')],['created-asc',__('Created: oldest first','uplink-content-explorer-for-bricks')],
+          ['author-asc',__('Author: A–Z','uplink-content-explorer-for-bricks')],['author-desc',__('Author: Z–A','uplink-content-explorer-for-bricks')]
         ]){const option=el('option','',label);option.value=value;sort.append(option);}
         sort.value=detailSort;sort.addEventListener('change',()=>{detailSort=sort.value;renderGroups();});
         sortLabel.append(sort);details.append(sortLabel);
@@ -232,14 +232,14 @@
           section.append(list);groups.append(section);
         }
       }
-      if(!node.groups.length)details.append(el('p','gd-hint',__('No connections.','content-explorer-for-bricks')));
+      if(!node.groups.length)details.append(el('p','gd-hint',__('No connections.','uplink-content-explorer-for-bricks')));
     }
     function renderSite(){
       stage.className='delta-graph-stage site-stage';stage.dataset.graph='stage';stage.replaceChildren();
-      const graphic=svg('svg',{class:'delta-graph-svg','data-graph':'svg',tabindex:'0',role:'group','aria-label':__('Site map','content-explorer-for-bricks')},stage),view=svg('g',{'data-graph':'view'},graphic);
+      const graphic=svg('svg',{class:'delta-graph-svg','data-graph':'svg',tabindex:'0',role:'group','aria-label':__('Site map','uplink-content-explorer-for-bricks')},stage),view=svg('g',{'data-graph':'view'},graphic);
       for(const layer of ['edges','nodes','map','agent']){const g=svg('g',{'data-graph':layer},view);if(['map','agent'].includes(layer))g.style.display='none';}
-      const tools=el('div','delta-graph-tools');tools.setAttribute('role','group');tools.setAttribute('aria-label',__('Map controls','content-explorer-for-bricks'));for(const [key,label,text]of [['zoom-in',__('Zoom in','content-explorer-for-bricks'),'+'],['zoom-out',__('Zoom out','content-explorer-for-bricks'),'−'],['fit',__('Fit map to view','content-explorer-for-bricks'),__('Fit','content-explorer-for-bricks')],['reset',__('Reset view','content-explorer-for-bricks'),__('Reset view','content-explorer-for-bricks')]]){const b=button(text,()=>{},`delta-graph-tool${['fit','reset'].includes(key)?' delta-graph-tool--wide':''}`);b.dataset.graph=key;b.setAttribute('aria-label',label);b.title=label;tools.append(b);}stage.append(tools);
-      for(const part of ['filters','legend']){const block=el('div',`delta-graph-${part}`);block.dataset.graph=part;block.setAttribute('role','group');block.setAttribute('aria-label',part==='filters'?__('Show or hide groups','content-explorer-for-bricks'):__('Graph display','content-explorer-for-bricks'));stage.append(block);}
+      const tools=el('div','delta-graph-tools');tools.setAttribute('role','group');tools.setAttribute('aria-label',__('Map controls','uplink-content-explorer-for-bricks'));for(const [key,label,text]of [['zoom-in',__('Zoom in','uplink-content-explorer-for-bricks'),'+'],['zoom-out',__('Zoom out','uplink-content-explorer-for-bricks'),'−'],['fit',__('Fit map to view','uplink-content-explorer-for-bricks'),__('Fit','uplink-content-explorer-for-bricks')],['reset',__('Reset view','uplink-content-explorer-for-bricks'),__('Reset view','uplink-content-explorer-for-bricks')]]){const b=button(text,()=>{},`delta-graph-tool${['fit','reset'].includes(key)?' delta-graph-tool--wide':''}`);b.dataset.graph=key;b.setAttribute('aria-label',label);b.title=label;tools.append(b);}stage.append(tools);
+      for(const part of ['filters','legend']){const block=el('div',`delta-graph-${part}`);block.dataset.graph=part;block.setAttribute('role','group');block.setAttribute('aria-label',part==='filters'?__('Show or hide groups','uplink-content-explorer-for-bricks'):__('Graph display','uplink-content-explorer-for-bricks'));stage.append(block);}
       cacheKey=location.origin+':'+siteData.nodes.map(n=>n.id).join(',');
       engine=window.cebHubDeltaGraph(root,siteData,null,'graph',{here:`post:${editorItemId}`,layout:layouts.get(cacheKey),fitOnOpen:true,keys:false,onSelect:siteSelected});siteSummary();
     }
@@ -250,10 +250,10 @@
         while(true){
           const batch=await fetchData(`${endpoint}?after=${after}`,request.signal);
           if(!alive||request.seq!==sequence)return;
-          if(batch.indexing){status(__('Building the link index…','content-explorer-for-bricks'));continue;}
+          if(batch.indexing){status(__('Building the link index…','uplink-content-explorer-for-bricks'));continue;}
           accept(batch);
           if(batch.done)return;
-          if(batch.next_cursor<=after)throw new Error(__('Site map scan could not advance.','content-explorer-for-bricks'));
+          if(batch.next_cursor<=after)throw new Error(__('Site map scan could not advance.','uplink-content-explorer-for-bricks'));
           after=batch.next_cursor;
         }
       };

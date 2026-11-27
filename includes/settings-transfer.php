@@ -37,8 +37,8 @@ function ceb_hub_sort_transfer_keys_match( array $values, array $expected ): boo
 
 /** Build requests for the same validators used by the settings interface. */
 function ceb_hub_sort_transfer_requests( array $document ) {
-	$invalid = new WP_Error( 'ceb_hub_sort_invalid_transfer', __( 'Choose a complete Content Explorer for Bricks settings export in a supported format.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
-	if ( ( $document['plugin'] ?? null ) !== 'content-explorer-for-bricks' || ( $document['format_version'] ?? null ) !== 1 || ! isset( $document['settings'] ) || ! is_array( $document['settings'] ) ) {
+	$invalid = new WP_Error( 'ceb_hub_sort_invalid_transfer', __( 'Choose a complete Uplink Content Explorer for Bricks settings export in a supported format.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
+	if ( ! in_array( $document['plugin'] ?? null, array( 'uplink-content-explorer-for-bricks', 'content-explorer-for-bricks' ), true ) || ( $document['format_version'] ?? null ) !== 1 || ! isset( $document['settings'] ) || ! is_array( $document['settings'] ) ) {
 		return $invalid;
 	}
 	$settings = $document['settings'];
@@ -78,9 +78,9 @@ add_action( 'rest_api_init', static function (): void {
 			'methods' => WP_REST_Server::READABLE,
 			'permission_callback' => static function (): bool { return current_user_can( 'manage_options' ); },
 			'callback' => static function () {
-				$header = get_file_data( dirname( __DIR__ ) . '/content-explorer-for-bricks.php', array( 'version' => 'Version' ) );
+				$header = get_file_data( dirname( __DIR__ ) . '/uplink-content-explorer-for-bricks.php', array( 'version' => 'Version' ) );
 				$response = rest_ensure_response( array(
-					'plugin' => 'content-explorer-for-bricks',
+					'plugin' => 'uplink-content-explorer-for-bricks',
 					'format_version' => 1,
 					'plugin_version' => $header['version'],
 					'settings' => ceb_hub_sort_export_settings(),
@@ -96,7 +96,7 @@ add_action( 'rest_api_init', static function (): void {
 			'callback' => static function ( WP_REST_Request $request ) {
 				$document = $request->get_param( 'document' );
 				if ( strlen( wp_json_encode( $document ) ) > 262144 ) {
-					return new WP_Error( 'ceb_hub_sort_large_transfer', __( 'Settings files must be smaller than 256 KB.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+					return new WP_Error( 'ceb_hub_sort_large_transfer', __( 'Settings files must be smaller than 256 KB.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 				}
 				$payloads = ceb_hub_sort_transfer_requests( $document );
 				if ( is_wp_error( $payloads ) ) {

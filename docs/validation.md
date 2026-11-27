@@ -1,3 +1,7 @@
+# 0.9.8 Uplink naming correction
+
+See [release-0.9.8.md](release-0.9.8.md). Production-package Plugin Check, syntax, colors, and 84 backend assertions per tested WordPress version passed. Renamed package installed and smoke-tested in admin/Bricks on localhost:8889.
+
 # GitHub Actions environment correction — Nov. 26, 2026
 
 [Validate run 45852714914](https://github.com/stphnwlkr/content-explorer-for-bricks/actions/runs/45852714914), commit 1335dcb, succeeded in both syntax and plugin-check jobs. The plugin-check log confirms PHP 8.4.28, Plugin Check 2.2.0, successful activation, and no reported findings.

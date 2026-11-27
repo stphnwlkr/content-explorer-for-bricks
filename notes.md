@@ -2,12 +2,12 @@
 
 ## Identity and distribution
 
-- Plugin / proposed slug: Content Explorer for Bricks / `content-explorer-for-bricks`.
+- Plugin / requested slug: Uplink Content Explorer for Bricks / `uplink-content-explorer-for-bricks`. Previous pending slug: `content-explorer-for-bricks`; reviewer allocation of the new slug is pending.
 - Author: Stephen Walker; contributor: `stphnwlkr`.
 - Author URL: https://profiles.wordpress.org/stphnwlkr/
 - Plugin URL and public source: https://github.com/stphnwlkr/content-explorer-for-bricks
 - Donation URL: https://buymeacoffee.com/mjdwdceq0j
-- Current code: 0.9.7 (Etch blue active map card); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
+- Current code: 0.9.8 (Uplink name and directory identity); original submission: 0.9.0; WordPress 7.0 minimum, PHP 8.4 minimum, tested up to WordPress 7.2.
 - Retain GPL-3.0-or-later and third-party notices inherited from Content Explorer for Etch 2.2.2 (baseline commit `10391f183507da71d51f58ac44b4963f47deab68`).
 - No external updater, telemetry, remote fonts, or bundled Bricks theme code.
 
@@ -103,3 +103,13 @@ Uploaded the user-approved 0.9.7 ZIP at the user’s request on Nov. 25, 2026, t
 Validate run 45701047138 (1241bfb), re-run job 140020300094, failed before Plugin Check scanned anything: wp-env CLI reported PHP 8.3.37 and refused plugin activation because the plugin requires 8.4. The syntax job used setup-php 8.4 but that setting does not configure wp-env containers.
 
 Set WP_ENV_PHP_VERSION=8.4 on the Plugin Check job using wp-env's documented environment setting. Keep all default checks and findings enabled. Update checkout to v6 and upload-artifact to v7 (Node 24) to remove the Node 20 warning. This is a CI-only fix; the submitted plugin ZIP/version remains 0.9.7. Verified fresh Validate run 45852714914 on commit 1335dcb: syntax and plugin-check both succeeded. Logs confirm PHP 8.4.28, Plugin Check 2.2.0, successful plugin activation, and “Success: Checks complete. No errors found.” Historical failed runs remain as records; rerunning an old commit retains its old workflow.
+
+## WordPress.org naming review — Nov. 27, 2026
+
+Review of 0.9.7 raised one issue: distinctive display name/slug. User approved Uplink Content Explorer for Bricks / uplink-content-explorer-for-bricks. Search of the full proposed name and WordPress.org directory found no indexed exact-name matches; this does not guarantee reservation.
+
+0.9.8 updates plugin/readme names, text domains, main file, package folder, script handles, admin page slug, and CI package paths. GitHub repository URL remains https://github.com/stphnwlkr/content-explorer-for-bricks. Existing ceb_hub_* options, REST namespace, and browser preference keys remain. New settings exports use the new identity; both import validators accept the previous identity too. Deactivate a pre-directory old-name installation before installing/activating the new folder to avoid two copies of the same implementation. No automatic deletion of the old copy.
+
+Full production-package Plugin Check, syntax, color regressions, and 84 backend assertions per WP 7.0.1/7.1.5/7.2-RC3 passed. Exact ZIP installed/activated on localhost:8889 after deactivating old 0.9.5; admin list and Bricks current-item map loaded correctly. No builder save performed. Review upload and reviewer email reply remain pending at preparation.
+
+ZIP SHA-256: 8f03312099197bb988140966354ca30ce6f93d62e0db831f7ed17b32c8c41d57. Reviewer requires replying in the existing review email thread explicitly requesting the new slug; do not assume a code rename reserves it.

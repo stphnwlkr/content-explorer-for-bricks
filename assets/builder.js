@@ -75,8 +75,8 @@
     item.append(button);
     return item;
   };
-  const compass = createShortcut('content', __('Content Explorer', 'content-explorer-for-bricks'), 'list', 310);
-  const connections = createShortcut('connections', __('Current item connections', 'content-explorer-for-bricks'), 'map', 320);
+  const compass = createShortcut('content', __('Content Explorer', 'uplink-content-explorer-for-bricks'), 'list', 310);
+  const connections = createShortcut('connections', __('Current item connections', 'uplink-content-explorer-for-bricks'), 'map', 320);
   // Native menus and panels are below the explorer workspace. Dismiss our view
   // before the native handler runs, leaving its click, default action, and focus
   // untouched. Capture handles controls whose handlers stop event propagation;

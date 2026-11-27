@@ -125,20 +125,20 @@ foreach ( array( 'added_post_meta', 'updated_post_meta', 'deleted_post_meta' ) a
 unset( $ceb_hub_meta_hook );
 
 add_action( 'admin_menu', static function (): void {
-	add_menu_page( __( 'Content Explorer', 'content-explorer-for-bricks' ), __( 'Content Explorer', 'content-explorer-for-bricks' ), 'edit_posts', 'content-explorer-for-bricks', 'ceb_hub_admin_page', 'dashicons-search', 30 );
+	add_menu_page( __( 'Content Explorer', 'uplink-content-explorer-for-bricks' ), __( 'Content Explorer', 'uplink-content-explorer-for-bricks' ), 'edit_posts', 'uplink-content-explorer-for-bricks', 'ceb_hub_admin_page', 'dashicons-search', 30 );
 } );
 
 function ceb_hub_admin_page(): void {
 	if ( ! current_user_can( 'edit_posts' ) ) {
 		return;
 	}
-	echo '<div class="wrap"><h1>' . esc_html__( 'Content Explorer for Bricks', 'content-explorer-for-bricks' ) . '</h1><p>' . esc_html__( 'Loading Content Explorer…', 'content-explorer-for-bricks' ) . '</p></div>';
+	echo '<div class="wrap"><h1>' . esc_html__( 'Uplink Content Explorer for Bricks', 'uplink-content-explorer-for-bricks' ) . '</h1><p>' . esc_html__( 'Loading Content Explorer…', 'uplink-content-explorer-for-bricks' ) . '</p></div>';
 }
 
 add_action( 'admin_enqueue_scripts', static function ( string $hook ): void {
-	if ( 'toplevel_page_content-explorer-for-bricks' === $hook ) {
+	if ( 'toplevel_page_uplink-content-explorer-for-bricks' === $hook ) {
 		ceb_hub_enqueue_explorer();
-		wp_enqueue_style( 'ceb-admin', plugins_url( '../assets/admin.css', __FILE__ ), array( 'content-explorer-for-bricks' ), '0.9.7' );
+		wp_enqueue_style( 'ceb-admin', plugins_url( '../assets/admin.css', __FILE__ ), array( 'uplink-content-explorer-for-bricks' ), '0.9.8' );
 	}
 } );
 
@@ -147,8 +147,8 @@ add_action( 'wp_enqueue_scripts', static function (): void {
 		return;
 	}
 	ceb_hub_enqueue_explorer();
-	wp_enqueue_style( 'ceb-builder', plugins_url( '../assets/builder.css', __FILE__ ), array( 'content-explorer-for-bricks' ), '0.9.7' );
-	wp_enqueue_script( 'ceb-builder', plugins_url( '../assets/builder.js', __FILE__ ), array( 'content-explorer-for-bricks', 'ceb-hub-connections' ), '0.9.7', true );
+	wp_enqueue_style( 'ceb-builder', plugins_url( '../assets/builder.css', __FILE__ ), array( 'uplink-content-explorer-for-bricks' ), '0.9.8' );
+	wp_enqueue_script( 'ceb-builder', plugins_url( '../assets/builder.js', __FILE__ ), array( 'uplink-content-explorer-for-bricks', 'ceb-hub-connections' ), '0.9.8', true );
 }, 100 );
 
 /** Menu edits change every document using that menu; refresh in bounded batches. */

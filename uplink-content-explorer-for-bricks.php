@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name: Content Explorer for Bricks
+ * Plugin Name: Uplink Content Explorer for Bricks
  * Plugin URI: https://github.com/stphnwlkr/content-explorer-for-bricks
  * Description: Browse, search, edit, and map content and shared resources in a dedicated Bricks panel.
- * Version: 0.9.7
+ * Version: 0.9.8
  * Requires at least: 7.0
  * Requires PHP: 8.4
  * Author: Stephen Walker
  * Author URI: https://profiles.wordpress.org/stphnwlkr/
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain: content-explorer-for-bricks
+ * Text Domain: uplink-content-explorer-for-bricks
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -157,10 +157,10 @@ function ceb_hub_sort_parent_error( WP_Post_Type $post_type, int $parent_id, int
 	$parent = get_post( $parent_id );
 	$unchanged = $post_id && $parent_id === (int) get_post_field( 'post_parent', $post_id );
 	if ( ! $post_type->hierarchical || ! $parent || $parent->post_type !== $post_type->name || ! isset( ceb_hub_sort_post_statuses()[ $parent->post_status ] ) || ( ! $unchanged && ! current_user_can( 'edit_post', $parent_id ) ) ) {
-		return new WP_Error( 'ceb_hub_sort_invalid_parent', __( 'Choose an editable parent from this content type.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+		return new WP_Error( 'ceb_hub_sort_invalid_parent', __( 'Choose an editable parent from this content type.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 	}
 	if ( $post_id && ( $parent_id === $post_id || in_array( $post_id, array_map( 'intval', get_post_ancestors( $parent_id ) ), true ) ) ) {
-		return new WP_Error( 'ceb_hub_sort_parent_cycle', __( 'An item cannot be its own parent or a child of its descendant.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+		return new WP_Error( 'ceb_hub_sort_parent_cycle', __( 'An item cannot be its own parent or a child of its descendant.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 	}
 	return null;
 }
@@ -173,10 +173,10 @@ function ceb_hub_sort_term_parent_error( WP_Taxonomy $taxonomy, int $parent_id, 
 	$parent = get_term( $parent_id, $taxonomy->name );
 	$unchanged = $term_id && $parent_id === (int) get_term( $term_id, $taxonomy->name )->parent;
 	if ( ! $taxonomy->hierarchical || ! $parent instanceof WP_Term || ( ! $unchanged && ! current_user_can( 'edit_term', $parent_id ) ) ) {
-		return new WP_Error( 'ceb_hub_sort_invalid_term_parent', __( 'Choose a parent from this taxonomy that you can edit.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+		return new WP_Error( 'ceb_hub_sort_invalid_term_parent', __( 'Choose a parent from this taxonomy that you can edit.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 	}
 	if ( $term_id && ( $parent_id === $term_id || in_array( $term_id, array_map( 'intval', get_ancestors( $parent_id, $taxonomy->name, 'taxonomy' ) ), true ) ) ) {
-		return new WP_Error( 'ceb_hub_sort_term_parent_cycle', __( 'A term cannot be its own parent or a child of its descendant.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+		return new WP_Error( 'ceb_hub_sort_term_parent_cycle', __( 'A term cannot be its own parent or a child of its descendant.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 	}
 	return null;
 }
@@ -194,21 +194,21 @@ add_action(
 				},
 				'callback'            => static function ( WP_REST_Request $request ) {
 					if ( ! $request->has_param( 'hide_native_content_hub' ) && ! $request->has_param( 'panel_default_view' ) && ! $request->has_param( 'enabled' ) && ! $request->has_param( 'show_sidebar_icon' ) && ! $request->has_param( 'show_wordpress_edit' ) && ! $request->has_param( 'default_view' ) && ! $request->has_param( 'actions_first' ) && ! $request->has_param( 'actions_layout' ) && ! $request->has_param( 'default_column' ) && ! $request->has_param( 'default_order' ) && ! $request->has_param( 'term_default_column' ) && ! $request->has_param( 'term_default_order' ) && ! $request->has_param( 'active_bg' ) && ! $request->has_param( 'active_text' ) && ! $request->has_param( 'button_style' ) && ! $request->has_param( 'hierarchy_style' ) && ! $request->has_param( 'status_style' ) && ! $request->has_param( 'editor_access' ) ) {
-						return new WP_Error( 'ceb_hub_sort_missing_setting', __( 'Choose a setting to update.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+						return new WP_Error( 'ceb_hub_sort_missing_setting', __( 'Choose a setting to update.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 					}
-					if ( $request->has_param( 'panel_default_view' ) && ! in_array( $request->get_param( 'panel_default_view' ), array( 'list', 'page', 'site' ), true ) ) { return new WP_Error( 'invalid_panel_view', __( 'Choose a valid default view.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) ); }
+					if ( $request->has_param( 'panel_default_view' ) && ! in_array( $request->get_param( 'panel_default_view' ), array( 'list', 'page', 'site' ), true ) ) { return new WP_Error( 'invalid_panel_view', __( 'Choose a valid default view.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) ); }
 					$colors = ceb_hub_sort_heading_colors();
 					$background = $request->has_param( 'active_bg' ) ? $request->get_param( 'active_bg' ) : $colors[0];
 					$foreground = $request->has_param( 'active_text' ) ? $request->get_param( 'active_text' ) : $colors[1];
 					if ( ! is_string( $background ) || ! is_string( $foreground ) || ! preg_match( '/^#[0-9a-fA-F]{6}$/', $background ) || ! preg_match( '/^#[0-9a-fA-F]{6}$/', $foreground ) ) {
-						return new WP_Error( 'ceb_hub_sort_invalid_color', __( 'Choose valid six-digit hex colors.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+						return new WP_Error( 'ceb_hub_sort_invalid_color', __( 'Choose valid six-digit hex colors.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 					}
 					if ( ceb_hub_sort_color_contrast( $background, $foreground ) < 4.5 ) {
-						return new WP_Error( 'ceb_hub_sort_low_contrast', __( 'Choose colors with at least 4.5:1 text contrast.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+						return new WP_Error( 'ceb_hub_sort_low_contrast', __( 'Choose colors with at least 4.5:1 text contrast.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 					}
 					$button_style = $request->get_param( 'button_style' );
 					if ( $request->has_param( 'button_style' ) && ! is_array( $button_style ) ) {
-						return new WP_Error( 'ceb_hub_sort_invalid_button_style', __( 'Choose a valid button style.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+						return new WP_Error( 'ceb_hub_sort_invalid_button_style', __( 'Choose a valid button style.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 					}
 					if ( $request->has_param( 'button_style' ) ) {
 						$group = $button_style['group'] ?? '';
@@ -217,10 +217,10 @@ add_action(
 						$button_display = $button_style['display'] ?? '';
 						$custom_colors = $button_style['custom_colors'] ?? true;
 						if ( ! is_string( $group ) || ! array_key_exists( $group, ceb_hub_sort_button_defaults() ) || ! is_string( $button_background ) || ! is_string( $button_text ) || ! is_bool( $custom_colors ) || ! preg_match( '/^#[0-9a-fA-F]{6}$/', $button_background ) || ! preg_match( '/^#[0-9a-fA-F]{6}$/', $button_text ) || ! in_array( $button_display, array( 'icon', 'both', 'text' ), true ) ) {
-							return new WP_Error( 'ceb_hub_sort_invalid_button_style', __( 'Choose a valid button style.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+							return new WP_Error( 'ceb_hub_sort_invalid_button_style', __( 'Choose a valid button style.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 						}
 						if ( $custom_colors && ceb_hub_sort_color_contrast( $button_background, $button_text ) < 4.5 ) {
-							return new WP_Error( 'ceb_hub_sort_low_contrast', __( 'Choose colors with at least 4.5:1 text contrast.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+							return new WP_Error( 'ceb_hub_sort_low_contrast', __( 'Choose colors with at least 4.5:1 text contrast.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 						}
 					}
 					$status_style = $request->get_param( 'status_style' );
@@ -229,32 +229,32 @@ add_action(
 						$status_bg = $status_style['background'] ?? null;
 						$status_text = $status_style['text'] ?? null;
 						if ( ! is_string( $status_group ) || ! isset( ceb_hub_sort_status_defaults()[ $status_group ] ) || ! is_string( $status_bg ) || ! is_string( $status_text ) || ! preg_match( '/^#[0-9a-fA-F]{6}$/', $status_bg ) || ! preg_match( '/^#[0-9a-fA-F]{6}$/', $status_text ) ) {
-							return new WP_Error( 'ceb_hub_sort_invalid_status_style', __( 'Choose valid status colors.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+							return new WP_Error( 'ceb_hub_sort_invalid_status_style', __( 'Choose valid status colors.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 						}
 						if ( ceb_hub_sort_color_contrast( $status_bg, $status_text ) < 4.5 ) {
-							return new WP_Error( 'ceb_hub_sort_low_contrast', __( 'Choose colors with at least 4.5:1 text contrast.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+							return new WP_Error( 'ceb_hub_sort_low_contrast', __( 'Choose colors with at least 4.5:1 text contrast.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 						}
 					}
 					$hierarchy_style = $request->get_param( 'hierarchy_style' );
 					if ( $request->has_param( 'hierarchy_style' ) ) {
 						if ( ! is_array( $hierarchy_style ) || ! isset( $hierarchy_style['enabled'], $hierarchy_style['border_width'] ) || ! is_bool( $hierarchy_style['enabled'] ) || ! is_int( $hierarchy_style['border_width'] ) || $hierarchy_style['border_width'] < 1 || $hierarchy_style['border_width'] > 6 ) {
-							return new WP_Error( 'ceb_hub_sort_invalid_hierarchy_style', __( 'Choose valid hierarchy indicator settings.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+							return new WP_Error( 'ceb_hub_sort_invalid_hierarchy_style', __( 'Choose valid hierarchy indicator settings.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 						}
 						foreach ( array( 'parent_bg', 'parent_text', 'parent_border', 'parent_caret', 'child_bg', 'child_text', 'child_border', 'child_caret' ) as $key ) {
 							if ( ! isset( $hierarchy_style[ $key ] ) || ! is_string( $hierarchy_style[ $key ] ) || ! preg_match( '/^#[0-9a-fA-F]{6}$/', $hierarchy_style[ $key ] ) ) {
-								return new WP_Error( 'ceb_hub_sort_invalid_hierarchy_style', __( 'Choose valid six-digit hierarchy colors.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+								return new WP_Error( 'ceb_hub_sort_invalid_hierarchy_style', __( 'Choose valid six-digit hierarchy colors.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 							}
 							$hierarchy_style[ $key ] = strtolower( $hierarchy_style[ $key ] );
 						}
 						foreach ( array( 'parent', 'child' ) as $level ) {
 							if ( ceb_hub_sort_color_contrast( $hierarchy_style[ "{$level}_bg" ], $hierarchy_style[ "{$level}_text" ] ) < 4.5 || ceb_hub_sort_color_contrast( $hierarchy_style[ "{$level}_bg" ], $hierarchy_style[ "{$level}_border" ] ) < 3 || ceb_hub_sort_color_contrast( $hierarchy_style[ "{$level}_bg" ], $hierarchy_style[ "{$level}_caret" ] ) < 3 ) {
-								return new WP_Error( 'ceb_hub_sort_low_hierarchy_contrast', __( 'Use at least 4.5:1 contrast for row text and 3:1 for hierarchy borders and carets.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+								return new WP_Error( 'ceb_hub_sort_low_hierarchy_contrast', __( 'Use at least 4.5:1 contrast for row text and 3:1 for hierarchy borders and carets.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 							}
 						}
 					}
 					$editor_access = $request->get_param( 'editor_access' );
 					if ( $request->has_param( 'editor_access' ) && ! ceb_hub_sort_validate_editor_access( $editor_access ) ) {
-						return new WP_Error( 'ceb_hub_sort_invalid_editor_access', __( 'Choose valid editors for the post types. Shared patterns and templates use both editors.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+						return new WP_Error( 'ceb_hub_sort_invalid_editor_access', __( 'Choose valid editors for the post types. Shared patterns and templates use both editors.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 					}
 					if ( $request->get_param( 'validate_only' ) ) {
 						return rest_ensure_response( array( 'valid' => true ) );
@@ -374,7 +374,7 @@ add_action(
 					$slug = sanitize_key( (string) $request->get_param( 'type' ) );
 					$taxonomy = get_taxonomy( $slug );
 					if ( ! $taxonomy || ! $taxonomy->show_ui || ! current_user_can( $taxonomy->cap->edit_terms ) ) {
-						return new WP_Error( 'ceb_hub_sort_forbidden', __( 'This taxonomy is unavailable.', 'content-explorer-for-bricks' ), array( 'status' => 403 ) );
+						return new WP_Error( 'ceb_hub_sort_forbidden', __( 'This taxonomy is unavailable.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 403 ) );
 					}
 					$sorts = array( 'id' => 'term_id', 'title' => 'name', 'slug' => 'slug', 'description' => 'description', 'count' => 'count', 'parent' => 'parent' );
 					$sort = sanitize_key( (string) $request->get_param( 'sort' ) );
@@ -472,11 +472,11 @@ add_action(
 					$slug = sanitize_key( (string) $request->get_param( 'type' ) );
 					$taxonomy = get_taxonomy( $slug );
 					if ( ! $taxonomy || ! $taxonomy->show_ui || ! current_user_can( $taxonomy->cap->edit_terms ) ) {
-						return new WP_Error( 'ceb_hub_sort_forbidden', __( 'You cannot create terms in this taxonomy.', 'content-explorer-for-bricks' ), array( 'status' => 403 ) );
+						return new WP_Error( 'ceb_hub_sort_forbidden', __( 'You cannot create terms in this taxonomy.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 403 ) );
 					}
 					$name = trim( sanitize_text_field( (string) $request->get_param( 'name' ) ) );
 					if ( '' === $name ) {
-						return new WP_Error( 'ceb_hub_sort_missing_name', __( 'Enter a term name.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+						return new WP_Error( 'ceb_hub_sort_missing_name', __( 'Enter a term name.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 					}
 					$parent = absint( $request->get_param( 'parent' ) );
 					$parent_error = ceb_hub_sort_term_parent_error( $taxonomy, $parent );
@@ -518,11 +518,11 @@ add_action(
 					$taxonomy = get_taxonomy( $slug );
 					$term = get_term( $id, $slug );
 					if ( ! $taxonomy || ! $taxonomy->show_ui || ! $term instanceof WP_Term || ! current_user_can( $taxonomy->cap->edit_terms ) ) {
-						return new WP_Error( 'ceb_hub_sort_missing_term', __( 'This term is unavailable.', 'content-explorer-for-bricks' ), array( 'status' => 404 ) );
+						return new WP_Error( 'ceb_hub_sort_missing_term', __( 'This term is unavailable.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 404 ) );
 					}
 					$name = trim( sanitize_text_field( (string) $request->get_param( 'name' ) ) );
 					if ( '' === $name ) {
-						return new WP_Error( 'ceb_hub_sort_missing_name', __( 'Enter a term name.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+						return new WP_Error( 'ceb_hub_sort_missing_name', __( 'Enter a term name.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 					}
 					$parent = absint( $request->get_param( 'parent' ) );
 					$parent_error = ceb_hub_sort_term_parent_error( $taxonomy, $parent, $id );
@@ -564,14 +564,14 @@ add_action(
 					$taxonomy = get_taxonomy( $slug );
 					$term = get_term( $id, $slug );
 					if ( ! $taxonomy || ! $taxonomy->show_ui || ! $term instanceof WP_Term || ! current_user_can( $taxonomy->cap->delete_terms ) ) {
-						return new WP_Error( 'ceb_hub_sort_missing_term', __( 'This term is unavailable.', 'content-explorer-for-bricks' ), array( 'status' => 404 ) );
+						return new WP_Error( 'ceb_hub_sort_missing_term', __( 'This term is unavailable.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 404 ) );
 					}
 					$deleted = wp_delete_term( $id, $slug );
 					if ( is_wp_error( $deleted ) ) {
 						return $deleted;
 					}
 					if ( ! $deleted ) {
-						return new WP_Error( 'ceb_hub_sort_term_delete_failed', __( 'Could not delete this term.', 'content-explorer-for-bricks' ), array( 'status' => 409 ) );
+						return new WP_Error( 'ceb_hub_sort_term_delete_failed', __( 'Could not delete this term.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 409 ) );
 					}
 					return rest_ensure_response( array( 'deleted' => true, 'id' => $id ) );
 				},
@@ -593,15 +593,15 @@ add_action(
 					$type = sanitize_key( (string) $request->get_param( 'type' ) );
 					$post_type = get_post_type_object( $type );
 					if ( ! $post_type || ! $post_type->show_ui || ! current_user_can( $post_type->cap->create_posts ) ) {
-						return new WP_Error( 'ceb_hub_sort_forbidden', __( 'This content type is unavailable.', 'content-explorer-for-bricks' ), array( 'status' => 403 ) );
+						return new WP_Error( 'ceb_hub_sort_forbidden', __( 'This content type is unavailable.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 403 ) );
 					}
 					$status = sanitize_key( (string) $request->get_param( 'status' ) );
 					if ( 'publish' === $status && ! current_user_can( $post_type->cap->publish_posts ) ) {
-						return new WP_Error( 'ceb_hub_sort_cannot_publish', __( 'You cannot publish this content type.', 'content-explorer-for-bricks' ), array( 'status' => 403 ) );
+						return new WP_Error( 'ceb_hub_sort_cannot_publish', __( 'You cannot publish this content type.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 403 ) );
 					}
 					$title = trim( CEB_Hub_Connections::title_data( (string) $request->get_param( 'title' ) )['title_html'] );
 					if ( '' === trim( wp_strip_all_tags( $title ) ) ) {
-						return new WP_Error( 'ceb_hub_sort_missing_title', __( 'Enter a title.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+						return new WP_Error( 'ceb_hub_sort_missing_title', __( 'Enter a title.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 					}
 					$parent_id = absint( $request->get_param( 'parent' ) );
 					$parent_error = ceb_hub_sort_parent_error( $post_type, $parent_id );
@@ -619,7 +619,7 @@ add_action(
 						true
 					);
 					if ( is_wp_error( $id ) || ! $id ) {
-						return is_wp_error( $id ) ? $id : new WP_Error( 'ceb_hub_sort_create_failed', __( 'Could not create the item.', 'content-explorer-for-bricks' ), array( 'status' => 500 ) );
+						return is_wp_error( $id ) ? $id : new WP_Error( 'ceb_hub_sort_create_failed', __( 'Could not create the item.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 500 ) );
 					}
 					$response = rest_ensure_response( array( 'id' => $id, 'parent' => $parent_id, 'status' => $status ) );
 					$response->set_status( 201 );
@@ -647,11 +647,11 @@ add_action(
 					$type = sanitize_key( (string) $request->get_param( 'type' ) );
 					$post_type = get_post_type_object( $type );
 					if ( ! $post || ! $post_type || $post->post_type !== $type || ! $post_type->show_ui || ! isset( ceb_hub_sort_post_statuses()[ $post->post_status ] ) ) {
-						return new WP_Error( 'ceb_hub_sort_missing_post', __( 'This item is no longer in the list.', 'content-explorer-for-bricks' ), array( 'status' => 404 ) );
+						return new WP_Error( 'ceb_hub_sort_missing_post', __( 'This item is no longer in the list.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 404 ) );
 					}
 					$status = sanitize_key( (string) $request->get_param( 'status' ) );
 					if ( ! isset( ceb_hub_sort_post_statuses()[ $status ] ) || ( $status !== $post->post_status && ! isset( ceb_hub_sort_quick_edit_statuses( $post_type )[ $status ] ) ) ) {
-						return new WP_Error( 'ceb_hub_sort_invalid_status', __( 'This status is unavailable for this content type or your account.', 'content-explorer-for-bricks' ), array( 'status' => 403 ) );
+						return new WP_Error( 'ceb_hub_sort_invalid_status', __( 'This status is unavailable for this content type or your account.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 403 ) );
 					}
 					$parent_id = absint( $request->get_param( 'parent' ) );
 					$parent_error = ceb_hub_sort_parent_error( $post_type, $parent_id, $id );
@@ -667,7 +667,7 @@ add_action(
 						$raw_slug = trim( (string) $request->get_param( 'slug' ) );
 						$slug = sanitize_title( $raw_slug );
 						if ( '' !== $raw_slug && '' === $slug ) {
-							return new WP_Error( 'ceb_hub_sort_invalid_slug', __( 'Enter a valid slug or leave it blank.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+							return new WP_Error( 'ceb_hub_sort_invalid_slug', __( 'Enter a valid slug or leave it blank.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 						}
 						$changes['post_name'] = $slug;
 					}
@@ -679,7 +679,7 @@ add_action(
 						$site_date = DateTimeImmutable::createFromFormat( '!Y-m-d\TH:i', $raw_date, wp_timezone() );
 						$date_errors = DateTimeImmutable::getLastErrors();
 						if ( ! $site_date || ( false !== $date_errors && ( $date_errors['warning_count'] || $date_errors['error_count'] ) ) || $site_date->format( 'Y-m-d\TH:i' ) !== $raw_date ) {
-							return new WP_Error( 'ceb_hub_sort_invalid_date', __( 'Enter a valid date and time in the site timezone.', 'content-explorer-for-bricks' ), array( 'status' => 400 ) );
+							return new WP_Error( 'ceb_hub_sort_invalid_date', __( 'Enter a valid date and time in the site timezone.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 400 ) );
 						}
 						$changes['post_date'] = $site_date->format( 'Y-m-d H:i:s' );
 						$changes['post_date_gmt'] = get_gmt_from_date( $changes['post_date'] );
@@ -687,7 +687,7 @@ add_action(
 					}
 					$updated = wp_update_post( $changes, true );
 					if ( is_wp_error( $updated ) || ! $updated ) {
-						return is_wp_error( $updated ) ? $updated : new WP_Error( 'ceb_hub_sort_update_failed', __( 'Could not update the item.', 'content-explorer-for-bricks' ), array( 'status' => 500 ) );
+						return is_wp_error( $updated ) ? $updated : new WP_Error( 'ceb_hub_sort_update_failed', __( 'Could not update the item.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 500 ) );
 					}
 					return rest_ensure_response( array( 'id' => $id, 'parent' => $parent_id, 'status' => get_post_status( $id ) ) );
 				},
@@ -715,13 +715,13 @@ add_action(
 					$post = get_post( $id );
 					$type = sanitize_key( (string) $request->get_param( 'type' ) );
 					if ( ! $post || $post->post_type !== $type || ! isset( ceb_hub_sort_post_statuses()[ $post->post_status ] ) ) {
-						return new WP_Error( 'ceb_hub_sort_missing_post', __( 'This item is no longer in the list.', 'content-explorer-for-bricks' ), array( 'status' => 404 ) );
+						return new WP_Error( 'ceb_hub_sort_missing_post', __( 'This item is no longer in the list.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 404 ) );
 					}
 					if ( ! EMPTY_TRASH_DAYS ) {
-						return new WP_Error( 'ceb_hub_sort_trash_unavailable', __( 'WordPress Trash is disabled for this site.', 'content-explorer-for-bricks' ), array( 'status' => 409 ) );
+						return new WP_Error( 'ceb_hub_sort_trash_unavailable', __( 'WordPress Trash is disabled for this site.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 409 ) );
 					}
 					if ( ! wp_trash_post( $id ) ) {
-						return new WP_Error( 'ceb_hub_sort_trash_failed', __( 'Could not move this item to Trash.', 'content-explorer-for-bricks' ), array( 'status' => 500 ) );
+						return new WP_Error( 'ceb_hub_sort_trash_failed', __( 'Could not move this item to Trash.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 500 ) );
 					}
 					return rest_ensure_response( array( 'trashed' => true, 'id' => $id ) );
 				},
@@ -743,7 +743,7 @@ add_action(
 					$type = sanitize_key( (string) $request->get_param( 'type' ) );
 					$post_type = get_post_type_object( $type );
 					if ( ! $post_type || ! $post_type->show_ui || ! current_user_can( $post_type->cap->edit_others_posts ) ) {
-						return new WP_Error( 'ceb_hub_sort_forbidden', __( 'This content type is unavailable.', 'content-explorer-for-bricks' ), array( 'status' => 403 ) );
+						return new WP_Error( 'ceb_hub_sort_forbidden', __( 'This content type is unavailable.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 403 ) );
 					}
 
 					$sort = sanitize_key( (string) $request->get_param( 'sort' ) );
@@ -867,7 +867,7 @@ add_action(
 function ceb_hub_enqueue_explorer(): void {
 
 		$url     = plugin_dir_url( __FILE__ );
-		$version = '0.9.7';
+		$version = '0.9.8';
 		$types   = array();
 		$hierarchical_types = array();
 		$taxonomies = array();
@@ -888,18 +888,18 @@ function ceb_hub_enqueue_explorer(): void {
 			}
 		}
 
-		wp_enqueue_style( 'content-explorer-for-bricks', $url . 'assets/sort.css', array(), $version );
+		wp_enqueue_style( 'uplink-content-explorer-for-bricks', $url . 'assets/sort.css', array(), $version );
 		wp_enqueue_script( 'ceb-hub-webawesome-accordion', $url . 'assets/vendor/webawesome/accordion.js', array(), '3.15.0', true );
 		wp_enqueue_script( 'ceb-colors', $url . 'assets/colors.js', array(), $version, true );
-		wp_enqueue_script( 'content-explorer-for-bricks', $url . 'assets/sort.js', array( 'wp-i18n', 'ceb-hub-webawesome-accordion', 'ceb-colors' ), $version, true );
+		wp_enqueue_script( 'uplink-content-explorer-for-bricks', $url . 'assets/sort.js', array( 'wp-i18n', 'ceb-hub-webawesome-accordion', 'ceb-colors' ), $version, true );
 		wp_enqueue_style( 'ceb-hub-connections', $url . 'assets/connections.css', array(), $version );
 		wp_enqueue_script( 'ceb-hub-delta-graph', $url . 'assets/delta-graph.js', array(), $version, true );
-		wp_enqueue_script( 'ceb-hub-connections', $url . 'assets/connections.js', array( 'content-explorer-for-bricks', 'ceb-hub-delta-graph' ), $version, true );
-		wp_enqueue_style( 'ceb-theme', $url . 'assets/theme.css', array( 'content-explorer-for-bricks', 'ceb-hub-connections' ), $version );
-		wp_set_script_translations( 'content-explorer-for-bricks', 'content-explorer-for-bricks', plugin_dir_path( __FILE__ ) . 'languages' );
+		wp_enqueue_script( 'ceb-hub-connections', $url . 'assets/connections.js', array( 'uplink-content-explorer-for-bricks', 'ceb-hub-delta-graph' ), $version, true );
+		wp_enqueue_style( 'ceb-theme', $url . 'assets/theme.css', array( 'uplink-content-explorer-for-bricks', 'ceb-hub-connections' ), $version );
+		wp_set_script_translations( 'uplink-content-explorer-for-bricks', 'uplink-content-explorer-for-bricks', plugin_dir_path( __FILE__ ) . 'languages' );
 		$heading_colors = ceb_hub_sort_heading_colors();
 		wp_add_inline_script(
-			'content-explorer-for-bricks',
+			'uplink-content-explorer-for-bricks',
 			'window.cebHubSortConfig = ' . wp_json_encode(
 				array(
 					'userId' => get_current_user_id(),

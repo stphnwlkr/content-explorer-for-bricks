@@ -13,11 +13,11 @@ jobs:
       - run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l
       - run: for file in assets/colors.js assets/sort.js assets/connections.js assets/delta-graph.js assets/builder.js; do node --check "$file"; done
       - run: node tests/colors.cjs
-      - run: python3 scripts/package.py /tmp/content-explorer-for-bricks.zip
+      - run: python3 scripts/package.py /tmp/uplink-content-explorer-for-bricks.zip
       - uses: actions/upload-artifact@v7
         with:
-          name: content-explorer-for-bricks
-          path: /tmp/content-explorer-for-bricks.zip
+          name: uplink-content-explorer-for-bricks
+          path: /tmp/uplink-content-explorer-for-bricks.zip
   plugin-check:
     runs-on: ubuntu-latest
     env:
@@ -25,8 +25,8 @@ jobs:
       WP_ENV_PHP_VERSION: '8.4'
     steps:
       - uses: actions/checkout@v6
-      - run: python3 scripts/package.py /tmp/content-explorer-for-bricks.zip
-      - run: unzip /tmp/content-explorer-for-bricks.zip -d /tmp/ceb-package
+      - run: python3 scripts/package.py /tmp/uplink-content-explorer-for-bricks.zip
+      - run: unzip /tmp/uplink-content-explorer-for-bricks.zip -d /tmp/ceb-package
       - uses: WordPress/plugin-check-action@v1
         with:
-          build-dir: /tmp/ceb-package/content-explorer-for-bricks
+          build-dir: /tmp/ceb-package/uplink-content-explorer-for-bricks

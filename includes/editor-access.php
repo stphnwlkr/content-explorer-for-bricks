@@ -52,7 +52,7 @@ function ceb_hub_sort_editor_types(): array {
 		if ( $type ) {
 			$types[] = array(
 				'name' => $name,
-				'label' => 'wp_block' === $name ? __( 'Patterns and components', 'content-explorer-for-bricks' ) : $type->labels->name,
+				'label' => 'wp_block' === $name ? __( 'Patterns and components', 'uplink-content-explorer-for-bricks' ) : $type->labels->name,
 				'supportsBricks' => CEB_Hub_Connections::supports_ceb_type( $name ),
 				'shared' => in_array( $name, CEB_HUB_SORT_SHARED_EDITOR_TYPES, true ),
 				'mode' => ceb_hub_sort_editor_mode( $name ),

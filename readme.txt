@@ -1,11 +1,11 @@
-=== Content Explorer for Bricks ===
+=== Uplink Content Explorer for Bricks ===
 Contributors: stphnwlkr
 Donate link: https://buymeacoffee.com/mjdwdceq0j
 Tags: content, admin, bricks, search, taxonomy
 Requires at least: 7.0
 Tested up to: 7.2
 Requires PHP: 8.4
-Stable tag: 0.9.7
+Stable tag: 0.9.8
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ Browse, search, edit, and map WordPress content from a workspace for Bricks Buil
 
 == Description ==
 
-Content Explorer for Bricks provides searchable content lists, hierarchy, sorting, pagination, quick editing, taxonomy tools, and visual maps of saved links, parent/child hierarchy, and shared resources.
+Uplink Content Explorer for Bricks provides searchable content lists, hierarchy, sorting, pagination, quick editing, taxonomy tools, and visual maps of saved links, parent/child hierarchy, and shared resources.
 
 Open Content Explorer in WordPress administration or use the compass and connections icons in the Bricks toolbar. Builder links open another tab to preserve the current document's unsaved work.
 
@@ -26,7 +26,7 @@ All assets ship locally. There are no plugin telemetry requests, remote asset se
 == Installation ==
 
 1. Upload the ZIP through Plugins > Add Plugin > Upload Plugin.
-2. Activate Content Explorer for Bricks.
+2. Activate Uplink Content Explorer for Bricks.
 3. Open Content Explorer from the WordPress menu.
 4. With Bricks active, use the compass and connections icons while editing a document.
 
@@ -60,6 +60,9 @@ The plugin is provided as is, without warranty of any kind. See the included GPL
 
 == Upgrade Notice ==
 
+= 0.9.8 =
+Renamed to Uplink Content Explorer for Bricks. When upgrading a pre-directory installation, deactivate the previous plugin before installing this renamed package. Preferences are retained.
+
 = 0.9.7 =
 Use blue for the active map item independently of the Bricks button accent.
 
@@ -85,6 +88,10 @@ Fix Quick edit form field contrast in WordPress administration.
 First WordPress.org submission candidate, including the Bricks workspace, saved-content maps, content management, and native theme integration.
 
 == Changelog ==
+
+= 0.9.8 =
+* Rename the plugin to Uplink Content Explorer for Bricks with the uplink-content-explorer-for-bricks slug and text domain.
+* Retain existing preferences and accept settings exports from the previous name.
 
 = 0.9.7 =
 * Use Etch blue for the active item map card, with readable full-strength text and a contrast-adjusted blue border.

@@ -11,11 +11,11 @@ jobs:
       - uses: actions/checkout@v6
       - name: Verify tag matches plugin version
         run: |
-          version=$(sed -n 's/^ \* Version: //p' content-explorer-for-bricks.php)
+          version=$(sed -n 's/^ \* Version: //p' uplink-content-explorer-for-bricks.php)
           test "$GITHUB_REF_NAME" = "v$version"
-      - run: python3 scripts/package.py content-explorer-for-bricks-${GITHUB_REF_NAME#v}.zip
+      - run: python3 scripts/package.py uplink-content-explorer-for-bricks-${GITHUB_REF_NAME#v}.zip
       - uses: softprops/action-gh-release@v2
         with:
-          files: content-explorer-for-bricks-*.zip
+          files: uplink-content-explorer-for-bricks-*.zip
           prerelease: ${{ contains(github.ref_name, '-') }}
           generate_release_notes: true

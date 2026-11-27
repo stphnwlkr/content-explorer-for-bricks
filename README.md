@@ -1,9 +1,9 @@
-# Content Explorer for Bricks
+# Uplink Content Explorer for Bricks
 
 Browse, search, edit, and map WordPress content from a workspace for Bricks Builder.
 
 <!-- wporg-description:start -->
-Content Explorer for Bricks provides searchable content lists, hierarchy, sorting, pagination, quick editing, taxonomy tools, and visual maps of saved links, parent/child hierarchy, and shared resources.
+Uplink Content Explorer for Bricks provides searchable content lists, hierarchy, sorting, pagination, quick editing, taxonomy tools, and visual maps of saved links, parent/child hierarchy, and shared resources.
 
 Open Content Explorer in WordPress administration or use the compass and connections icons in the Bricks toolbar. Builder links open another tab to preserve the current document's unsaved work.
 
@@ -14,7 +14,7 @@ Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components are not 
 All assets ship locally. There are no plugin telemetry requests, remote asset services, or external update checks. Production updates are intended for WordPress.org after directory approval.
 <!-- wporg-description:end -->
 
-Current candidate: **0.9.7**, using Etch blue for the active map card. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the original automated scan passed, and the review package was updated to 0.9.7. Manual review is pending. Version 0.9.7 is installed and verified on the NCHV test site and is the latest WordPress.org review upload. See [the latest verification](docs/release-0.9.7.md) and [original submission](docs/release-0.9.0.md).
+Current candidate: **0.9.8**, renamed to Uplink Content Explorer for Bricks. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the original automated scan passed, and the last review upload was 0.9.7. Manual review is pending. Version 0.9.8 addresses the naming review; allocation of the requested `uplink-content-explorer-for-bricks` slug is pending. See [the latest verification](docs/release-0.9.8.md) and [original submission](docs/release-0.9.0.md).
 
 ## Screenshots
 
@@ -35,6 +35,8 @@ Current candidate: **0.9.7**, using Etch blue for the active map card. Requires 
 [Buy Stephen a coffee](https://buymeacoffee.com/mjdwdceq0j).
 
 ## Use
+
+For pre-directory installations under the old folder name, deactivate Content Explorer for Bricks before installing this renamed package. Activate Uplink Content Explorer for Bricks afterward. Existing preferences remain; imports accept both old and new settings export identifiers. Do not activate both copies together.
 
 Install the ZIP through Plugins > Add Plugin > Upload Plugin. Open **Content Explorer** in WordPress administration, or **Content Explorer** while editing with Bricks. The original compass and connections icons open the explorer directly inside the Bricks workspace. Click the active icon again or use the Back control to return to the canvas. Builder links open another tab so the current document's unsaved edits remain intact.
 

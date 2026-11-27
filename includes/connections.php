@@ -244,7 +244,7 @@ final class CEB_Hub_Connections {
 	public static function connections( WP_REST_Request $request ) {
 		$id = (int) $request['id'];
 		$center = self::node( $id );
-		if ( ! $center ) { return new WP_Error( 'map_unavailable', __( 'This item is unavailable.', 'content-explorer-for-bricks' ), array( 'status' => 404 ) ); }
+		if ( ! $center ) { return new WP_Error( 'map_unavailable', __( 'This item is unavailable.', 'uplink-content-explorer-for-bricks' ), array( 'status' => 404 ) ); }
 		$done = self::batch(); self::index( $id );
 		$nodes = static function ( array $ids ): array {
 			return array_values( array_filter( array_map( array( self::class, 'node' ), array_unique( array_map( 'intval', $ids ) ) ) ) );

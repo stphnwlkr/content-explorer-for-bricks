@@ -61,7 +61,7 @@ function ceb_hub_sort_quick_edit_statuses( WP_Post_Type $post_type ): array {
 		// Core uses a separate Private checkbox. The Hub uses one status picker.
 		$statuses['private'] = $registered['private']->label;
 	}
-	$statuses['pending'] = __( 'Pending Review', 'content-explorer-for-bricks' );
+	$statuses['pending'] = __( 'Pending Review', 'uplink-content-explorer-for-bricks' );
 	$statuses['draft'] = $registered['draft']->label;
 	foreach ( $registered as $name => $status ) {
 		if ( ! $status->_builtin ) {
