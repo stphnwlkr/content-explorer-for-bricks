@@ -1,6 +1,6 @@
 # 0.9.8 Uplink naming correction
 
-See [release-0.9.8.md](release-0.9.8.md). Production-package Plugin Check, syntax, colors, and 84 backend assertions per tested WordPress version passed. Renamed package installed and smoke-tested in admin/Bricks on localhost:8889.
+See [release-0.9.8.md](release-0.9.8.md). Production-package Plugin Check, syntax, colors, and 84 backend assertions per tested WordPress version passed. Renamed package installed and smoke-tested in admin/Bricks on localhost:8889. [GitHub Validate run 45999639478](https://github.com/stphnwlkr/content-explorer-for-bricks/actions/runs/45999639478) passed syntax and plugin-check on commit 0d88166. WordPress.org accepted the renamed 0.9.8 review upload on Nov. 27, 2026; the reviewer email reply and new slug allocation remain pending.
 
 # GitHub Actions environment correction — Nov. 26, 2026
 

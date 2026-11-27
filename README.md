@@ -14,7 +14,7 @@ Version 0.9.0 adapts Content Explorer for Etch 2.2.2. Bricks components are not 
 All assets ship locally. There are no plugin telemetry requests, remote asset services, or external update checks. Production updates are intended for WordPress.org after directory approval.
 <!-- wporg-description:end -->
 
-Current candidate: **0.9.8**, renamed to Uplink Content Explorer for Bricks. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the original automated scan passed, and the last review upload was 0.9.7. Manual review is pending. Version 0.9.8 addresses the naming review; allocation of the requested `uplink-content-explorer-for-bricks` slug is pending. See [the latest verification](docs/release-0.9.8.md) and [original submission](docs/release-0.9.0.md).
+Current candidate: **0.9.8**, renamed to Uplink Content Explorer for Bricks. Requires WordPress **7.0+**, PHP **8.4+**. Tested up to WordPress **7.2**. The ZIP has completed local checks and official readme validation. Submitted to WordPress.org on Nov. 25, 2026; the original automated scan passed, and the renamed 0.9.8 review package was uploaded on Nov. 27, 2026. Manual review is pending. Version 0.9.8 addresses the naming review; allocation of the requested `uplink-content-explorer-for-bricks` slug is pending. See [the latest verification](docs/release-0.9.8.md) and [original submission](docs/release-0.9.0.md).
 
 ## Screenshots
 

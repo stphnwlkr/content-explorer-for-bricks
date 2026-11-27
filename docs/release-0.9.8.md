@@ -6,11 +6,13 @@ Updated plugin/readme display names, PHP/JS text domains, primary filename, pack
 
 Validation: all default production-package Plugin Check 2.2.0 categories passed with no findings. PHP and application JS syntax, color regressions, Description synchronization, and whitespace checks passed. WordPress 7.0.1, 7.1.5, and 7.2-RC3 / PHP 8.4 / SQLite each passed 37 REST/permission, 15 hierarchy/menu, 16 template-mapping, 10 graph/cache, and 6 new rename/settings assertions: 84 per version.
 
-Installed exact ZIP on localhost:8889 after deactivating old-name 0.9.5. Activation succeeded; renamed admin URL loaded content list. Native Bricks toolbar opened the Sample Page map with correct ID 2 and existing connections. No builder save/publish. Runtime no-Bricks activation coverage and GitHub CI will supplement these local checks. MySQL, multisite, and broader Bricks versions remain additional coverage.
+Installed exact ZIP on localhost:8889 after deactivating old-name 0.9.5. Activation succeeded; renamed admin URL loaded content list. Native Bricks toolbar opened the Sample Page map with correct ID 2 and existing connections. No builder save/publish. GitHub Validate also passed both syntax and plugin-check jobs on commit 0d88166. MySQL, multisite, and broader Bricks versions remain additional coverage.
 
 Existing pre-directory installs must deactivate the old copy before installing/activating the renamed package. Preferences are retained. Do not activate both copies.
 
 ZIP: uplink-content-explorer-for-bricks-0.9.8.zip.
 SHA-256: 8f03312099197bb988140966354ca30ce6f93d62e0db831f7ed17b32c8c41d57.
 
-Review upload and explicit new slug reservation request remain pending at preparation.
+Uploaded through authenticated Edge on Nov. 27, 2026. WordPress.org confirmed “New version of Uplink Content Explorer for Bricks uploaded for review” and listed the renamed ZIP / Version 0.9.8 as the latest upload. Status: Being Reviewed, waiting on action from the submitter. Assigned slug remains content-explorer-for-bricks. The user must reply to the existing review email explicitly requesting uplink-content-explorer-for-bricks; that email has not been sent.
+
+[GitHub Validate run 45999639478](https://github.com/stphnwlkr/content-explorer-for-bricks/actions/runs/45999639478) passed syntax (job 140507691240) and plugin-check (job 140507691513) for commit 0d88166. No SVN commit or public stable release.
